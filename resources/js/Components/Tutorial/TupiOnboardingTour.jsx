@@ -84,10 +84,10 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="app-footer-dev"]',
         pose: '/assets/tupi/tupi-wave.png',
         animClass: 'animate-tupi-hop',
-        badge: 'Tentang Pengembang',
-        title: () => 'Dibuat oleh Nur Muhammad Haidar',
+        badge: 'Kenalan Dulu',
+        title: () => 'Ini Yang Ciptain Tupi',
         description:
-            'Sebentar, sebelum lanjut ke halaman berikutnya, kenalkan sosok di balik aplikasi ini. Uangku dirancang dan dibangun oleh Nur Muhammad Haidar agar siapa saja bisa mengelola keuangan pribadi dengan cepat, aman, dan rapi setiap hari. Kamu juga bisa mengunjungi profil portofolionya lewat tautan yang disorot di bawah ini.',
+            'Eits, berhenti sebentar. Lihat nama yang disorot di bawah? Itu Haidar, orang yang ngerancang Uangku dari nol sekaligus yang ngasih tempat tinggal buat Tupi. Katanya sih dibikin biar dompet kamu nggak ikut menangis di akhir bulan. Kalau kamu kepo sama si bro, boleh banget klik namanya.',
     },
 
     // =========================================================================
@@ -585,6 +585,21 @@ export default function TupiOnboardingTour() {
                                 : '0 0 0 9999px rgba(7, 13, 25, 0.76)',
                         }}
                     />
+                    {isSpecial && (
+                        <a
+                            href="https://my-portfolio-alpha-roan-39.vercel.app"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Kunjungi portofolio Haidar"
+                            className="fixed z-[77] rounded-2xl cursor-pointer"
+                            style={{
+                                top: `${Math.max(4, targetRect.top - 8)}px`,
+                                left: `${Math.max(4, targetRect.left - 8)}px`,
+                                width: `${targetRect.width + 16}px`,
+                                height: `${targetRect.height + 16}px`,
+                            }}
+                        />
+                    )}
                 </>
             )}
 
