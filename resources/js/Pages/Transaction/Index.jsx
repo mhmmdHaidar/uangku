@@ -44,13 +44,13 @@ import { Head, Link } from '@inertiajs/react';
 import { useState, useMemo, useEffect } from 'react';
 
 const PERIOD_OPTIONS = [
-    { key: 'all', label: 'Semua Waktu' },
     { key: 'today', label: 'Hari Ini' },
     { key: 'yesterday', label: 'Kemarin' },
     { key: '7_days', label: '7 Hari Terakhir' },
     { key: 'this_month', label: 'Bulan Ini' },
     { key: 'last_month', label: 'Bulan Lalu' },
     { key: 'this_year', label: 'Tahun Ini' },
+    { key: 'all', label: 'Semua Waktu' },
     { key: 'custom', label: 'Rentang Kustom' },
 ];
 
@@ -125,12 +125,22 @@ const getCategoryVisuals = (category = '', title = '', isIncome = false) => {
 };
 
 // Client-side date check helper for 0ms filtering
+const parseLocalDate = (value) => {
+    const clean = String(value).substring(0, 10);
+    const parts = clean.split('-').map(Number);
+    if (parts.length === 3 && parts.every((n) => !Number.isNaN(n))) {
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    const fallback = new Date(value);
+    fallback.setHours(0, 0, 0, 0);
+    return fallback;
+};
+
 const isDateInPeriod = (dateStr, periodKey, customStart, customEnd) => {
     if (!dateStr) return false;
     if (periodKey === 'all') return true;
 
-    const txDate = new Date(dateStr);
-    txDate.setHours(0, 0, 0, 0);
+    const txDate = parseLocalDate(dateStr);
 
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -161,9 +171,8 @@ const isDateInPeriod = (dateStr, periodKey, customStart, customEnd) => {
     }
     if (periodKey === 'custom') {
         if (customStart && customEnd) {
-            const start = new Date(customStart);
-            start.setHours(0, 0, 0, 0);
-            const end = new Date(customEnd);
+            const start = parseLocalDate(customStart);
+            const end = parseLocalDate(customEnd);
             end.setHours(23, 59, 59, 999);
             return txDate >= start && txDate <= end;
         }
@@ -187,9 +196,15 @@ export default function TransactionIndex({
         return [];
     }, [all_transactions, transactions]);
 
-    // Filter states
+    // Filter states ("today" is default unless URL explicitly selects another period)
+    const urlHasPeriod =
+        typeof window !== 'undefined' &&
+        new URLSearchParams(window.location.search).has('period');
+
     const [search, setSearch] = useState(filters.search || '');
-    const [selectedPeriod, setSelectedPeriod] = useState(filters.period || 'all');
+    const [selectedPeriod, setSelectedPeriod] = useState(
+        urlHasPeriod && filters.period ? filters.period : 'today'
+    );
     const [startDate, setStartDate] = useState(filters.start_date || '');
     const [endDate, setEndDate] = useState(filters.end_date || '');
     const [selectedType, setSelectedType] = useState(filters.type || '');
@@ -213,7 +228,7 @@ export default function TransactionIndex({
             const url = new URL(window.location.href);
             Object.keys(newFilters).forEach((k) => {
                 const val = newFilters[k];
-                if (val && val !== 'all' && val !== 'date_desc') {
+                if (val && val !== 'today' && val !== 'date_desc') {
                     url.searchParams.set(k, val);
                 } else {
                     url.searchParams.delete(k);
@@ -344,7 +359,7 @@ export default function TransactionIndex({
 
     const handleResetAll = () => {
         setSearch('');
-        setSelectedPeriod('all');
+        setSelectedPeriod('today');
         setStartDate('');
         setEndDate('');
         setSelectedType('');
@@ -356,7 +371,7 @@ export default function TransactionIndex({
 
     const hasActiveFilters = Boolean(
         search ||
-        selectedPeriod !== 'all' ||
+        selectedPeriod !== 'today' ||
         selectedType ||
         selectedWalletId ||
         selectedCategory ||
