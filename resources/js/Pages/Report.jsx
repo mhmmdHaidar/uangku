@@ -98,7 +98,7 @@ export default function Report({
                 </div>
 
                 {/* 4 Summary Metric Cards for Selected Timeframe */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div data-tour="reports-metrics" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* 1. Period Income */}
                     <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-emerald-500/30">
                         <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -191,7 +191,7 @@ export default function Report({
                 </div>
 
                 {/* Category Breakdown & Highlights Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div data-tour="reports-breakdown" className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left: Category Breakdown (2 columns wide) */}
                     <div className="lg:col-span-2">
                         <CategoryBreakdown

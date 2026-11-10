@@ -394,7 +394,7 @@ export default function TransactionIndex({
                         </p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                    <div data-tour="transactions-actions" className="flex flex-wrap items-center gap-2.5 shrink-0">
                         {/* Export CSV Button */}
                         <a
                             href={route('transactions.export', currentExportQuery)}
@@ -697,7 +697,7 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 {/* 3. DETAILED TRANSACTION LIST / TABLE VIEW                */}
                 {/* ======================================================== */}
-                <div className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
+                <div data-tour="transactions-list" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
                     {/* Header: Found count */}
                     <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pb-2 border-b border-slate-100 dark:border-[#1E3158]/60">
                         <span className="font-semibold">

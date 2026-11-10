@@ -262,7 +262,10 @@ export default function AuthenticatedLayout({ header, children }) {
             {/* App Footer */}
             <footer className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pb-24 sm:pb-6 border-t border-slate-200/80 dark:border-[#1E3158]/50 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
                 <p>&copy; {new Date().getFullYear()} Uangku &bull; Seluruh hak cipta dilindungi.</p>
-                <p className="flex items-center gap-1.5">
+                <p
+                    data-tour="app-footer-dev"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl"
+                >
                     <span>Dikembangkan oleh</span>
                     <a
                         href="https://my-portfolio-alpha-roan-39.vercel.app"

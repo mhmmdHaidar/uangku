@@ -22,10 +22,27 @@ const TOUR_STEPS = [
         targetSelector: null,
         pose: '/assets/tupi/tupi-wave.png',
         animClass: 'animate-tupi-float',
-        badge: 'Panduan Uangku',
+        badge: 'Panduan Lengkap Uangku',
         title: (firstName) => `Halo ${firstName}, aku Tupi`,
         description:
-            'Aku asisten keuangan pribadimu di Uangku. Yuk keliling sebentar ke seluruh halaman aplikasi agar kamu langsung paham cara mencatat dan memantau keuanganmu.',
+            'Aku asisten keuanganmu di Uangku. Yuk ikut Tupi menyusuri setiap halaman dari atas sampai bawah agar kamu menguasai seluruh fitur aplikasi ini dengan mudah.',
+    },
+
+    // =========================================================================
+    // HALAMAN 1: DASHBOARD (ATAS -> TENGAH -> BAWAH)
+    // =========================================================================
+    {
+        id: 'dashboard-add-tx',
+        mode: 'spotlight',
+        routeName: 'dashboard',
+        path: '/dashboard',
+        targetSelector: '[data-tour="dashboard-add-tx"]',
+        pose: '/assets/tupi/tupi-point.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Dashboard — Bagian Atas',
+        title: () => 'Catat Pemasukan & Pengeluaran',
+        description:
+            'Di bagian paling atas Dashboard ada tombol Tambah Transaksi Baru. Di dalamnya kamu bisa input nominal Rupiah yang otomatis terbaca dalam huruf, memilih dompet, serta menambah atau menghapus kategori sesuai kebutuhanmu.',
     },
     {
         id: 'dashboard-summary',
@@ -33,25 +50,74 @@ const TOUR_STEPS = [
         routeName: 'dashboard',
         path: '/dashboard',
         targetSelector: '[data-tour="dashboard-summary"]',
-        pose: '/assets/tupi/tupi-point.png',
+        pose: '/assets/mascot.png',
         animClass: 'animate-tupi-float',
-        badge: '1 dari 6 — Dashboard',
-        title: () => 'Pantau Saldo Real-Time',
+        badge: 'Dashboard — Ringkasan',
+        title: () => 'Pantau Total Saldo & Kondisi Kas',
         description:
-            'Di bagian Ringkasan ini kamu dapat melihat Total Seluruh Uang dari semua dompetmu, beserta total Pemasukan dan Pengeluaran bulan ini secara langsung.',
+            'Tepat di bawahnya ada Kartu Ringkasan. Kamu bisa langsung melihat Total Seluruh Uang dari semua dompet, indikator kondisi kas bulan ini, serta total Pemasukan dan Pengeluaran bulan berjalan.',
     },
     {
-        id: 'dashboard-add-tx',
+        id: 'dashboard-tx-list',
         mode: 'spotlight',
         routeName: 'dashboard',
         path: '/dashboard',
-        targetSelector: '[data-tour="dashboard-add-tx"]',
-        pose: '/assets/mascot.png',
+        targetSelector: '[data-tour="dashboard-tx-list"]',
+        pose: '/assets/tupi/tupi-magnify.png',
         animClass: 'animate-tupi-float',
-        badge: '2 dari 6 — Catat Transaksi',
-        title: () => 'Catat Transaksi & Kategori Sendiri',
+        badge: 'Dashboard — Bagian Bawah',
+        title: () => 'Filter Cepat & Edit Transaksi',
         description:
-            'Setiap habis belanja, bayar tagihan, atau terima gaji, tekan tombol ini. Kamu juga bebas menambah atau menghapus kategori sesuai kebutuhanmu.',
+            'Bergeser ke bawah, ini daftar mutasi terbarumu. Kamu bisa langsung mencari judul catatan, menyaring per jenis, dompet, atau kategori, hingga mengubah dan menghapus catatan yang keliru.',
+    },
+
+    // =========================================================================
+    // SPESIAL INTERLUDE: FOOTER PENGEMBANG (NUR MUHAMMAD HAIDAR)
+    // =========================================================================
+    {
+        id: 'developer-footer',
+        mode: 'spotlight',
+        isSpecial: true,
+        scrollToBottom: true,
+        routeName: 'dashboard',
+        path: '/dashboard',
+        targetSelector: '[data-tour="app-footer-dev"]',
+        pose: '/assets/tupi/tupi-wave.png',
+        animClass: 'animate-tupi-hop',
+        badge: 'Tentang Pengembang',
+        title: () => 'Dibuat oleh Nur Muhammad Haidar',
+        description:
+            'Sebentar, sebelum lanjut ke halaman berikutnya, kenalkan sosok di balik aplikasi ini. Uangku dirancang dan dibangun oleh Nur Muhammad Haidar agar siapa saja bisa mengelola keuangan pribadi dengan cepat, aman, dan rapi setiap hari. Kamu juga bisa mengunjungi profil portofolionya lewat tautan yang disorot di bawah ini.',
+    },
+
+    // =========================================================================
+    // HALAMAN 2: RIWAYAT TRANSAKSI (ATAS -> METRIK -> FILTER -> DAFTAR BAWAH)
+    // =========================================================================
+    {
+        id: 'transactions-actions',
+        mode: 'spotlight',
+        routeName: 'transactions.index',
+        path: '/transactions',
+        targetSelector: '[data-tour="transactions-actions"]',
+        pose: '/assets/tupi/tupi-point.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Riwayat — Bagian Atas',
+        title: () => 'Ekspor Data ke Excel / CSV',
+        description:
+            'Sekarang kita masuk ke halaman Riwayat Transaksi Lengkap. Di pojok atas tersedia tombol Ekspor CSV untuk mengunduh laporan catatan keuanganmu ke file spreadsheet kapan pun dibutuhkan.',
+    },
+    {
+        id: 'transactions-summary',
+        mode: 'spotlight',
+        routeName: 'transactions.index',
+        path: '/transactions',
+        targetSelector: '[data-tour="transactions-summary"]',
+        pose: '/assets/tupi/tupi-chart.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Riwayat — Ringkasan Instan',
+        title: () => 'Angka Dihitung Instan Real-Time',
+        description:
+            'Empat kartu ini otomatis menghitung Total Transaksi, Pemasukan, Pengeluaran rata-rata, dan Arus Kas Bersih mengikuti filter yang sedang aktif secara instan tanpa menunggu loading.',
     },
     {
         id: 'transactions-filter',
@@ -61,10 +127,53 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="transactions-filter"]',
         pose: '/assets/tupi/tupi-magnify.png',
         animClass: 'animate-tupi-float',
-        badge: '3 dari 6 — Riwayat Transaksi',
-        title: () => 'Cari & Filter Mutasi Secara Instan',
+        badge: 'Riwayat — Kontrol Filter',
+        title: () => 'Pencarian, Periode & Mode Tampilan',
         description:
-            'Sekarang kita berada di halaman Riwayat. Gunakan kolom pencarian serta filter periode, dompet, atau kategori untuk melacak transaksi lama atau mengekspor CSV.',
+            'Gunakan kotak filter lengkap ini untuk mencari catatan berdasarkan hari, minggu, bulan, rentang tanggal kustom, maupun kategori. Kamu juga bebas beralih antara tampilan Kartu atau Tabel Ringkas.',
+    },
+    {
+        id: 'transactions-list',
+        mode: 'spotlight',
+        routeName: 'transactions.index',
+        path: '/transactions',
+        targetSelector: '[data-tour="transactions-list"]',
+        pose: '/assets/mascot.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Riwayat — Bagian Bawah',
+        title: () => 'Detail Struk & Pengelolaan Mutasi',
+        description:
+            'Di bagian bawah tersaji seluruh daftar mutasimu lengkap dengan ID transaksi, catatan tambahan, dan tombol aksi untuk melihat detail struk, mengedit, atau menghapus transaksi.',
+    },
+
+    // =========================================================================
+    // HALAMAN 3: DOMPET & REKENING (ATAS -> RINGKASAN ASET -> KARTU DOMPET)
+    // =========================================================================
+    {
+        id: 'wallets-add',
+        mode: 'spotlight',
+        routeName: 'wallets.index',
+        path: '/wallets',
+        targetSelector: '[data-tour="wallets-add"]',
+        pose: '/assets/tupi/tupi-point.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Dompet — Bagian Atas',
+        title: () => 'Tambah Sumber Dana Baru',
+        description:
+            'Kita pindah ke halaman Dompet & Rekening. Gunakan tombol Tambah Dompet Baru untuk menambahkan akun Cash, Rekening Bank, E-Wallet, atau akun Investasi beserta saldo awalnya.',
+    },
+    {
+        id: 'wallets-summary',
+        mode: 'spotlight',
+        routeName: 'wallets.index',
+        path: '/wallets',
+        targetSelector: '[data-tour="wallets-summary"]',
+        pose: '/assets/tupi/tupi-wallet.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Dompet — Ringkasan Aset',
+        title: () => 'Pantau Distribusi Kekayaanmu',
+        description:
+            'Empat kartu ringkasan ini memisahkan total danamu ke dalam kategori Semua Saldo, Rekening Bank, Dompet Digital (E-Wallet), serta Kas Fisik & Investasi likuid.',
     },
     {
         id: 'wallets-grid',
@@ -74,23 +183,27 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="wallets-grid"]',
         pose: '/assets/tupi/tupi-wallet.png',
         animClass: 'animate-tupi-float',
-        badge: '4 dari 6 — Dompet & Rekening',
-        title: () => 'Pisahkan Cash, Bank & E-Wallet',
+        badge: 'Dompet — Bagian Bawah',
+        title: () => 'Kartu Dompet Digital Interaktif',
         description:
-            'Di halaman Dompet & Rekening, uang tunai, rekening bank, hingga E-Wallet tersimpan terpisah agar rapi. Pilih kartu mana saja untuk melihat mutasi spesifiknya.',
+            'Di bawah ini adalah daftar seluruh kartu dompetmu lengkap dengan saldo terkini dan nomor rekening yang dapat disalin. Klik kartu mana saja untuk melihat rincian mutasi khusus dompet tersebut.',
     },
+
+    // =========================================================================
+    // HALAMAN 4: LAPORAN & GRAFIK (ATAS -> GRAFIK -> RINCIAN BAWAH)
+    // =========================================================================
     {
-        id: 'wallets-add',
+        id: 'reports-metrics',
         mode: 'spotlight',
-        routeName: 'wallets.index',
-        path: '/wallets',
-        targetSelector: '[data-tour="wallets-add"]',
+        routeName: 'reports.index',
+        path: '/reports',
+        targetSelector: '[data-tour="reports-metrics"]',
         pose: '/assets/tupi/tupi-point.png',
         animClass: 'animate-tupi-float',
-        badge: '5 dari 6 — Tambah Dompet',
-        title: () => 'Kelola Banyak Sumber Dana',
+        badge: 'Laporan — Bagian Atas',
+        title: () => 'Evaluasi Rasio Tabunganmu',
         description:
-            'Punya rekening tabungan atau akun investasi baru? Tekan tombol Tambah Dompet Baru ini kapan saja untuk menambahkannya ke portofoliomu.',
+            'Terakhir di halaman Laporan & Grafik. Di bagian atas kamu bisa mengekspor laporan sekaligus memantau empat indikator utama: Pemasukan, Pengeluaran harian rata-rata, Selisih Bersih, dan Rasio Tabungan.',
     },
     {
         id: 'reports-chart',
@@ -100,11 +213,28 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="reports-chart"]',
         pose: '/assets/tupi/tupi-chart.png',
         animClass: 'animate-tupi-float',
-        badge: '6 dari 6 — Laporan & Grafik',
-        title: () => 'Analisis Tren & Rasio Tabungan',
+        badge: 'Laporan — Grafik Tren',
+        title: () => 'Grafik Pemasukan vs Pengeluaran',
         description:
-            'Terakhir, di halaman Laporan & Grafik ini kamu bisa melihat perbandingan pemasukan vs pengeluaran serta kategori paling besar dalam grafik visual.',
+            'Grafik interaktif ini memperlihatkan pergerakan arus kasmu dari waktu ke waktu. Pilih rentang waktu Mingguan, Bulanan, atau Tahunan untuk melihat pola belanja dengan lebih jelas.',
     },
+    {
+        id: 'reports-breakdown',
+        mode: 'spotlight',
+        routeName: 'reports.index',
+        path: '/reports',
+        targetSelector: '[data-tour="reports-breakdown"]',
+        pose: '/assets/tupi/tupi-magnify.png',
+        animClass: 'animate-tupi-float',
+        badge: 'Laporan — Bagian Bawah',
+        title: () => 'Rincian Kategori & Catatan Evaluasi',
+        description:
+            'Di bagian bawah tersaji persentase pengeluaran per kategori, transaksi paling besar pada periode tersebut, dan Catatan Evaluasi Finansial otomatis untuk membantumu menjaga kesehatan kas.',
+    },
+
+    // =========================================================================
+    // PENUTUP: GRAND FINALE
+    // =========================================================================
     {
         id: 'finale',
         mode: 'modal',
@@ -113,10 +243,10 @@ const TOUR_STEPS = [
         targetSelector: null,
         pose: '/assets/tupi/tupi-celebrate.png',
         animClass: 'animate-tupi-hop',
-        badge: 'Tur Selesai',
+        badge: 'Tur Panduan Selesai',
         title: (firstName) => `Semua Halaman Siap Digunakan, ${firstName}`,
         description:
-            'Kamu sudah mengenal Dashboard, Riwayat, Dompet, hingga Laporan. Sekarang saatnya mulai mencatat transaksi pertamamu.',
+            'Dari Dashboard, mengenal pengembang aplikasi, Riwayat, Dompet, hingga Laporan Grafik sudah Tupi jelaskan semuanya. Sekarang saatnya mulai mencatat transaksi pertamamu.',
     },
 ];
 
@@ -189,7 +319,7 @@ export default function TupiOnboardingTour() {
 
     const currentStep = TOUR_STEPS[stepIndex] || TOUR_STEPS[0];
 
-    // Preload all Tupi pose PNGs on mount so pose switches are instant
+    // Preload all Tupi pose PNGs on mount
     useEffect(() => {
         TUPI_IMAGES.forEach((src) => {
             const img = new Image();
@@ -197,7 +327,7 @@ export default function TupiOnboardingTour() {
         });
     }, []);
 
-    // Listen to manual "Tur Tupi" launch when already on dashboard
+    // Listen to manual "Tur Tupi" launch event
     useEffect(() => {
         const handleManualStart = () => {
             saveTourState({ active: true, stepIndex: 0 });
@@ -205,12 +335,13 @@ export default function TupiOnboardingTour() {
             setTargetRect(null);
             setStepIndex(0);
             setIsActive(true);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         };
         window.addEventListener('uangku:start-tupi-tour', handleManualStart);
         return () => window.removeEventListener('uangku:start-tupi-tour', handleManualStart);
     }, []);
 
-    // Auto-start tutorial once for newly registered users
+    // Auto-launch once for newly registered users
     useEffect(() => {
         if (!user) return;
 
@@ -238,7 +369,7 @@ export default function TupiOnboardingTour() {
         }
     }, [user, page.url]);
 
-    // Measure target element rect synchronously
+    // Measure target element rect
     const measureTarget = useCallback(() => {
         if (!isActive || isNavigating) return;
 
@@ -268,25 +399,42 @@ export default function TupiOnboardingTour() {
         });
     }, [isActive, isNavigating, currentStep]);
 
-    // Position spotlight before paint and keep tracking on scroll/resize
+    // Smart scrolling & layout measurement before paint
     useLayoutEffect(() => {
         if (!isActive || isNavigating) return;
 
         if (currentStep.mode === 'spotlight' && currentStep.targetSelector) {
             const el = document.querySelector(currentStep.targetSelector);
             if (el) {
-                // Scroll target element into view immediately if outside comfortable viewport
-                const rect = el.getBoundingClientRect();
-                const inComfortZone = rect.top >= 70 && rect.bottom <= window.innerHeight - 160;
-                if (!inComfortZone) {
-                    el.scrollIntoView({ behavior: 'auto', block: 'center' });
+                if (currentStep.scrollToBottom) {
+                    // Scroll all the way down smoothly to showcase footer developer credit
+                    window.scrollTo({
+                        top: document.documentElement.scrollHeight,
+                        behavior: 'smooth',
+                    });
+                } else {
+                    const rect = el.getBoundingClientRect();
+                    const vh = window.innerHeight;
+                    if (rect.height > vh * 0.48) {
+                        // Tall sections: align top cleanly at 84px below navbar so header & controls stay visible
+                        window.scrollTo({
+                            top: Math.max(0, window.scrollY + rect.top - 84),
+                            behavior: 'smooth',
+                        });
+                    } else {
+                        const inComfortZone = rect.top >= 76 && rect.bottom <= vh - 220;
+                        if (!inComfortZone) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
                 }
             }
         }
 
         measureTarget();
         const raf = requestAnimationFrame(measureTarget);
-        const t1 = setTimeout(measureTarget, 120);
+        const t1 = setTimeout(measureTarget, 150);
+        const t2 = setTimeout(measureTarget, 450);
 
         window.addEventListener('resize', measureTarget);
         window.addEventListener('scroll', measureTarget, true);
@@ -294,6 +442,7 @@ export default function TupiOnboardingTour() {
         return () => {
             cancelAnimationFrame(raf);
             clearTimeout(t1);
+            clearTimeout(t2);
             window.removeEventListener('resize', measureTarget);
             window.removeEventListener('scroll', measureTarget, true);
         };
@@ -327,7 +476,6 @@ export default function TupiOnboardingTour() {
             saveTourState({ active: true, stepIndex: nextIndex });
 
             if (getCurrentPath() !== targetStep.path) {
-                // Hide card smoothly during Inertia page swap to prevent wrong-step/center flash
                 setIsNavigating(true);
                 setTargetRect(null);
                 router.visit(targetStep.path);
@@ -338,20 +486,16 @@ export default function TupiOnboardingTour() {
         [markTutorialCompleted]
     );
 
-    // Keyboard navigation (Escape / ArrowRight / ArrowLeft)
+    // Keyboard shortcuts
     useEffect(() => {
         if (!isActive || isNavigating) return;
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
                 markTutorialCompleted();
             } else if (e.key === 'ArrowRight') {
-                if (stepIndex < TOUR_STEPS.length - 1) {
-                    goToStep(stepIndex + 1);
-                }
+                if (stepIndex < TOUR_STEPS.length - 1) goToStep(stepIndex + 1);
             } else if (e.key === 'ArrowLeft') {
-                if (stepIndex > 0) {
-                    goToStep(stepIndex - 1);
-                }
+                if (stepIndex > 0) goToStep(stepIndex - 1);
             }
         };
         window.addEventListener('keydown', handleKeyDown);
@@ -360,7 +504,6 @@ export default function TupiOnboardingTour() {
 
     if (!isActive || !user) return null;
 
-    // While switching Inertia pages, keep a quiet subtle dim overlay without flashing wrong cards
     if (isNavigating) {
         return <div className="fixed inset-0 z-[75] bg-[#070D19]/60 backdrop-blur-[2px] transition-opacity duration-200" />;
     }
@@ -368,35 +511,45 @@ export default function TupiOnboardingTour() {
     const isCenterModal = currentStep.mode === 'modal';
     const isSpotlightReady = currentStep.mode === 'spotlight' && targetRect !== null;
 
-    // Wait silently until DOM target has been measured synchronously
     if (currentStep.mode === 'spotlight' && !isSpotlightReady) {
         return <div className="fixed inset-0 z-[75] bg-[#070D19]/70 transition-opacity duration-150" />;
     }
 
     const isFirstStep = stepIndex === 0;
-    const isLastStep = stepIndex === TOUR_STEPS.length - 1;
+    const isSpecial = !!currentStep.isSpecial;
+    const totalGuidedSteps = TOUR_STEPS.length - 2; // Exclude Welcome and Finale
 
+    // Responsive floating card positioning that keeps both card & target 100% readable
     const getFloatingPositionStyle = () => {
         if (!targetRect) return {};
 
         const isMobile = viewport.w < 640;
-        const targetCenterY = targetRect.top + targetRect.height / 2;
 
         if (isMobile) {
-            const placeTop = targetCenterY > viewport.h * 0.55;
+            // If target element starts in lower half (like footer developer credit), place Tupi card cleanly at top
+            const placeTop = targetRect.top > viewport.h * 0.48 || Boolean(currentStep.scrollToBottom);
             return placeTop
-                ? { top: '48px', left: '12px', right: '12px' }
+                ? { top: '52px', left: '12px', right: '12px' }
                 : { bottom: '16px', left: '12px', right: '12px' };
         }
 
-        const cardEstimatedHeight = 235;
-        const cardWidth = Math.min(540, viewport.w - 32);
+        // Desktop: if target is huge (>55% viewport), dock floating guide cleanly bottom-right
+        if (targetRect.height > viewport.h * 0.55) {
+            return {
+                bottom: '24px',
+                right: '24px',
+                width: `${Math.min(500, viewport.w - 48)}px`,
+            };
+        }
+
+        const cardEstimatedHeight = isSpecial ? 275 : 245;
+        const cardWidth = Math.min(560, viewport.w - 32);
         const spaceBelow = viewport.h - targetRect.bottom;
-        const placeBelow = spaceBelow >= cardEstimatedHeight + 36 || targetRect.top < cardEstimatedHeight + 48;
+        const placeBelow = !currentStep.scrollToBottom && (spaceBelow >= cardEstimatedHeight + 36 || targetRect.top < cardEstimatedHeight + 52);
 
         const top = placeBelow
-            ? Math.min(Math.max(48, targetRect.bottom + 20), viewport.h - cardEstimatedHeight - 16)
-            : Math.max(48, targetRect.top - cardEstimatedHeight - 20);
+            ? Math.min(Math.max(52, targetRect.bottom + 20), viewport.h - cardEstimatedHeight - 16)
+            : Math.max(52, targetRect.top - cardEstimatedHeight - 24);
 
         let left = targetRect.left + targetRect.width / 2 - cardWidth / 2;
         left = Math.max(16, Math.min(left, viewport.w - cardWidth - 16));
@@ -417,24 +570,30 @@ export default function TupiOnboardingTour() {
                 <>
                     <div className="fixed inset-0 z-[75]" />
                     <div
-                        className="fixed z-[76] pointer-events-none rounded-2xl transition-all duration-300 ease-out animate-tupi-ring border-2 border-emerald-400"
+                        className={`fixed z-[76] pointer-events-none rounded-2xl transition-all duration-300 ease-out border-2 ${
+                            isSpecial
+                                ? 'border-amber-400 shadow-[0_0_32px_rgba(251,191,36,0.55)]'
+                                : 'border-emerald-400 animate-tupi-ring'
+                        }`}
                         style={{
                             top: `${Math.max(4, targetRect.top - 8)}px`,
                             left: `${Math.max(4, targetRect.left - 8)}px`,
                             width: `${targetRect.width + 16}px`,
                             height: `${targetRect.height + 16}px`,
-                            boxShadow: '0 0 0 9999px rgba(7, 13, 25, 0.76)',
+                            boxShadow: isSpecial
+                                ? '0 0 0 9999px rgba(7, 13, 25, 0.78), 0 0 28px rgba(251, 191, 36, 0.45)'
+                                : '0 0 0 9999px rgba(7, 13, 25, 0.76)',
                         }}
                     />
                 </>
             )}
 
-            {/* MODE 1: WELCOME OR FINALE MODAL (ONLY Step 0 and Step 7) */}
+            {/* MODE 1: WELCOME OR FINALE CENTER MODAL */}
             {isCenterModal && (
                 <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 overflow-y-auto">
                     <div
                         key={currentStep.id}
-                        className="relative w-full max-w-lg rounded-3xl bg-white dark:bg-[#0E1A33] border border-slate-200 dark:border-[#1E3158] shadow-2xl p-6 sm:p-8 text-center animate-tupi-spring overflow-visible mt-12 sm:mt-8"
+                        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-lg rounded-3xl bg-white dark:bg-[#0E1A33] border border-slate-200 dark:border-[#1E3158] shadow-2xl p-6 sm:p-8 text-center animate-tupi-spring overflow-visible mt-14 sm:mt-8"
                     >
                         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-56 h-56 bg-emerald-500/20 dark:bg-emerald-500/25 rounded-full blur-3xl pointer-events-none" />
 
@@ -452,7 +611,7 @@ export default function TupiOnboardingTour() {
                             <img
                                 src={currentStep.pose}
                                 alt="Tupi Maskot Uangku"
-                                className={`h-40 sm:h-48 w-auto object-contain drop-shadow-[0_14px_24px_rgba(15,23,42,0.35)] ${currentStep.animClass}`}
+                                className={`h-36 sm:h-48 w-auto object-contain drop-shadow-[0_14px_24px_rgba(15,23,42,0.35)] ${currentStep.animClass}`}
                             />
                         </div>
 
@@ -460,30 +619,24 @@ export default function TupiOnboardingTour() {
                             {currentStep.badge}
                         </div>
 
-                        <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                             {currentStep.title(firstName)}
                         </h2>
-                        <p className="mt-2.5 text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md mx-auto">
+                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md mx-auto">
                             {currentStep.description}
                         </p>
 
-                        {/* Step Indicator */}
-                        <div className="mt-5 flex items-center justify-center gap-1.5">
-                            {TOUR_STEPS.map((st, idx) => (
-                                <span
-                                    key={st.id}
-                                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                                        idx === stepIndex
-                                            ? 'w-6 bg-emerald-500'
-                                            : idx < stepIndex
-                                                ? 'w-2 bg-emerald-400/60'
-                                                : 'w-1.5 bg-slate-300 dark:bg-slate-700'
-                                    }`}
+                        {/* Progress Bar */}
+                        <div className="mt-5 max-w-xs mx-auto">
+                            <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700/70 overflow-hidden">
+                                <div
+                                    className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                                    style={{ width: isFirstStep ? '8%' : '100%' }}
                                 />
-                            ))}
+                            </div>
                         </div>
 
-                        {/* Modal Actions */}
+                        {/* Actions */}
                         <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                             {isFirstStep ? (
                                 <>
@@ -532,70 +685,87 @@ export default function TupiOnboardingTour() {
                     style={getFloatingPositionStyle()}
                     className="fixed z-[80] transition-all duration-300 ease-out"
                 >
-                    <div className="relative flex flex-row items-end sm:items-center gap-3 sm:gap-4 rounded-3xl bg-white dark:bg-[#0E1A33] border border-emerald-500/40 dark:border-emerald-500/40 shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-4 sm:p-5 animate-tupi-spring">
-                        {/* Left: Full-Body Tupi Character */}
-                        <div className="shrink-0 -ml-2 -mt-8 sm:-mt-10 -mb-2 pointer-events-none select-none flex items-end justify-center">
-                            <img
-                                src={currentStep.pose}
-                                alt="Tupi Panduan Uangku"
-                                className={`h-28 sm:h-36 w-auto object-contain drop-shadow-[0_10px_18px_rgba(15,23,42,0.4)] ${currentStep.animClass}`}
-                            />
-                        </div>
-
-                        {/* Right: Clean Speech Content & Navigation */}
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between gap-2 mb-1.5">
-                                <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-[11px] font-bold">
-                                    {currentStep.badge}
-                                </span>
-                                <button
-                                    type="button"
-                                    onClick={() => markTutorialCompleted()}
-                                    className="text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition px-1.5 py-0.5 rounded-lg"
-                                >
-                                    Lewati
-                                </button>
+                    <div
+                        className={`relative rounded-3xl bg-white dark:bg-[#0E1A33] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-4 sm:p-5 animate-tupi-spring border ${
+                            isSpecial
+                                ? 'border-amber-400/80 dark:border-amber-400/60 ring-1 ring-amber-400/30'
+                                : 'border-emerald-500/40 dark:border-emerald-500/40'
+                        }`}
+                    >
+                        {/* Row 1: Full-Body Tupi on Left + Title & Explanation on Right */}
+                        <div className="flex items-start gap-3 sm:gap-4">
+                            <div className="shrink-0 -mt-9 -ml-1 sm:-mt-12 sm:-ml-2 pointer-events-none select-none flex items-center justify-center">
+                                <img
+                                    src={currentStep.pose}
+                                    alt="Tupi Panduan Uangku"
+                                    className={`h-24 w-24 sm:h-36 sm:w-auto object-contain drop-shadow-[0_10px_18px_rgba(15,23,42,0.4)] ${currentStep.animClass}`}
+                                />
                             </div>
 
-                            <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-snug">
-                                {currentStep.title(firstName)}
-                            </h3>
-                            <p className="mt-1 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
-                                {currentStep.description}
-                            </p>
-
-                            <div className="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/10 flex items-center justify-between gap-2">
-                                <div className="flex items-center gap-1">
-                                    {TOUR_STEPS.map((st, idx) => (
-                                        <span
-                                            key={st.id}
-                                            className={`h-1.5 rounded-full transition-all duration-300 ${
-                                                idx === stepIndex
-                                                    ? 'w-4 bg-emerald-500'
-                                                    : idx < stepIndex
-                                                        ? 'w-1.5 bg-emerald-400/70'
-                                                        : 'w-1.5 bg-slate-200 dark:bg-slate-700'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-
-                                <div className="flex items-center gap-1.5">
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-2 mb-1">
+                                    <span
+                                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold truncate ${
+                                            isSpecial
+                                                ? 'bg-amber-50 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/35 text-amber-800 dark:text-amber-300'
+                                                : 'bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300'
+                                        }`}
+                                    >
+                                        {currentStep.badge}
+                                    </span>
                                     <button
                                         type="button"
-                                        onClick={() => goToStep(stepIndex - 1)}
-                                        className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                                        onClick={() => markTutorialCompleted()}
+                                        className="shrink-0 text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition px-1.5 py-0.5 rounded-lg"
                                     >
-                                        Kembali
-                                    </button>
-                                    <button
-                                        type="button"
-                                        onClick={() => goToStep(stepIndex + 1)}
-                                        className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold shadow-sm shadow-emerald-600/25 transition"
-                                    >
-                                        {isLastStep ? 'Selesai' : 'Lanjut'}
+                                        Lewati
                                     </button>
                                 </div>
+
+                                <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-snug">
+                                    {currentStep.title(firstName)}
+                                </h3>
+                                <p className="mt-1 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    {currentStep.description}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Row 2: Full-width Progress & Navigation Footer (Never clips or overflows on mobile) */}
+                        <div className="mt-3.5 pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-between gap-3">
+                            <div className="flex items-center gap-2.5 min-w-0">
+                                <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
+                                    Langkah {stepIndex} / {totalGuidedSteps}
+                                </span>
+                                <div className="hidden sm:block w-20 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700/80 overflow-hidden">
+                                    <div
+                                        className={`h-full rounded-full transition-all duration-300 ${
+                                            isSpecial ? 'bg-amber-400' : 'bg-emerald-500'
+                                        }`}
+                                        style={{ width: `${Math.round((stepIndex / totalGuidedSteps) * 100)}%` }}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2 shrink-0">
+                                <button
+                                    type="button"
+                                    onClick={() => goToStep(stepIndex - 1)}
+                                    className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition whitespace-nowrap"
+                                >
+                                    Kembali
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => goToStep(stepIndex + 1)}
+                                    className={`px-4 py-1.5 rounded-xl active:scale-95 text-white text-xs font-bold shadow-sm transition whitespace-nowrap ${
+                                        isSpecial
+                                            ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-600/25'
+                                            : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/25'
+                                    }`}
+                                >
+                                    Lanjut
+                                </button>
                             </div>
                         </div>
                     </div>

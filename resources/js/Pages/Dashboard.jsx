@@ -92,16 +92,18 @@ export default function Dashboard({
                 </div>
 
                 {/* Transaction History & Filters */}
-                <TransactionList
-                    transactions={transactions}
-                    allTransactions={all_transactions.length > 0 ? all_transactions : (transactions.data || [])}
-                    wallets={wallets}
-                    filters={filters}
-                    categories={categories}
-                    onAddNew={handleOpenCreate}
-                    onEdit={handleOpenEdit}
-                    onDelete={handleOpenDelete}
-                />
+                <div data-tour="dashboard-tx-list">
+                    <TransactionList
+                        transactions={transactions}
+                        allTransactions={all_transactions.length > 0 ? all_transactions : (transactions.data || [])}
+                        wallets={wallets}
+                        filters={filters}
+                        categories={categories}
+                        onAddNew={handleOpenCreate}
+                        onEdit={handleOpenEdit}
+                        onDelete={handleOpenDelete}
+                    />
+                </div>
             </div>
 
             {/* Create / Edit Modal */}
