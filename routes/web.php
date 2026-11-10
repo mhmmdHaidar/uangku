@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TupiChatController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Tupi Onboarding Tutorial
     Route::post('/tutorial/complete', [TutorialController::class, 'complete'])->name('tutorial.complete');
     Route::post('/tutorial/reset', [TutorialController::class, 'reset'])->name('tutorial.reset');
+
+    // Tanya Tupi AI Customer Service Chat
+    Route::post('/tanya-tupi', [TupiChatController::class, 'chat'])
+        ->middleware('throttle:30,1')
+        ->name('tanya-tupi.chat');
 });
 
 require __DIR__.'/auth.php';

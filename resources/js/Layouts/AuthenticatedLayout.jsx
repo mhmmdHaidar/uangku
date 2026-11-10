@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import ThemeToggle from '@/Components/ThemeToggle';
 import TupiOnboardingTour, { launchTupiTour } from '@/Components/Tutorial/TupiOnboardingTour';
+import TupiChatModal from '@/Components/Chat/TupiChatModal';
 import {
     SquaresFourDuotone,
     ReceiptDuotone,
@@ -23,6 +24,7 @@ export default function AuthenticatedLayout({ header, children }) {
     const user = auth.user;
 
     const [showingProfileDrawer, setShowingProfileDrawer] = useState(false);
+    const [showingTupiChat, setShowingTupiChat] = useState(false);
     const [toastMessage, setToastMessage] = useState(null);
     const [toastType, setToastType] = useState('success');
 
@@ -153,16 +155,6 @@ export default function AuthenticatedLayout({ header, children }) {
 
                         {/* Right: Actions, Theme Toggle, User Profile */}
                         <div className="hidden sm:flex sm:items-center sm:gap-3">
-                            <button
-                                type="button"
-                                onClick={launchTupiTour}
-                                title="Panduan Interaktif Bersama Tupi"
-                                className="inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-xl border border-amber-300/80 dark:border-amber-500/30 bg-amber-50/80 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-bold transition shadow-2xs active:scale-95"
-                            >
-                                <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-5 h-5 rounded-md object-cover" />
-                                <span>Tur Tupi</span>
-                            </button>
-
                             {/* Theme switcher */}
                             <ThemeToggle />
 
@@ -204,11 +196,27 @@ export default function AuthenticatedLayout({ header, children }) {
                                             <UserDuotone className="w-4 h-4 text-slate-400" />
                                             Pengaturan Akun
                                         </Dropdown.Link>
+                                        <button
+                                            type="button"
+                                            onClick={launchTupiTour}
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                        >
+                                            <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-4 h-4 rounded-sm object-cover" />
+                                            <span>Tur Panduan Tupi</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowingTupiChat(true)}
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition"
+                                        >
+                                            <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
+                                            <span>Tanya Tupi</span>
+                                        </button>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
                                             as="button"
-                                            className="flex items-center gap-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20"
+                                            className="flex items-center gap-2 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 border-t border-slate-100 dark:border-white/5"
                                         >
                                             <SignOutDuotone className="w-4 h-4" />
                                             Keluar
@@ -218,16 +226,8 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                         </div>
 
-                        {/* Mobile Right Controls: Tupi Guide, Theme Toggle & User Profile Avatar Button */}
+                        {/* Mobile Right Controls: Theme Toggle & User Profile Avatar Button */}
                         <div className="flex items-center gap-2 sm:hidden">
-                            <button
-                                type="button"
-                                onClick={launchTupiTour}
-                                title="Panduan Bersama Tupi"
-                                className="p-1 rounded-xl border border-amber-300/80 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/15 hover:bg-amber-100 transition active:scale-95"
-                            >
-                                <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-6 h-6 rounded-lg object-cover" />
-                            </button>
                             <ThemeToggle />
                             <button
                                 type="button"
@@ -448,6 +448,26 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                             <span className="text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowingProfileDrawer(false);
+                                setShowingTupiChat(true);
+                            }}
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50/70 hover:bg-emerald-100/80 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/20 border border-emerald-200/80 dark:border-emerald-500/25 transition group"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center border border-emerald-300/60 dark:border-emerald-500/30 overflow-hidden group-hover:scale-105 transition">
+                                    <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-8 h-8 object-contain" />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Tanya Tupi</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Layanan tanya jawab seputar Uangku</p>
+                                </div>
+                            </div>
+                            <span className="text-emerald-600 dark:text-emerald-400 group-hover:translate-x-0.5 transition">&rarr;</span>
+                        </button>
                     </div>
                 </div>
 
@@ -486,6 +506,12 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Full-Body Tupi Interactive Cross-Page Tutorial */}
             <TupiOnboardingTour />
+
+            {/* Tanya Tupi Customer Service Chatbot Modal */}
+            <TupiChatModal
+                isOpen={showingTupiChat}
+                onClose={() => setShowingTupiChat(false)}
+            />
         </div>
     );
 }
