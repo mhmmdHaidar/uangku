@@ -27,7 +27,7 @@ class TupiChatController extends Controller
         $history = $validated['history'] ?? [];
 
         $apiKey = config('services.gemini.api_key');
-        $model = config('services.gemini.model', 'gemini-2.5-flash');
+        $primaryModel = config('services.gemini.model') ?: 'gemini-3.5-flash-lite';
 
         if (empty($apiKey)) {
             return response()->json([
@@ -38,27 +38,45 @@ class TupiChatController extends Controller
 
         try {
             $contents = $this->buildConversationContents($history, $userMessage);
-            $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}";
+            $modelsToTry = array_values(array_unique([$primaryModel, 'gemini-3.5-flash-lite', 'gemini-3.1-flash-lite']));
 
-            $response = Http::timeout(12)
-                ->withHeaders(['Content-Type' => 'application/json'])
-                ->post($endpoint, [
-                    'systemInstruction' => [
-                        'parts' => [
-                            ['text' => $this->buildSystemInstruction($user)],
+            $response = null;
+            foreach ($modelsToTry as $modelName) {
+                $endpoint = "https://generativelanguage.googleapis.com/v1beta/models/{$modelName}:generateContent";
+
+                $attempt = Http::timeout(11)
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                        'x-goog-api-key' => $apiKey,
+                    ])
+                    ->post($endpoint, [
+                        'systemInstruction' => [
+                            'parts' => [
+                                ['text' => $this->buildSystemInstruction($user)],
+                            ],
                         ],
-                    ],
-                    'contents' => $contents,
-                    'generationConfig' => [
-                        'temperature' => 0.7,
-                        'maxOutputTokens' => 800,
-                    ],
-                ]);
+                        'contents' => $contents,
+                        'generationConfig' => [
+                            'temperature' => 0.7,
+                            'maxOutputTokens' => 900,
+                        ],
+                    ]);
 
-            if ($response->failed()) {
+                $response = $attempt;
+                if ($attempt->successful()) {
+                    break;
+                }
+
+                // Retry fallback model on 404/429/503 transient or deprecated model responses
+                if (! in_array($attempt->status(), [404, 429, 503], true)) {
+                    break;
+                }
+            }
+
+            if (! $response || $response->failed()) {
                 Log::warning('Gemini API failed in Tanya Tupi', [
-                    'status' => $response->status(),
-                    'body' => $response->body(),
+                    'status' => $response?->status(),
+                    'body' => $response?->body(),
                 ]);
 
                 return response()->json([
@@ -230,3 +248,4 @@ PROMPT;
         return "Hai {$firstName}, aku Tupi siap bantu seputar Uangku! Saat ini API AI Gemini belum terpasang di server (`GEMINI_API_KEY` belum diisi), jadi Tupi baru bisa menjawab pertanyaan umum seperti cara atur **kategori**, mengelola **dompet**, **ekspor CSV**, atau cara **instal aplikasi di HP**. Coba ketik salah satu topik itu ya!";
     }
 }
+

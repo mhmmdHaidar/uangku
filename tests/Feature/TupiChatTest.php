@@ -31,7 +31,7 @@ class TupiChatTest extends TestCase
     public function test_tanya_tupi_calls_gemini_api_when_key_configured(): void
     {
         Config::set('services.gemini.api_key', 'test-gemini-key');
-        Config::set('services.gemini.model', 'gemini-2.5-flash');
+        Config::set('services.gemini.model', 'gemini-3.5-flash-lite');
 
         Http::fake([
             'https://generativelanguage.googleapis.com/*' => Http::response([
@@ -65,7 +65,7 @@ class TupiChatTest extends TestCase
             ]);
 
         Http::assertSent(function ($request) {
-            return str_contains($request->url(), 'key=test-gemini-key')
+            return $request->header('x-goog-api-key') === ['test-gemini-key']
                 && $request['contents'][0]['role'] === 'user'
                 && str_contains($request['systemInstruction']['parts'][0]['text'], 'Haidar');
         });
@@ -87,3 +87,4 @@ class TupiChatTest extends TestCase
         $this->assertStringContainsString('Tambah Transaksi Baru', $response->json('reply'));
     }
 }
+
