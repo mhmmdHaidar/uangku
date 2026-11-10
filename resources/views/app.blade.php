@@ -50,6 +50,19 @@
             }
         </script>
 
+        <!-- PWA Service Worker Registration -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').then((reg) => {
+                        console.log('Uangku PWA ready');
+                    }).catch((err) => {
+                        console.warn('PWA registration:', err);
+                    });
+                });
+            }
+        </script>
+
         <!-- Fonts: Plus Jakarta Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

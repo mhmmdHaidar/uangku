@@ -1,23 +1,32 @@
 {
+  "id": "/",
   "name": "Uangku - Kelola Keuangan Pribadi",
   "short_name": "Uangku",
   "description": "Aplikasi manajemen keuangan pribadi modern, catat transaksi dan pantau seluruh dompet secara real-time.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0A1120",
   "theme_color": "#10B981",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/favicon.png",
+      "src": "/assets/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/assets/mascot.png",
+      "src": "/assets/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
-

@@ -22,7 +22,7 @@
       "dest": "/assets/$1"
     },
     {
-      "src": "/(favicon\\.ico|favicon\\.png|manifest\\.json|robots\\.txt)",
+      "src": "/(favicon\\.ico|favicon\\.png|manifest\\.json|robots\\.txt|sw\\.js)",
       "dest": "/$1"
     },
     {
