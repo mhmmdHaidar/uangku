@@ -18,7 +18,12 @@
       "dest": "/build/$1"
     },
     {
-      "handle": "filesystem"
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(favicon\\.ico|favicon\\.png|manifest\\.json|robots\\.txt)",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
