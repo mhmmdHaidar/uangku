@@ -1,6 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import ThemeToggle from '@/Components/ThemeToggle';
+import TupiOnboardingTour, { launchTupiTour } from '@/Components/Tutorial/TupiOnboardingTour';
 import {
     SquaresFourDuotone,
     ReceiptDuotone,
@@ -152,6 +153,16 @@ export default function AuthenticatedLayout({ header, children }) {
 
                         {/* Right: Actions, Theme Toggle, User Profile */}
                         <div className="hidden sm:flex sm:items-center sm:gap-3">
+                            <button
+                                type="button"
+                                onClick={launchTupiTour}
+                                title="Panduan Interaktif Bersama Tupi"
+                                className="inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-xl border border-amber-300/80 dark:border-amber-500/30 bg-amber-50/80 dark:bg-amber-500/10 hover:bg-amber-100 dark:hover:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-bold transition shadow-2xs active:scale-95"
+                            >
+                                <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-5 h-5 rounded-md object-cover" />
+                                <span>Tur Tupi</span>
+                            </button>
+
                             {/* Theme switcher */}
                             <ThemeToggle />
 
@@ -207,8 +218,16 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                         </div>
 
-                        {/* Mobile Right Controls: Theme Toggle & User Profile Avatar Button */}
+                        {/* Mobile Right Controls: Tupi Guide, Theme Toggle & User Profile Avatar Button */}
                         <div className="flex items-center gap-2 sm:hidden">
+                            <button
+                                type="button"
+                                onClick={launchTupiTour}
+                                title="Panduan Bersama Tupi"
+                                className="p-1 rounded-xl border border-amber-300/80 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/15 hover:bg-amber-100 transition active:scale-95"
+                            >
+                                <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-6 h-6 rounded-lg object-cover" />
+                            </button>
                             <ThemeToggle />
                             <button
                                 type="button"
@@ -406,6 +425,26 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                             <span className="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition">&rarr;</span>
                         </Link>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowingProfileDrawer(false);
+                                launchTupiTour();
+                            }}
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 border border-amber-200/80 dark:border-amber-500/25 transition group"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center border border-amber-300/60 dark:border-amber-500/30 overflow-hidden group-hover:scale-105 transition">
+                                    <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-8 h-8 object-contain" />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Tur Panduan Tupi</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Pelajari semua fitur bersama Tupi</p>
+                                </div>
+                            </div>
+                            <span className="text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition">&rarr;</span>
+                        </button>
                     </div>
                 </div>
 
@@ -441,6 +480,9 @@ export default function AuthenticatedLayout({ header, children }) {
                     </Link>
                 </div>
             </aside>
+
+            {/* Full-Body Tupi Interactive Cross-Page Tutorial */}
+            <TupiOnboardingTour />
         </div>
     );
 }

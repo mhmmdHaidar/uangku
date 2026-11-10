@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Custom Categories
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    // Tupi Onboarding Tutorial
+    Route::post('/tutorial/complete', [TutorialController::class, 'complete'])->name('tutorial.complete');
+    Route::post('/tutorial/reset', [TutorialController::class, 'reset'])->name('tutorial.reset');
 });
 
 require __DIR__.'/auth.php';

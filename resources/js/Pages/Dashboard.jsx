@@ -6,7 +6,7 @@ import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { PlusCircleDuotone } from '@/Components/Icons/PhosphorDuotone';
 import { formatToday } from '@/Utils/format';
 import { Head } from '@inertiajs/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Dashboard({
     auth,
@@ -22,6 +22,19 @@ export default function Dashboard({
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [deletingTransaction, setDeletingTransaction] = useState(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('open_tx') === '1') {
+                setEditingTransaction(null);
+                setIsModalOpen(true);
+                params.delete('open_tx');
+                const cleanUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
+                window.history.replaceState({}, '', cleanUrl);
+            }
+        }
+    }, []);
 
     const handleOpenCreate = () => {
         setEditingTransaction(null);
@@ -63,6 +76,7 @@ export default function Dashboard({
                     <div className="flex items-center gap-3 shrink-0">
                         <button
                             type="button"
+                            data-tour="dashboard-add-tx"
                             onClick={handleOpenCreate}
                             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-600/25 transition-all duration-200 focus:outline-none"
                         >
@@ -73,7 +87,9 @@ export default function Dashboard({
                 </div>
 
                 {/* Financial Summary Cards */}
-                <SummaryCards metrics={metrics} />
+                <div data-tour="dashboard-summary">
+                    <SummaryCards metrics={metrics} />
+                </div>
 
                 {/* Transaction History & Filters */}
                 <TransactionList

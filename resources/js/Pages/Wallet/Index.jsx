@@ -165,6 +165,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
 
                     <button
                         type="button"
+                        data-tour="wallets-add"
                         onClick={handleOpenCreate}
                         className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-200 focus:outline-none"
                     >
@@ -254,7 +255,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                 </div>
 
                 {/* Section Title */}
-                <div>
+                <div data-tour="wallets-grid">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
                             <h3 className="text-base font-bold text-slate-900 dark:text-white">

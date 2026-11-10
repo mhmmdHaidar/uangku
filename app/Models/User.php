@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'has_completed_tutorial',
     ];
 
     /**
@@ -42,6 +43,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'has_completed_tutorial' => 'boolean',
         ];
     }
 

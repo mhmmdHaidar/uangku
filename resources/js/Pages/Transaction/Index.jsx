@@ -422,7 +422,7 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 {/* 1. INFORMASI PENTING (REAL-TIME INSTANT SUMMARY METRICS) */}
                 {/* ======================================================== */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div data-tour="transactions-summary" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Card 1: Total Transaksi */}
                     <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm flex flex-col justify-between group">
                         <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
@@ -516,7 +516,7 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 {/* 2. FILTER & SEARCH CONTROL SUITE (REAL-TIME 0MS)         */}
                 {/* ======================================================== */}
-                <div className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
+                <div data-tour="transactions-filter" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
                     {/* Period Selector Tabs */}
                     <div>
                         <div className="flex items-center justify-between mb-2.5">

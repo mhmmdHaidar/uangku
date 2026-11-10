@@ -181,12 +181,14 @@ export default function Report({
                 </div>
 
                 {/* Main Interactive Chart */}
-                <ReportChart
-                    chartData={chartData}
-                    timeframe={timeframe}
-                    onTimeframeChange={handleTimeframeChange}
-                    dateRangeFormatted={dateRange.formatted}
-                />
+                <div data-tour="reports-chart">
+                    <ReportChart
+                        chartData={chartData}
+                        timeframe={timeframe}
+                        onTimeframeChange={handleTimeframeChange}
+                        dateRangeFormatted={dateRange.formatted}
+                    />
+                </div>
 
                 {/* Category Breakdown & Highlights Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
