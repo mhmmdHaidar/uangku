@@ -2,18 +2,20 @@
 
 // Check if running on Vercel serverless environment
 if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) {
-    // Ensure writable temporary storage directories exist
-    $storageDirs = [
-        '/tmp/storage/framework/views',
-        '/tmp/storage/framework/cache/data',
-        '/tmp/storage/framework/sessions',
-        '/tmp/storage/bootstrap/cache',
-        '/tmp/storage/logs',
-    ];
+    // Only initialize directories once per container instance
+    if (!is_dir('/tmp/storage/framework/views')) {
+        $storageDirs = [
+            '/tmp/storage/framework/views',
+            '/tmp/storage/framework/cache/data',
+            '/tmp/storage/framework/sessions',
+            '/tmp/storage/bootstrap/cache',
+            '/tmp/storage/logs',
+        ];
 
-    foreach ($storageDirs as $dir) {
-        if (!is_dir($dir)) {
-            @mkdir($dir, 0755, true);
+        foreach ($storageDirs as $dir) {
+            if (!is_dir($dir)) {
+                @mkdir($dir, 0755, true);
+            }
         }
     }
 
