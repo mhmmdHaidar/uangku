@@ -1,6 +1,7 @@
 {
   "version": 2,
   "framework": null,
+  "outputDirectory": "public",
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.7.4",
@@ -11,11 +12,13 @@
   "routes": [
     {
       "src": "/build/(.*)",
-      "dest": "/public/build/$1"
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/build/$1"
     },
     {
-      "src": "/(favicon\\.ico|favicon\\.png|manifest\\.json|robots\\.txt|.*\\.png|.*\\.jpg|.*\\.svg|.*\\.webp)",
-      "dest": "/public/$1"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
