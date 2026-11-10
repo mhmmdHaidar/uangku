@@ -5,7 +5,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { DEFAULT_CATEGORIES, formatNumberInput, terbilangRupiah } from '@/Utils/format';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import {
     ArrowDownLeft,
@@ -19,6 +19,7 @@ import {
     Smartphone,
     TrendingUp,
     WalletIcon,
+    Plus,
 } from '@/Components/Icons/PhosphorDuotone';
 import {
     CardBadge,
@@ -62,9 +63,16 @@ export default function TransactionModal({
 
     const [displayAmount, setDisplayAmount] = useState('');
 
+    const { user_categories = [], categories: sharedCategories = [] } = usePage().props;
+    const [isAddingCategory, setIsAddingCategory] = useState(false);
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [categoryLoading, setCategoryLoading] = useState(false);
+
     useEffect(() => {
         if (isOpen) {
             clearErrors();
+            setIsAddingCategory(false);
+            setNewCategoryName('');
             if (transactionToEdit) {
                 const initAmount = transactionToEdit.amount || '';
                 setDisplayAmount(initAmount ? formatNumberInput(initAmount) : '');
@@ -130,7 +138,70 @@ export default function TransactionModal({
     };
 
     // Category suggestions for the current type
-    const categoryOptions = DEFAULT_CATEGORIES[data.type] || [];
+    // Prefer user_categories from DB, then categories prop/shared, fallback to DEFAULT_CATEGORIES
+    const allCategoriesList = (user_categories && user_categories.length > 0)
+        ? user_categories
+        : (categories && categories.length > 0 && typeof categories[0] === 'object')
+            ? categories
+            : (sharedCategories && sharedCategories.length > 0 && typeof sharedCategories[0] === 'object')
+                ? sharedCategories
+                : null;
+
+    let categoryOptions = [];
+    if (allCategoriesList) {
+        categoryOptions = allCategoriesList
+            .filter((c) => (c.type ? c.type === data.type : true))
+            .map((c) => ({ id: c.id, name: c.name, type: c.type || data.type }));
+    } else {
+        const fallbackList = (categories && categories.length > 0) ? categories : (DEFAULT_CATEGORIES[data.type] || []);
+        categoryOptions = fallbackList.map((item) => ({
+            id: typeof item === 'object' ? item.id : null,
+            name: typeof item === 'object' ? item.name : String(item),
+            type: data.type,
+        }));
+    }
+
+    const handleAddCategory = () => {
+        const trimmed = newCategoryName.trim();
+        if (!trimmed) return;
+
+        setCategoryLoading(true);
+        router.post(
+            route('categories.store'),
+            {
+                name: trimmed,
+                type: data.type,
+            },
+            {
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => {
+                    setData('category', trimmed);
+                    setNewCategoryName('');
+                    setIsAddingCategory(false);
+                    setCategoryLoading(false);
+                },
+                onError: () => {
+                    setCategoryLoading(false);
+                },
+            }
+        );
+    };
+
+    const handleDeleteCategory = (cat) => {
+        if (!cat || !cat.id) return;
+        if (window.confirm(`Hapus kategori "${cat.name}"?`)) {
+            router.delete(route('categories.destroy', cat.id), {
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => {
+                    if (data.category === cat.name) {
+                        setData('category', '');
+                    }
+                },
+            });
+        }
+    };
 
     return (
         <Modal show={isOpen} onClose={onClose} maxWidth="lg">
@@ -278,12 +349,68 @@ export default function TransactionModal({
                         <InputError message={errors.title} className="mt-1" />
                     </div>
 
-                    {/* 5. Category & Quick Chips */}
+                    {/* 5. Category & Quick Chips with Add/Delete Management */}
                     <div>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mb-1">
                             <InputLabel htmlFor="category" value="Kategori" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold" />
-                            <span className="text-[11px] text-slate-400">Opsional</span>
+                            <div className="flex items-center gap-2">
+                                {!isAddingCategory && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsAddingCategory(true)}
+                                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition"
+                                    >
+                                        <Plus className="w-3.5 h-3.5" />
+                                        <span>Kategori Baru</span>
+                                    </button>
+                                )}
+                                <span className="text-[11px] text-slate-400">Opsional</span>
+                            </div>
                         </div>
+
+                        {/* Inline Add Category Input */}
+                        {isAddingCategory && (
+                            <div className="mb-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-emerald-500/30 flex items-center gap-2">
+                                <input
+                                    type="text"
+                                    placeholder={`Nama kategori ${data.type === 'expense' ? 'pengeluaran' : 'pemasukan'}...`}
+                                    value={newCategoryName}
+                                    onChange={(e) => setNewCategoryName(e.target.value)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            handleAddCategory();
+                                        } else if (e.key === 'Escape') {
+                                            setIsAddingCategory(false);
+                                            setNewCategoryName('');
+                                        }
+                                    }}
+                                    className="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500"
+                                    autoFocus
+                                    disabled={categoryLoading}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleAddCategory}
+                                    disabled={categoryLoading || !newCategoryName.trim()}
+                                    className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition disabled:opacity-50 shrink-0 shadow-xs"
+                                >
+                                    {categoryLoading ? '...' : 'Tambah'}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setIsAddingCategory(false);
+                                        setNewCategoryName('');
+                                    }}
+                                    disabled={categoryLoading}
+                                    className="px-2 py-1.5 rounded-lg text-xs font-medium text-slate-500 hover:text-slate-700 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition shrink-0"
+                                >
+                                    Batal
+                                </button>
+                            </div>
+                        )}
+
                         <TextInput
                             id="category"
                             type="text"
@@ -292,22 +419,42 @@ export default function TransactionModal({
                             onChange={(e) => setData('category', e.target.value)}
                             className="mt-1 w-full text-sm"
                         />
-                        {/* Quick Category Chips */}
+                        {/* Quick Category Chips with Delete Option */}
                         <div className="mt-2 flex flex-wrap gap-1.5">
-                            {categoryOptions.map((cat) => (
-                                <button
-                                    key={cat}
-                                    type="button"
-                                    onClick={() => setData('category', cat)}
-                                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition-colors ${
-                                        data.category === cat
-                                            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-500 shadow-2xs font-semibold'
-                                            : 'bg-white dark:bg-white/5 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-white/10 hover:border-slate-400 shadow-2xs'
-                                    }`}
-                                >
-                                    {cat}
-                                </button>
-                            ))}
+                            {categoryOptions.map((cat) => {
+                                const isSelected = data.category === cat.name;
+                                return (
+                                    <div
+                                        key={cat.id || cat.name}
+                                        className={`group inline-flex items-center rounded-lg text-xs font-medium border transition-colors ${
+                                            isSelected
+                                                ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-500 shadow-2xs font-semibold'
+                                                : 'bg-white dark:bg-white/5 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-white/10 hover:border-slate-400 shadow-2xs'
+                                        }`}
+                                    >
+                                        <button
+                                            type="button"
+                                            onClick={() => setData('category', cat.name)}
+                                            className="px-2.5 py-1 text-left"
+                                        >
+                                            {cat.name}
+                                        </button>
+                                        {cat.id && (
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleDeleteCategory(cat);
+                                                }}
+                                                title={`Hapus kategori "${cat.name}"`}
+                                                className="pr-1.5 pl-0.5 py-1 text-slate-400 hover:text-rose-500 dark:hover:text-rose-400 transition"
+                                            >
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        )}
+                                    </div>
+                                );
+                            })}
                         </div>
                         <InputError message={errors.category} className="mt-1" />
                     </div>

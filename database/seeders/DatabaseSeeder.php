@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
         // Clear previous data for demo user
         $user->transactions()->delete();
         $user->wallets()->delete();
+        $user->categories()->delete();
+        $user->seedDefaultCategories();
 
         // 1. Create realistic user wallets
         $bcaWallet = $user->wallets()->create([

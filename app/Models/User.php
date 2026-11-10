@@ -54,4 +54,42 @@ class User extends Authenticatable
     {
         return $this->hasMany(Wallet::class);
     }
+
+    public function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
+    public function seedDefaultCategories(): void
+    {
+        $defaultExpenses = [
+            'Makanan & Minuman',
+            'Transportasi',
+            'Belanja',
+            'Tagihan',
+            'Kesehatan',
+        ];
+
+        $defaultIncomes = [
+            'Gaji',
+            'Bonus',
+            'Investasi',
+            'Bisnis',
+            'Lainnya',
+        ];
+
+        foreach ($defaultExpenses as $name) {
+            $this->categories()->firstOrCreate([
+                'name' => $name,
+                'type' => 'expense',
+            ]);
+        }
+
+        foreach ($defaultIncomes as $name) {
+            $this->categories()->firstOrCreate([
+                'name' => $name,
+                'type' => 'income',
+            ]);
+        }
+    }
 }
