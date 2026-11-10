@@ -56,3 +56,4 @@ class CategoryController extends Controller
         return back()->with('success', "Kategori '{$categoryName}' berhasil dihapus.");
     }
 }
+

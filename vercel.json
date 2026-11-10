@@ -26,7 +26,7 @@
       "dest": "/assets/$1"
     },
     {
-      "src": "/(favicon\\.ico|favicon\\.png|manifest\\.json|robots\\.txt|sw\\.js)",
+      "src": "/(favicon\\.ico|favicon\\.png|apple-touch-icon\\.png|manifest\\.json|robots\\.txt|sw\\.js)",
       "headers": {
         "cache-control": "public, max-age=3600"
       },

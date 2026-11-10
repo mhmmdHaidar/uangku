@@ -96,3 +96,4 @@ class CategoryTest extends TestCase
         ]);
     }
 }
+
