@@ -58,3 +58,4 @@ class TutorialTest extends TestCase
         $this->post('/tutorial/reset')->assertRedirect('/login');
     }
 }
+
