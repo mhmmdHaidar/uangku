@@ -1,4 +1,5 @@
 import Modal from '@/Components/Modal';
+import GoldCoinLoader from '@/Components/Loaders/GoldCoinLoader';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -105,7 +106,8 @@ export default function WalletModal({
     };
 
     return (
-        <Modal show={isOpen} onClose={onClose} maxWidth="md">
+        <>
+            <Modal show={isOpen} onClose={onClose} maxWidth="md" closeable={!processing}>
             <div className="relative">
                 {/* Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10">
@@ -254,6 +256,13 @@ export default function WalletModal({
                 </form>
             </div>
         </Modal>
+
+        <GoldCoinLoader
+            show={processing}
+            message={isEditing ? 'Memperbarui dompet...' : 'Menambahkan dompet baru...'}
+            subMessage="Menyiapkan sumber dana"
+        />
+    </>
     );
 }
 

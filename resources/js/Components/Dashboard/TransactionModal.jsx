@@ -1,4 +1,5 @@
 import Modal from '@/Components/Modal';
+import GoldCoinLoader from '@/Components/Loaders/GoldCoinLoader';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -204,7 +205,8 @@ export default function TransactionModal({
     };
 
     return (
-        <Modal show={isOpen} onClose={onClose} maxWidth="lg">
+        <>
+            <Modal show={isOpen} onClose={onClose} maxWidth="lg" closeable={!processing}>
             <div className="relative">
                 {/* Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10">
@@ -504,5 +506,12 @@ export default function TransactionModal({
                 </form>
             </div>
         </Modal>
+
+        <GoldCoinLoader
+            show={processing}
+            message={isEditing ? 'Memperbarui transaksi...' : 'Mencatat transaksimu...'}
+            subMessage="Menyelaraskan saldo dompet"
+        />
+    </>
     );
 }

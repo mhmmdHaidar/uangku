@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uangku-pwa-v8';
+const CACHE_NAME = 'uangku-pwa-v9';
 const STATIC_ASSETS = [
     '/',
     '/manifest.json',
