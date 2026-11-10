@@ -1,0 +1,10 @@
+.git
+.github
+.phpunit.cache
+tests
+node_modules
+.env
+.env.backup
+.env.production
+Homestead.json
+Homestead.yaml
