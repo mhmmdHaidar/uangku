@@ -68,6 +68,20 @@
     .card-reflection {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 100%);
     }
+
+    /* Mobile Safe Area Insets (Notch, Dynamic Island, Punch-Hole, Home Indicator) */
+    .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+    }
+
+    .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .px-safe {
+        padding-left: env(safe-area-inset-left, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+    }
 }
 
 /* Tupi Mascot Onboarding Animations (Hardware Accelerated 60fps) */

@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/react';
 
 export default function GuestLayout({ children }) {
     return (
-        <div className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200">
+        <div className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 pt-safe pb-safe px-safe bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200">
             {/* Ambient background glows matching Uangku palette */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-60 dark:opacity-40">
                 <div className="absolute top-10 left-1/4 w-80 h-80 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl" />
@@ -12,7 +12,7 @@ export default function GuestLayout({ children }) {
             </div>
 
             {/* Top theme switcher */}
-            <div className="absolute top-5 right-5 z-20">
+            <div className="absolute top-[calc(1.25rem+env(safe-area-inset-top,0px))] right-[calc(1.25rem+env(safe-area-inset-right,0px))] z-20">
                 <ThemeToggle />
             </div>
 

@@ -190,8 +190,8 @@ export default function TupiChatModal({ isOpen, onClose }) {
                 className="fixed inset-0 bg-[#070D19]/60 backdrop-blur-xs transition-opacity"
             />
 
-            {/* Chat Panel: Full screen on mobile with comfortable card feel, floating drawer on desktop */}
-            <div className="fixed inset-x-0 bottom-0 top-12 sm:top-auto sm:bottom-5 sm:right-5 sm:left-auto z-[71] w-full sm:w-[420px] sm:h-[600px] sm:max-h-[calc(100vh-40px)] flex flex-col bg-white dark:bg-[#0B1426] border-t sm:border border-slate-200 dark:border-[#1E3158] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-tupi-spring">
+            {/* Chat Panel: Full screen on mobile with safe-area padding, floating drawer on desktop */}
+            <div className="fixed inset-x-0 bottom-0 top-[calc(2.5rem+env(safe-area-inset-top,0px))] sm:top-auto sm:bottom-5 sm:right-5 sm:left-auto z-[71] w-full sm:w-[420px] sm:h-[600px] sm:max-h-[calc(100vh-40px)] flex flex-col bg-white dark:bg-[#0B1426] border-t sm:border border-slate-200 dark:border-[#1E3158] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-tupi-spring">
                 {/* Header */}
                 <div className="shrink-0 px-4 py-3.5 bg-slate-50/90 dark:bg-[#0E1A33] border-b border-slate-200 dark:border-[#1E3158] flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
@@ -308,7 +308,7 @@ export default function TupiChatModal({ isOpen, onClose }) {
                 {/* Input Footer */}
                 <form
                     onSubmit={handleFormSubmit}
-                    className="shrink-0 p-3 bg-white dark:bg-[#0E1A33] border-t border-slate-200 dark:border-[#1E3158] flex items-end gap-2"
+                    className="shrink-0 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] sm:pb-3 bg-white dark:bg-[#0E1A33] border-t border-slate-200 dark:border-[#1E3158] flex items-end gap-2"
                 >
                     <textarea
                         ref={inputRef}
@@ -337,3 +337,4 @@ export default function TupiChatModal({ isOpen, onClose }) {
         </div>
     );
 }
+

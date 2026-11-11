@@ -70,7 +70,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Toast Notification */}
             {toastMessage && (
-                <div className="fixed top-5 right-5 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl glass-card border border-slate-300 dark:border-[#1E3158] shadow-2xl text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-200">
+                <div className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] right-[calc(1rem+env(safe-area-inset-right,0px))] z-50 flex items-center gap-3 px-4 py-3 rounded-2xl glass-card border border-slate-300 dark:border-[#1E3158] shadow-2xl text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-200">
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${toastType === 'success' ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/15 text-rose-500 dark:text-rose-400 border border-rose-500/20'}`}>
                         {toastType === 'success' ? (
                             <CheckCircleDuotone className="w-4 h-4" />
@@ -88,8 +88,8 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
             )}
 
-            {/* Navigation Header */}
-            <nav className="sticky top-0 z-40 bg-white/95 dark:bg-[#0B1426]/90 backdrop-blur-xl border-b border-slate-200 dark:border-[#1E3158]/70 shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+            {/* Navigation Header (Safe-Area aware for Notch / Dynamic Island / Punch-Hole) */}
+            <nav className="sticky top-0 z-40 pt-safe px-safe bg-white/95 dark:bg-[#0B1426]/90 backdrop-blur-xl border-b border-slate-200 dark:border-[#1E3158]/70 shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between items-center">
                         {/* Left: Brand & Navigation */}
@@ -227,13 +227,13 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         {/* Mobile Right Controls: Theme Toggle & User Profile Avatar Button */}
-                        <div className="flex items-center gap-2 sm:hidden">
-                            <ThemeToggle />
+                        <div className="flex items-center gap-2 sm:hidden relative z-10">
+                            <ThemeToggle className="touch-manipulation" />
                             <button
                                 type="button"
                                 onClick={() => setShowingProfileDrawer(true)}
                                 aria-label="Buka profil pengguna"
-                                className="relative p-0.5 rounded-xl border border-slate-300 dark:border-[#1E3158] hover:border-emerald-500 focus:outline-none transition active:scale-95"
+                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#1E3158] hover:border-emerald-500 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
                             >
                                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 via-emerald-600 to-teal-700 text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
                                     {user.name.charAt(0).toUpperCase()}
@@ -260,7 +260,7 @@ export default function AuthenticatedLayout({ header, children }) {
             </main>
 
             {/* App Footer */}
-            <footer className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pb-24 sm:pb-6 border-t border-slate-200/80 dark:border-[#1E3158]/50 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <footer className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-6 border-t border-slate-200/80 dark:border-[#1E3158]/50 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
                 <p>&copy; {new Date().getFullYear()} Uangku &bull; Seluruh hak cipta dilindungi.</p>
                 <p
                     data-tour="app-footer-dev"
@@ -281,9 +281,9 @@ export default function AuthenticatedLayout({ header, children }) {
                 </p>
             </footer>
 
-            {/* Modern Mobile Bottom Navigation Dock (Thumb-friendly for smartphone users) */}
-            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#0B1426]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-[#1E3158] px-3 py-1.5 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.5)]">
-                <div className="grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
+            {/* Modern Mobile Bottom Navigation Dock (Thumb-friendly + Home Indicator safe area) */}
+            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe px-safe bg-white/95 dark:bg-[#0B1426]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-[#1E3158] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.5)]">
+                <div className="px-3 py-1.5 grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
                     <Link
                         href={route('dashboard')}
                         prefetch
@@ -358,7 +358,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* 2. Drawer Sheet */}
             <aside
-                className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-[320px] h-full sm:hidden bg-white dark:bg-[#0E1A33] border-l border-slate-200 dark:border-[#1E3158] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-in-out transform ${
+                className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-[320px] h-full sm:hidden pt-safe pb-safe bg-white dark:bg-[#0E1A33] border-l border-slate-200 dark:border-[#1E3158] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-in-out transform ${
                     showingProfileDrawer ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'
                 }`}
                 aria-label="Menu Profil Pengguna"

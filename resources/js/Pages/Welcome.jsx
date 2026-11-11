@@ -49,7 +49,8 @@ export default function Welcome({ auth }) {
                 <div className="absolute top-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-amber-500/8 via-emerald-500/6 to-transparent rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute top-1/3 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-emerald-500/8 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-                {/* --- NAVIGATION BAR --- */}
+                {/* --- NAVIGATION BAR (Safe-Area aware for Notch / Dynamic Island / Punch-Hole) --- */}
+                <div className="pt-safe px-safe relative z-30">
                 <header className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
                     <div className="flex items-center justify-between">
                         {/* Left: Brand Logo */}
@@ -102,13 +103,13 @@ export default function Welcome({ auth }) {
                         </div>
 
                         {/* Mobile Menu Trigger & Theme Toggle */}
-                        <div className="flex md:hidden items-center gap-2">
-                            <ThemeToggle />
+                        <div className="flex md:hidden items-center gap-2 relative z-40">
+                            <ThemeToggle className="touch-manipulation" />
                             <button
                                 type="button"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                 aria-label="Toggle Navigation Menu"
-                                className="p-2 rounded-xl text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                                className="p-2.5 min-w-[42px] min-h-[42px] inline-flex items-center justify-center rounded-xl text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition touch-manipulation cursor-pointer"
                             >
                                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                             </button>
@@ -166,6 +167,7 @@ export default function Welcome({ auth }) {
                         </div>
                     )}
                 </header>
+                </div>
 
                 {/* --- HERO CONTENT: 2-COLUMN LAYOUT --- */}
                 <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-12 lg:pt-16">

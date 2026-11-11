@@ -529,8 +529,8 @@ export default function TupiOnboardingTour() {
             // If target element starts in lower half (like footer developer credit), place Tupi card cleanly at top
             const placeTop = targetRect.top > viewport.h * 0.48 || Boolean(currentStep.scrollToBottom);
             return placeTop
-                ? { top: '52px', left: '12px', right: '12px' }
-                : { bottom: '16px', left: '12px', right: '12px' };
+                ? { top: 'calc(52px + env(safe-area-inset-top, 0px))', left: '12px', right: '12px' }
+                : { bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))', left: '12px', right: '12px' };
         }
 
         // Desktop: if target is huge (>55% viewport), dock floating guide cleanly bottom-right
