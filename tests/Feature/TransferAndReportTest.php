@@ -68,6 +68,7 @@ class TransferAndReportTest extends TestCase
             ->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Dashboard')
                 ->where('metrics.total_balance', 2500000)
+                ->has('wallets.0.current_balance')
                 ->where('metrics.total_income', 0)
                 ->where('metrics.total_expense', 0)
                 ->where('metrics.month_income', 0)

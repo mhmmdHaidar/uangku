@@ -5,7 +5,7 @@ import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
-import { DEFAULT_CATEGORIES, formatNumberInput, terbilangRupiah } from '@/Utils/format';
+import { DEFAULT_CATEGORIES, formatNumberInput, formatRupiah, terbilangRupiah } from '@/Utils/format';
 import { useForm, usePage, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import {
@@ -39,12 +39,62 @@ const WALLET_BADGES = {
     other: WalletBadge,
 };
 
+const WALLET_TYPE_LABELS = {
+    bank: 'Bank',
+    cash: 'Cash',
+    ewallet: 'E-Wallet',
+    e_wallet: 'E-Wallet',
+    investment: 'Investasi',
+    other: 'Lainnya',
+};
+
 function getLocalTodayDate() {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
     const day = String(now.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+function WalletOptionButton({ wallet, isSelected, onClick, isDestination = false }) {
+    const Badge = WALLET_BADGES[wallet.type] || WalletBadge;
+    const balance = Number(wallet.current_balance ?? wallet.initial_balance ?? 0);
+    const typeLabel = WALLET_TYPE_LABELS[wallet.type] || wallet.type;
+
+    const selectedClass = isDestination
+        ? 'border-[#00105B] bg-[#00105B]/10 text-[#00105B] dark:border-sky-400/60 dark:bg-sky-500/15 dark:text-sky-300 ring-1 ring-[#00105B]/20 dark:ring-sky-400/20 shadow-sm'
+        : 'bg-[#00105B]/10 dark:bg-[#26262C] border-[#00105B] dark:border-zinc-300 text-[#00105B] dark:text-white ring-1 ring-[#00105B]/25 dark:ring-zinc-300/20 shadow-xs';
+
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            className={`flex items-center gap-2.5 p-2.5 rounded-xl border text-left transition-all duration-150 ${
+                isSelected
+                    ? selectedClass
+                    : 'bg-white dark:bg-[#151518] border-slate-300 dark:border-[#2C2C32] text-slate-700 dark:text-zinc-300 hover:border-slate-400 dark:hover:border-[#3E3E46] shadow-2xs'
+            }`}
+        >
+            <Badge className="w-8 h-8 rounded-xl shrink-0" />
+            <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-1">
+                    <p className="text-xs font-bold leading-tight truncate">{wallet.name}</p>
+                </div>
+                <p
+                    className={`text-[11px] font-bold tabular-nums truncate mt-0.5 ${
+                        balance < 0
+                            ? 'text-rose-600 dark:text-rose-400'
+                            : isSelected
+                              ? 'text-[#00105B] dark:text-emerald-300'
+                              : 'text-emerald-600 dark:text-emerald-400'
+                    }`}
+                >
+                    {formatRupiah(balance)}
+                </p>
+                <p className="text-[10px] text-slate-400 truncate">{typeLabel}</p>
+            </div>
+        </button>
+    );
 }
 
 export default function TransactionModal({
@@ -329,28 +379,14 @@ export default function TransactionModal({
                         />
                         {wallets.length > 0 ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                                {wallets.map((w) => {
-                                    const Badge = WALLET_BADGES[w.type] || WalletBadge;
-                                    const isSelected = String(data.wallet_id) === String(w.id);
-                                    return (
-                                        <button
-                                            key={w.id}
-                                            type="button"
-                                            onClick={() => handleSourceWalletChange(w.id)}
-                                            className={`flex items-center gap-2.5 p-2 rounded-xl border text-left transition-all ${
-                                                isSelected
-                                                    ? 'bg-[#00105B]/10 dark:bg-[#26262C] border-[#00105B] dark:border-zinc-300 text-[#00105B] dark:text-white ring-1 ring-[#00105B]/25 dark:ring-zinc-300/20 shadow-xs'
-                                                    : 'bg-white dark:bg-[#151518] border-slate-300 dark:border-[#2C2C32] text-slate-700 dark:text-zinc-300 hover:border-slate-400 dark:hover:border-[#3E3E46] shadow-2xs'
-                                            }`}
-                                        >
-                                            <Badge className="w-8 h-8 rounded-xl shrink-0" />
-                                            <div className="min-w-0">
-                                                <p className="text-xs font-bold leading-tight truncate">{w.name}</p>
-                                                <p className="text-[10px] text-slate-400 truncate capitalize">{w.type}</p>
-                                            </div>
-                                        </button>
-                                    );
-                                })}
+                                {wallets.map((w) => (
+                                    <WalletOptionButton
+                                        key={w.id}
+                                        wallet={w}
+                                        isSelected={String(data.wallet_id) === String(w.id)}
+                                        onClick={() => handleSourceWalletChange(w.id)}
+                                    />
+                                ))}
                             </div>
                         ) : (
                             <div className="text-xs text-slate-400 italic">
@@ -368,25 +404,15 @@ export default function TransactionModal({
                                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                     {wallets
                                         .filter((w) => String(w.id) !== String(data.wallet_id))
-                                        .map((w) => {
-                                            const Badge = WALLET_BADGES[w.type] || WalletBadge;
-                                            const isSelected = String(data.to_wallet_id) === String(w.id);
-                                            return (
-                                                <button
-                                                    key={w.id}
-                                                    type="button"
-                                                    onClick={() => setData('to_wallet_id', w.id)}
-                                                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-left transition-all duration-150 ${
-                                                        isSelected
-                                                            ? 'border-[#00105B] bg-[#00105B]/10 text-[#00105B] dark:border-sky-400/60 dark:bg-sky-500/15 dark:text-sky-300 shadow-sm'
-                                                            : 'border-slate-200 dark:border-[#2C2C32] bg-slate-50/70 dark:bg-[#161619] text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-white/20'
-                                                    }`}
-                                                >
-                                                    <Badge className="w-6 h-6 shrink-0" />
-                                                    <span className="text-xs font-semibold truncate">{w.name}</span>
-                                                </button>
-                                            );
-                                        })}
+                                        .map((w) => (
+                                            <WalletOptionButton
+                                                key={w.id}
+                                                wallet={w}
+                                                isSelected={String(data.to_wallet_id) === String(w.id)}
+                                                onClick={() => setData('to_wallet_id', w.id)}
+                                                isDestination
+                                            />
+                                        ))}
                                 </div>
                             ) : (
                                 <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
