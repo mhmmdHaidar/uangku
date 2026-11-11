@@ -1,5 +1,5 @@
 import { router, usePage } from '@inertiajs/react';
-import { useEffect, useLayoutEffect, useState, useCallback } from 'react';
+import { useEffect, useLayoutEffect, useState, useCallback, useRef } from 'react';
 
 const STORAGE_KEY = 'uangku_tupi_tour_v1';
 
@@ -301,6 +301,18 @@ export function launchTupiTour() {
     }
 }
 
+function getHeaderClearance() {
+    if (typeof document === 'undefined') return 76;
+    const nav = document.querySelector('nav');
+    if (nav) {
+        const rect = nav.getBoundingClientRect();
+        if (rect.height > 0 && rect.top <= 40) {
+            return Math.ceil(rect.bottom);
+        }
+    }
+    return 76;
+}
+
 export default function TupiOnboardingTour() {
     const page = usePage();
     const { auth } = page.props;
@@ -310,12 +322,15 @@ export default function TupiOnboardingTour() {
     const initialTour = getInitialTourSync(user);
     const [isActive, setIsActive] = useState(initialTour.isActive);
     const [isNavigating, setIsNavigating] = useState(false);
+    const [isSettling, setIsSettling] = useState(false);
     const [stepIndex, setStepIndex] = useState(initialTour.stepIndex);
     const [targetRect, setTargetRect] = useState(null);
     const [viewport, setViewport] = useState({
         w: typeof window !== 'undefined' ? window.innerWidth : 1024,
         h: typeof window !== 'undefined' ? window.innerHeight : 768,
+        headerBottom: 76,
     });
+    const cardRef = useRef(null);
 
     const currentStep = TOUR_STEPS[stepIndex] || TOUR_STEPS[0];
 
@@ -332,6 +347,7 @@ export default function TupiOnboardingTour() {
         const handleManualStart = () => {
             saveTourState({ active: true, stepIndex: 0 });
             setIsNavigating(false);
+            setIsSettling(false);
             setTargetRect(null);
             setStepIndex(0);
             setIsActive(true);
@@ -369,13 +385,14 @@ export default function TupiOnboardingTour() {
         }
     }, [user, page.url]);
 
-    // Measure target element rect
+    // Measure target element rect & live navbar height
     const measureTarget = useCallback(() => {
         if (!isActive || isNavigating) return;
 
         const vw = window.innerWidth;
         const vh = window.innerHeight;
-        setViewport({ w: vw, h: vh });
+        const headerBottom = getHeaderClearance();
+        setViewport({ w: vw, h: vh, headerBottom });
 
         if (currentStep.mode !== 'spotlight' || !currentStep.targetSelector) {
             setTargetRect(null);
@@ -399,54 +416,128 @@ export default function TupiOnboardingTour() {
         });
     }, [isActive, isNavigating, currentStep]);
 
-    // Smart scrolling & layout measurement before paint
+    // Compute exact scroll destination first and wait for scroll to settle so mobile card never jumps mid-scroll
     useLayoutEffect(() => {
         if (!isActive || isNavigating) return;
 
-        if (currentStep.mode === 'spotlight' && currentStep.targetSelector) {
-            const el = document.querySelector(currentStep.targetSelector);
-            if (el) {
-                if (currentStep.scrollToBottom) {
-                    // Scroll all the way down smoothly to showcase footer developer credit
-                    window.scrollTo({
-                        top: document.documentElement.scrollHeight,
-                        behavior: 'smooth',
-                    });
+        if (currentStep.mode !== 'spotlight' || !currentStep.targetSelector) {
+            setIsSettling(false);
+            setTargetRect(null);
+            return;
+        }
+
+        const el = document.querySelector(currentStep.targetSelector);
+        if (!el) {
+            setIsSettling(false);
+            setTargetRect(null);
+            return;
+        }
+
+        const vh = window.innerHeight;
+        const isMobile = window.innerWidth < 640;
+        const headerBottom = getHeaderClearance();
+        const topSafeEdge = headerBottom + 12;
+        const rect = el.getBoundingClientRect();
+
+        let desiredScrollY = null;
+
+        if (currentStep.scrollToBottom) {
+            desiredScrollY = Math.max(0, document.documentElement.scrollHeight - vh);
+        } else if (isMobile) {
+            // Reserve ~200px at bottom for the compact mobile card so spotlighted content sits cleanly above it
+            const bottomSafeEdge = vh - 204;
+            const fitsInSafeZone = rect.top >= topSafeEdge && rect.bottom <= bottomSafeEdge;
+            const tallAlignedAtTop =
+                rect.height > bottomSafeEdge - topSafeEdge &&
+                rect.top >= topSafeEdge - 4 &&
+                rect.top <= topSafeEdge + 24;
+
+            if (!fitsInSafeZone && !tallAlignedAtTop) {
+                if (rect.height <= bottomSafeEdge - topSafeEdge) {
+                    const extraSpace = bottomSafeEdge - topSafeEdge - rect.height;
+                    const idealTop = topSafeEdge + Math.min(24, Math.max(0, extraSpace * 0.25));
+                    desiredScrollY = Math.max(0, window.scrollY + rect.top - idealTop);
                 } else {
-                    const rect = el.getBoundingClientRect();
-                    const vh = window.innerHeight;
-                    if (rect.height > vh * 0.48) {
-                        // Tall sections: align top cleanly at 84px below navbar so header & controls stay visible
-                        window.scrollTo({
-                            top: Math.max(0, window.scrollY + rect.top - 84),
-                            behavior: 'smooth',
-                        });
-                    } else {
-                        const inComfortZone = rect.top >= 76 && rect.bottom <= vh - 220;
-                        if (!inComfortZone) {
-                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    }
+                    desiredScrollY = Math.max(0, window.scrollY + rect.top - topSafeEdge);
+                }
+            }
+        } else {
+            if (rect.height > vh * 0.55) {
+                desiredScrollY = Math.max(0, window.scrollY + rect.top - topSafeEdge);
+            } else {
+                const inComfortZone = rect.top >= topSafeEdge && rect.bottom <= vh - 235;
+                if (!inComfortZone) {
+                    const idealTop = Math.max(topSafeEdge, (vh - rect.height) / 2 - 36);
+                    desiredScrollY = Math.max(0, window.scrollY + rect.top - idealTop);
                 }
             }
         }
 
+        const maxScroll = Math.max(0, document.documentElement.scrollHeight - vh);
+        if (desiredScrollY !== null) {
+            desiredScrollY = Math.min(maxScroll, Math.max(0, Math.round(desiredScrollY)));
+        }
+
+        const needsScroll = desiredScrollY !== null && Math.abs(desiredScrollY - window.scrollY) > 10;
+
+        if (!needsScroll) {
+            setIsSettling(false);
+            measureTarget();
+            return;
+        }
+
+        setIsSettling(true);
+        let settled = false;
+
+        const finishSettle = () => {
+            if (settled) return;
+            settled = true;
+            measureTarget();
+            setIsSettling(false);
+        };
+
+        let debounceTimer = null;
+        const onScrollTick = () => {
+            if (debounceTimer) clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(finishSettle, 110);
+        };
+
+        window.addEventListener('scrollend', finishSettle, { once: true });
+        window.addEventListener('scroll', onScrollTick, { passive: true });
+        const maxWaitTimer = setTimeout(finishSettle, 460);
+
+        window.scrollTo({
+            top: desiredScrollY,
+            behavior: 'smooth',
+        });
+
+        return () => {
+            settled = true;
+            window.removeEventListener('scrollend', finishSettle);
+            window.removeEventListener('scroll', onScrollTick);
+            if (debounceTimer) clearTimeout(debounceTimer);
+            clearTimeout(maxWaitTimer);
+        };
+    }, [isActive, isNavigating, stepIndex, currentStep, measureTarget]);
+
+    // Keep target measurement synced on resize & user scroll once settled
+    useEffect(() => {
+        if (!isActive || isNavigating || isSettling) return;
+
         measureTarget();
         const raf = requestAnimationFrame(measureTarget);
-        const t1 = setTimeout(measureTarget, 150);
-        const t2 = setTimeout(measureTarget, 450);
+        const t1 = setTimeout(measureTarget, 160);
 
         window.addEventListener('resize', measureTarget);
-        window.addEventListener('scroll', measureTarget, true);
+        window.addEventListener('scroll', measureTarget, { capture: true, passive: true });
 
         return () => {
             cancelAnimationFrame(raf);
             clearTimeout(t1);
-            clearTimeout(t2);
             window.removeEventListener('resize', measureTarget);
-            window.removeEventListener('scroll', measureTarget, true);
+            window.removeEventListener('scroll', measureTarget, { capture: true });
         };
-    }, [isActive, isNavigating, stepIndex, currentStep, measureTarget]);
+    }, [isActive, isNavigating, isSettling, stepIndex, measureTarget]);
 
     const markTutorialCompleted = useCallback((redirectPath = null) => {
         saveTourState(null);
@@ -509,7 +600,7 @@ export default function TupiOnboardingTour() {
     }
 
     const isCenterModal = currentStep.mode === 'modal';
-    const isSpotlightReady = currentStep.mode === 'spotlight' && targetRect !== null;
+    const isSpotlightReady = currentStep.mode === 'spotlight' && targetRect !== null && !isSettling;
 
     if (currentStep.mode === 'spotlight' && !isSpotlightReady) {
         return <div className="fixed inset-0 z-[75] bg-[#070D19]/70 dark:bg-black/75 transition-opacity duration-150" />;
@@ -518,19 +609,57 @@ export default function TupiOnboardingTour() {
     const isFirstStep = stepIndex === 0;
     const isSpecial = !!currentStep.isSpecial;
     const totalGuidedSteps = TOUR_STEPS.length - 2; // Exclude Welcome and Finale
+    const isMobile = viewport.w < 640;
+    const headerBottom = viewport.headerBottom || 76;
+    const mobilePlaceTop = isMobile && (targetRect ? (targetRect.top > viewport.h * 0.48 || Boolean(currentStep.scrollToBottom)) : false);
+
+    // Clamp spotlight frame on mobile so borders never slip behind sticky navbar or guide card
+    const getSpotlightStyle = () => {
+        if (!targetRect) return {};
+
+        const rawTop = Math.max(4, targetRect.top - 8);
+        const rawLeft = Math.max(4, targetRect.left - 8);
+        const rawWidth = Math.min(viewport.w - rawLeft - 4, targetRect.width + 16);
+
+        if (!isMobile) {
+            return {
+                top: `${Math.round(rawTop)}px`,
+                left: `${Math.round(rawLeft)}px`,
+                width: `${Math.round(rawWidth)}px`,
+                height: `${Math.round(targetRect.height + 16)}px`,
+            };
+        }
+
+        const measuredCardHeight = cardRef.current?.offsetHeight || 182;
+        const minTop = mobilePlaceTop
+            ? headerBottom + measuredCardHeight + 18
+            : headerBottom + 4;
+        const maxBottom = mobilePlaceTop
+            ? viewport.h - 4
+            : viewport.h - (measuredCardHeight + 22);
+
+        const clampedTop = Math.max(minTop, rawTop);
+        const rawBottom = targetRect.bottom + 8;
+        const clampedBottom = Math.max(clampedTop + 44, Math.min(rawBottom, maxBottom));
+
+        return {
+            top: `${Math.round(clampedTop)}px`,
+            left: `${Math.round(rawLeft)}px`,
+            width: `${Math.round(rawWidth)}px`,
+            height: `${Math.round(clampedBottom - clampedTop)}px`,
+        };
+    };
+
+    const spotlightStyle = isSpotlightReady ? getSpotlightStyle() : {};
 
     // Responsive floating card positioning that keeps both card & target 100% readable
     const getFloatingPositionStyle = () => {
         if (!targetRect) return {};
 
-        const isMobile = viewport.w < 640;
-
         if (isMobile) {
-            // If target element starts in lower half (like footer developer credit), place Tupi card cleanly at top
-            const placeTop = targetRect.top > viewport.h * 0.48 || Boolean(currentStep.scrollToBottom);
-            return placeTop
-                ? { top: 'calc(52px + env(safe-area-inset-top, 0px))', left: '12px', right: '12px' }
-                : { bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))', left: '12px', right: '12px' };
+            return mobilePlaceTop
+                ? { top: `${Math.round(headerBottom + 10)}px`, left: '12px', right: '12px' }
+                : { bottom: 'calc(14px + env(safe-area-inset-bottom, 0px))', left: '12px', right: '12px' };
         }
 
         // Desktop: if target is huge (>55% viewport), dock floating guide cleanly bottom-right
@@ -548,8 +677,8 @@ export default function TupiOnboardingTour() {
         const placeBelow = !currentStep.scrollToBottom && (spaceBelow >= cardEstimatedHeight + 36 || targetRect.top < cardEstimatedHeight + 52);
 
         const top = placeBelow
-            ? Math.min(Math.max(52, targetRect.bottom + 20), viewport.h - cardEstimatedHeight - 16)
-            : Math.max(52, targetRect.top - cardEstimatedHeight - 24);
+            ? Math.min(Math.max(headerBottom + 12, targetRect.bottom + 20), viewport.h - cardEstimatedHeight - 16)
+            : Math.max(headerBottom + 12, targetRect.top - cardEstimatedHeight - 24);
 
         let left = targetRect.left + targetRect.width / 2 - cardWidth / 2;
         left = Math.max(16, Math.min(left, viewport.w - cardWidth - 16));
@@ -573,18 +702,19 @@ export default function TupiOnboardingTour() {
                         className={`fixed z-[76] pointer-events-none rounded-2xl transition-all duration-300 ease-out border-2 ${
                             isSpecial
                                 ? 'border-amber-400 shadow-[0_0_32px_rgba(251,191,36,0.55)]'
-                                : 'border-[#00105B] dark:border-zinc-200 animate-tupi-ring'
+                                : 'border-[#00105B] dark:border-zinc-200'
                         }`}
                         style={{
-                            top: `${Math.max(4, targetRect.top - 8)}px`,
-                            left: `${Math.max(4, targetRect.left - 8)}px`,
-                            width: `${targetRect.width + 16}px`,
-                            height: `${targetRect.height + 16}px`,
+                            ...spotlightStyle,
                             boxShadow: isSpecial
                                 ? '0 0 0 9999px rgba(0, 0, 0, 0.78), 0 0 28px rgba(251, 191, 36, 0.45)'
                                 : '0 0 0 9999px rgba(0, 0, 0, 0.76)',
                         }}
-                    />
+                    >
+                        {!isSpecial && (
+                            <div className="absolute inset-0 rounded-2xl animate-tupi-ring pointer-events-none" />
+                        )}
+                    </div>
                     {isSpecial && (
                         <a
                             href="https://my-portfolio-alpha-roan-39.vercel.app"
@@ -592,12 +722,7 @@ export default function TupiOnboardingTour() {
                             rel="noopener noreferrer"
                             aria-label="Kunjungi portofolio Haidar"
                             className="fixed z-[77] rounded-2xl cursor-pointer"
-                            style={{
-                                top: `${Math.max(4, targetRect.top - 8)}px`,
-                                left: `${Math.max(4, targetRect.left - 8)}px`,
-                                width: `${targetRect.width + 16}px`,
-                                height: `${targetRect.height + 16}px`,
-                            }}
+                            style={spotlightStyle}
                         />
                     )}
                 </>
@@ -605,10 +730,10 @@ export default function TupiOnboardingTour() {
 
             {/* MODE 1: WELCOME OR FINALE CENTER MODAL */}
             {isCenterModal && (
-                <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 overflow-y-auto">
+                <div className="fixed inset-0 z-[80] flex items-center justify-center pt-[calc(4.75rem+env(safe-area-inset-top,0px))] pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] px-3 sm:p-4 overflow-y-auto">
                     <div
                         key={currentStep.id}
-                        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-lg rounded-3xl bg-white dark:bg-[#1C1C20] border border-slate-200 dark:border-[#2C2C32] shadow-2xl p-6 sm:p-8 text-center animate-tupi-spring overflow-visible mt-14 sm:mt-8"
+                        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-lg rounded-3xl bg-white dark:bg-[#1C1C20] border border-slate-200 dark:border-[#2C2C32] shadow-2xl p-5 sm:p-8 text-center animate-tupi-spring overflow-visible mt-12 sm:mt-8"
                     >
                         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-56 h-56 bg-[#00105B]/15 dark:bg-white/[0.06] rounded-full blur-3xl pointer-events-none" />
 
@@ -622,11 +747,11 @@ export default function TupiOnboardingTour() {
                         </button>
 
                         {/* Full-Body Tupi Mascot */}
-                        <div className="relative -mt-20 sm:-mt-24 mb-3 flex justify-center pointer-events-none select-none">
+                        <div className="relative -mt-16 sm:-mt-24 mb-2.5 sm:mb-3 flex justify-center pointer-events-none select-none">
                             <img
                                 src={currentStep.pose}
                                 alt="Tupi Maskot Uangku"
-                                className={`h-36 sm:h-48 w-auto object-contain drop-shadow-[0_14px_24px_rgba(15,23,42,0.35)] ${currentStep.animClass}`}
+                                className={`h-32 sm:h-48 w-auto object-contain drop-shadow-[0_14px_24px_rgba(15,23,42,0.35)] ${currentStep.animClass}`}
                             />
                         </div>
 
@@ -642,17 +767,25 @@ export default function TupiOnboardingTour() {
                         </p>
 
                         {/* Progress Bar */}
-                        <div className="mt-5 max-w-xs mx-auto">
-                            <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[#2C2C32] overflow-hidden">
+                        <div className="mt-4 sm:mt-5 max-w-xs mx-auto space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 dark:text-zinc-400">
+                                <span>{isFirstStep ? 'Siap Memulai' : 'Tur Selesai'}</span>
+                                <span className="tabular-nums">
+                                    {isFirstStep ? `0 / ${totalGuidedSteps} Langkah` : `${totalGuidedSteps} / ${totalGuidedSteps} Langkah`}
+                                </span>
+                            </div>
+                            <div className="h-1 w-full rounded-full bg-slate-200 dark:bg-[#2C2C32] overflow-hidden">
                                 <div
-                                    className="h-full bg-[#00105B] dark:bg-zinc-200 rounded-full transition-all duration-300"
+                                    className={`h-full rounded-full transition-all duration-300 ${
+                                        isFirstStep ? 'bg-[#00105B] dark:bg-zinc-200' : 'bg-emerald-500 dark:bg-emerald-400'
+                                    }`}
                                     style={{ width: isFirstStep ? '8%' : '100%' }}
                                 />
                             </div>
                         </div>
 
                         {/* Actions */}
-                        <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                        <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                             {isFirstStep ? (
                                 <>
                                     <button
@@ -701,24 +834,25 @@ export default function TupiOnboardingTour() {
                     className="fixed z-[80] transition-all duration-300 ease-out"
                 >
                     <div
-                        className={`relative rounded-3xl bg-white dark:bg-[#1C1C20] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-4 sm:p-5 animate-tupi-spring border ${
+                        ref={cardRef}
+                        className={`relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1C1C20] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-3.5 sm:p-5 animate-tupi-spring border ${
                             isSpecial
                                 ? 'border-amber-400/80 dark:border-amber-400/60 ring-1 ring-amber-400/30'
                                 : 'border-[#00105B]/35 dark:border-[#3E3E46]'
                         }`}
                     >
-                        {/* Row 1: Full-Body Tupi on Left + Title & Explanation on Right */}
-                        <div className="flex items-start gap-3 sm:gap-4">
-                            <div className="shrink-0 -mt-9 -ml-1 sm:-mt-12 sm:-ml-2 pointer-events-none select-none flex items-center justify-center">
+                        {/* Compact Grid: inline header avatar + full-width copy on mobile, pop-out full-body Tupi on desktop */}
+                        <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-1 items-center sm:items-start">
+                            <div className="sm:row-span-2 shrink-0 sm:-mt-12 sm:-ml-2 pointer-events-none select-none flex items-center justify-center">
                                 <img
                                     src={currentStep.pose}
                                     alt="Tupi Panduan Uangku"
-                                    className={`h-24 w-24 sm:h-36 sm:w-auto object-contain drop-shadow-[0_10px_18px_rgba(15,23,42,0.4)] ${currentStep.animClass}`}
+                                    className={`h-12 w-12 sm:h-36 sm:w-auto object-contain drop-shadow-[0_6px_12px_rgba(15,23,42,0.28)] sm:drop-shadow-[0_10px_18px_rgba(15,23,42,0.4)] ${currentStep.animClass}`}
                                 />
                             </div>
 
-                            <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between gap-2 mb-1">
+                            <div className="min-w-0">
+                                <div className="flex items-center justify-between gap-2 mb-0.5 sm:mb-1">
                                     <span
                                         className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold truncate ${
                                             isSpecial
@@ -740,14 +874,15 @@ export default function TupiOnboardingTour() {
                                 <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-snug">
                                     {currentStep.title(firstName)}
                                 </h3>
-                                <p className="mt-1 text-xs sm:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed">
-                                    {currentStep.description}
-                                </p>
                             </div>
+
+                            <p className="col-span-2 sm:col-span-1 text-xs sm:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed">
+                                {currentStep.description}
+                            </p>
                         </div>
 
-                        {/* Row 2: Full-width Progress & Navigation Footer (Never clips or overflows on mobile) */}
-                        <div className="mt-3.5 pt-3 border-t border-slate-100 dark:border-[#2C2C32] flex items-center justify-between gap-3">
+                        {/* Full-width Progress & Navigation Footer */}
+                        <div className="mt-2.5 sm:mt-3.5 pt-2.5 sm:pt-3 border-t border-slate-100 dark:border-[#2C2C32] flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2.5 min-w-0">
                                 <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 tabular-nums whitespace-nowrap">
                                     Langkah {stepIndex} / {totalGuidedSteps}
