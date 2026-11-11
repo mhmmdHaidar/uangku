@@ -89,8 +89,9 @@ class WalletController extends Controller
                 break;
         }
 
-        // Transactions in timeframe for chart
+        // Cashflow transactions in timeframe for chart (exclude internal transfers)
         $rangeTransactions = $wallet->transactions()
+            ->whereIn('type', ['income', 'expense'])
             ->whereBetween('transaction_date', [$startDate, $endDate])
             ->get();
 
@@ -120,7 +121,7 @@ class WalletController extends Controller
                 if (isset($chartBuckets[$key])) {
                     if ($tx->type === 'income') {
                         $chartBuckets[$key]['income'] += (float) $tx->amount;
-                    } else {
+                    } elseif ($tx->type === 'expense') {
                         $chartBuckets[$key]['expense'] += (float) $tx->amount;
                     }
                     $chartBuckets[$key]['net'] = $chartBuckets[$key]['income'] - $chartBuckets[$key]['expense'];
@@ -150,7 +151,7 @@ class WalletController extends Controller
                 if (isset($chartBuckets[$key])) {
                     if ($tx->type === 'income') {
                         $chartBuckets[$key]['income'] += (float) $tx->amount;
-                    } else {
+                    } elseif ($tx->type === 'expense') {
                         $chartBuckets[$key]['expense'] += (float) $tx->amount;
                     }
                     $chartBuckets[$key]['net'] = $chartBuckets[$key]['income'] - $chartBuckets[$key]['expense'];
@@ -160,17 +161,22 @@ class WalletController extends Controller
 
         $chartData = array_values($chartBuckets);
 
-        // Period & Overall Wallet Metrics
+        // Period & Overall Wallet Metrics (real income & expense)
         $totalIncome = (float) $wallet->transactions()->where('type', 'income')->sum('amount');
         $totalExpense = (float) $wallet->transactions()->where('type', 'expense')->sum('amount');
         $periodIncome = (float) $rangeTransactions->where('type', 'income')->sum('amount');
         $periodExpense = (float) $rangeTransactions->where('type', 'expense')->sum('amount');
         $periodNet = $periodIncome - $periodExpense;
 
-        // Paginated Transactions list for this wallet
-        $txQuery = $wallet->transactions()->with('walletAccount');
+        // Paginated Transactions list for this wallet (includes incoming & outgoing transfers)
+        $txQuery = $user->transactions()
+            ->with(['walletAccount', 'toWalletAccount'])
+            ->where(function ($q) use ($wallet) {
+                $q->where('wallet_id', $wallet->id)
+                    ->orWhere('to_wallet_id', $wallet->id);
+            });
 
-        if ($request->filled('type') && in_array($request->type, ['income', 'expense'])) {
+        if ($request->filled('type') && in_array($request->type, ['income', 'expense', 'transfer'], true)) {
             $txQuery->where('type', $request->type);
         }
 

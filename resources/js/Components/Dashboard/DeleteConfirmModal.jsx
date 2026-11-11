@@ -31,7 +31,11 @@ export default function DeleteConfirmModal({ isOpen, onClose, transaction }) {
                     Hapus Transaksi?
                 </h3>
                 <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                    Transaksi <span className="font-semibold text-slate-800 dark:text-slate-200">"{transaction.title}"</span> ({transaction.wallet === 'cash' ? 'Dompet Cash' : 'Dompet Saldo'}) sebesar{' '}
+                    {transaction.type === 'transfer' ? 'Transfer' : 'Transaksi'}{' '}
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">"{transaction.title}"</span>{' '}
+                    ({transaction.type === 'transfer'
+                        ? `${transaction.wallet_account?.name || 'Dompet Asal'} → ${transaction.to_wallet_account?.name || 'Dompet Tujuan'}`
+                        : (transaction.wallet_account?.name || 'Tanpa Dompet')}) sebesar{' '}
                     <span className="font-semibold text-slate-800 dark:text-slate-200">{formatRupiah(transaction.amount)}</span> akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.
                 </p>
 

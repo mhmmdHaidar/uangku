@@ -6,26 +6,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { formatNumberInput, terbilangRupiah } from '@/Utils/format';
+import { WALLET_GRADIENT_OPTIONS, WALLET_TYPES } from '@/Utils/walletThemes';
 import { useForm, usePage } from '@inertiajs/react';
+import { Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { X, CreditCard, Banknote, Smartphone, TrendingUp, WalletIcon } from '@/Components/Icons/PhosphorDuotone';
-
-const WALLET_TYPES = [
-    { key: 'bank', label: 'Rekening Bank', icon: CreditCard, desc: 'BCA, Mandiri, BNI, BRI, dll.' },
-    { key: 'cash', label: 'Uang Tunai (Cash)', icon: Banknote, desc: 'Uang fisik di dompet / laci' },
-    { key: 'ewallet', label: 'E-Wallet', icon: Smartphone, desc: 'GoPay, OVO, Dana, ShopeePay' },
-    { key: 'investment', label: 'Investasi', icon: TrendingUp, desc: 'Reksadana, Saham, Kripto' },
-    { key: 'other', label: 'Lainnya', icon: WalletIcon, desc: 'Kas / simpanan lainnya' },
-];
-
-const COLOR_OPTIONS = [
-    { key: 'emerald', label: 'Hijau Zamrud', bg: 'bg-emerald-500' },
-    { key: 'teal', label: 'Teal', bg: 'bg-teal-500' },
-    { key: 'blue', label: 'Biru', bg: 'bg-blue-500' },
-    { key: 'amber', label: 'Kuning Amber', bg: 'bg-amber-500' },
-    { key: 'violet', label: 'Ungu Violet', bg: 'bg-violet-500' },
-    { key: 'rose', label: 'Merah Rose', bg: 'bg-rose-500' },
-];
+import { X } from '@/Components/Icons/PhosphorDuotone';
 
 export default function WalletModal({
     isOpen,
@@ -41,7 +26,7 @@ export default function WalletModal({
         type: 'bank',
         account_number: '',
         initial_balance: '',
-        color: 'teal',
+        color: 'navy',
     });
 
     const [displayBalance, setDisplayBalance] = useState('');
@@ -68,7 +53,7 @@ export default function WalletModal({
                     type: walletToEdit.type || 'bank',
                     account_number: walletToEdit.account_number || '',
                     initial_balance: initBal,
-                    color: walletToEdit.color || 'teal',
+                    color: walletToEdit.color || 'navy',
                 });
             } else {
                 reset();
@@ -78,7 +63,7 @@ export default function WalletModal({
                     type: 'bank',
                     account_number: '',
                     initial_balance: '',
-                    color: 'teal',
+                    color: 'navy',
                 });
             }
         }
@@ -254,21 +239,34 @@ export default function WalletModal({
                         <InputError message={errors.initial_balance} className="mt-1" />
                     </div>
 
-                    {/* 5. Aksen Warna */}
+                    {/* 5. Aksen Warna Gradasi Kartu */}
                     <div>
-                        <InputLabel value="Aksen Warna Kartu" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1" />
-                        <div className="flex items-center gap-2">
-                            {COLOR_OPTIONS.map((c) => (
-                                <button
-                                    key={c.key}
-                                    type="button"
-                                    onClick={() => setData('color', c.key)}
-                                    title={c.label}
-                                    className={`w-7 h-7 rounded-full ${c.bg} transition-transform ${
-                                        data.color === c.key ? 'ring-2 ring-offset-2 ring-slate-800 dark:ring-white scale-110' : 'opacity-80 hover:opacity-100'
-                                    }`}
-                                />
-                            ))}
+                        <div className="flex items-center justify-between mb-1.5">
+                            <InputLabel value="Aksen Warna Gradasi Kartu" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold" />
+                            <span className="text-[11px] font-semibold text-slate-500 dark:text-zinc-400">
+                                {WALLET_GRADIENT_OPTIONS.find((g) => g.key === data.color)?.label || 'Samudra Navy'}
+                            </span>
+                        </div>
+                        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+                            {WALLET_GRADIENT_OPTIONS.map((c) => {
+                                const isSelected = data.color === c.key;
+                                return (
+                                    <button
+                                        key={c.key}
+                                        type="button"
+                                        onClick={() => setData('color', c.key)}
+                                        title={c.label}
+                                        aria-label={c.label}
+                                        className={`h-9 rounded-xl ${c.swatchGradient} flex items-center justify-center border border-white/20 shadow-sm transition-transform ${
+                                            isSelected
+                                                ? 'ring-2 ring-offset-2 ring-[#00105B] dark:ring-white dark:ring-offset-[#1C1C20] scale-105'
+                                                : 'opacity-85 hover:opacity-100 hover:scale-105'
+                                        }`}
+                                    >
+                                        {isSelected && <Check className="w-4 h-4 text-white drop-shadow" />}
+                                    </button>
+                                );
+                            })}
                         </div>
                         <InputError message={errors.color} className="mt-1" />
                     </div>

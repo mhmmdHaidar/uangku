@@ -13,6 +13,7 @@ class Transaction extends Model
     protected $fillable = [
         'user_id',
         'wallet_id',
+        'to_wallet_id',
         'title',
         'type',
         'wallet',
@@ -31,17 +32,17 @@ class Transaction extends Model
 
     protected static function booted(): void
     {
-        static::saved(function ($tx) {
+        $clearWalletCaches = function ($tx) {
             if ($tx->wallet_id) {
                 unset(Wallet::$balanceCache[$tx->wallet_id]);
             }
-        });
+            if ($tx->to_wallet_id) {
+                unset(Wallet::$balanceCache[$tx->to_wallet_id]);
+            }
+        };
 
-        static::deleted(function ($tx) {
-            if ($tx->wallet_id) {
-                unset(Wallet::$balanceCache[$tx->wallet_id]);
-            }
-        });
+        static::saved($clearWalletCaches);
+        static::deleted($clearWalletCaches);
     }
 
     public function user(): BelongsTo
@@ -54,6 +55,11 @@ class Transaction extends Model
         return $this->belongsTo(Wallet::class, 'wallet_id');
     }
 
+    public function toWalletAccount(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class, 'to_wallet_id');
+    }
+
     public function scopeIncome($query)
     {
         return $query->where('type', 'income');
@@ -64,13 +70,8 @@ class Transaction extends Model
         return $query->where('type', 'expense');
     }
 
-    public function scopeCash($query)
+    public function scopeTransfer($query)
     {
-        return $query->where('wallet', 'cash');
-    }
-
-    public function scopeSaldo($query)
-    {
-        return $query->where('wallet', 'saldo');
+        return $query->where('type', 'transfer');
     }
 }

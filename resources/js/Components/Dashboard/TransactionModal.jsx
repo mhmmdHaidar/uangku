@@ -7,6 +7,7 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { DEFAULT_CATEGORIES, formatNumberInput, terbilangRupiah } from '@/Utils/format';
 import { useForm, usePage, router } from '@inertiajs/react';
+import { ArrowLeftRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
     ArrowDownLeft,
@@ -51,11 +52,13 @@ export default function TransactionModal({
     // Get today's date formatted as YYYY-MM-DD
     const today = new Date().toISOString().split('T')[0];
     const fallbackWalletId = defaultWalletId || (wallets.length > 0 ? wallets[0].id : '');
+    const fallbackToWalletId = wallets.find((w) => String(w.id) !== String(fallbackWalletId))?.id || '';
 
     const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
         title: '',
-        type: 'expense', // default expense
+        type: 'expense', // 'expense' | 'income' | 'transfer'
         wallet_id: fallbackWalletId,
+        to_wallet_id: fallbackToWalletId,
         amount: '',
         category: '',
         transaction_date: today,
@@ -76,11 +79,17 @@ export default function TransactionModal({
             setNewCategoryName('');
             if (transactionToEdit) {
                 const initAmount = transactionToEdit.amount || '';
+                const editFromId = transactionToEdit.wallet_id || fallbackWalletId;
+                const editToId =
+                    transactionToEdit.to_wallet_id ||
+                    wallets.find((w) => String(w.id) !== String(editFromId))?.id ||
+                    '';
                 setDisplayAmount(initAmount ? formatNumberInput(initAmount) : '');
                 setData({
                     title: transactionToEdit.title || '',
                     type: transactionToEdit.type || 'expense',
-                    wallet_id: transactionToEdit.wallet_id || fallbackWalletId,
+                    wallet_id: editFromId,
+                    to_wallet_id: editToId,
                     amount: initAmount,
                     category: transactionToEdit.category || '',
                     transaction_date: transactionToEdit.transaction_date
@@ -95,6 +104,7 @@ export default function TransactionModal({
                     title: '',
                     type: 'expense',
                     wallet_id: fallbackWalletId,
+                    to_wallet_id: fallbackToWalletId,
                     amount: '',
                     category: '',
                     transaction_date: today,
@@ -103,6 +113,29 @@ export default function TransactionModal({
             }
         }
     }, [isOpen, transactionToEdit, wallets, defaultWalletId]);
+
+    const handleTypeSwitch = (nextType) => {
+        if (nextType === 'transfer') {
+            const firstOther = wallets.find((w) => String(w.id) !== String(data.wallet_id))?.id || '';
+            setData((prev) => ({
+                ...prev,
+                type: 'transfer',
+                to_wallet_id: String(prev.to_wallet_id) && String(prev.to_wallet_id) !== String(prev.wallet_id) ? prev.to_wallet_id : firstOther,
+                category: '',
+            }));
+            return;
+        }
+        setData('type', nextType);
+    };
+
+    const handleSourceWalletChange = (newFromId) => {
+        if (data.type === 'transfer' && String(data.to_wallet_id) === String(newFromId)) {
+            const other = wallets.find((w) => String(w.id) !== String(newFromId))?.id || '';
+            setData((prev) => ({ ...prev, wallet_id: newFromId, to_wallet_id: other }));
+            return;
+        }
+        setData('wallet_id', newFromId);
+    };
 
     const handleAmountChange = (e) => {
         const rawDigits = e.target.value.replace(/\D/g, '');
@@ -230,33 +263,45 @@ export default function TransactionModal({
                 </div>
 
                 <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                    {/* 1. Transaction Type Toggle (Pemasukan vs Pengeluaran) */}
+                    {/* 1. Transaction Type Toggle (Pengeluaran / Pemasukan / Transfer) */}
                     <div>
                         <InputLabel value="Jenis Transaksi" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1" />
-                        <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 dark:bg-[#161619] rounded-2xl border border-slate-200 dark:border-[#2C2C32]">
+                        <div className="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 dark:bg-[#161619] rounded-2xl border border-slate-200 dark:border-[#2C2C32]">
                             <button
                                 type="button"
-                                onClick={() => setData('type', 'expense')}
-                                className={`flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-semibold transition-all duration-150 ${
+                                onClick={() => handleTypeSwitch('expense')}
+                                className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                                     data.type === 'expense'
                                         ? 'bg-white dark:bg-[#2A2A32] text-rose-600 dark:text-rose-400 shadow-sm border border-slate-300 dark:border-[#3E3E46]'
                                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
-                                <ArrowUpRight className="w-4 h-4" />
-                                Pengeluaran
+                                <ArrowUpRight className="w-4 h-4 shrink-0" />
+                                <span>Keluar</span>
                             </button>
                             <button
                                 type="button"
-                                onClick={() => setData('type', 'income')}
-                                className={`flex items-center justify-center gap-2 py-2 rounded-xl text-sm font-semibold transition-all duration-150 ${
+                                onClick={() => handleTypeSwitch('income')}
+                                className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
                                     data.type === 'income'
                                         ? 'bg-white dark:bg-[#2A2A32] text-emerald-600 dark:text-emerald-400 shadow-sm border border-slate-300 dark:border-[#3E3E46]'
                                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                                 }`}
                             >
-                                <ArrowDownLeft className="w-4 h-4" />
-                                Pemasukan
+                                <ArrowDownLeft className="w-4 h-4 shrink-0" />
+                                <span>Masuk</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => handleTypeSwitch('transfer')}
+                                className={`flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 ${
+                                    data.type === 'transfer'
+                                        ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-sky-400 shadow-sm border border-slate-300 dark:border-[#3E3E46]'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                                }`}
+                            >
+                                <span className="text-sm leading-none font-bold">⇄</span>
+                                <span>Transfer</span>
                             </button>
                         </div>
                         <InputError message={errors.type} className="mt-1" />
@@ -264,7 +309,10 @@ export default function TransactionModal({
 
                     {/* 2. Wallet Selector (User's Registered Wallets) */}
                     <div>
-                        <InputLabel value="Pilih Dompet / Rekening" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1" />
+                        <InputLabel
+                            value={data.type === 'transfer' ? 'Dompet Asal (Pengirim)' : 'Pilih Dompet / Rekening'}
+                            className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1"
+                        />
                         {wallets.length > 0 ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                                 {wallets.map((w) => {
@@ -274,7 +322,7 @@ export default function TransactionModal({
                                         <button
                                             key={w.id}
                                             type="button"
-                                            onClick={() => setData('wallet_id', w.id)}
+                                            onClick={() => handleSourceWalletChange(w.id)}
                                             className={`flex items-center gap-2.5 p-2 rounded-xl border text-left transition-all ${
                                                 isSelected
                                                     ? 'bg-[#00105B]/10 dark:bg-[#26262C] border-[#00105B] dark:border-zinc-300 text-[#00105B] dark:text-white ring-1 ring-[#00105B]/25 dark:ring-zinc-300/20 shadow-xs'
@@ -292,11 +340,48 @@ export default function TransactionModal({
                             </div>
                         ) : (
                             <div className="text-xs text-slate-400 italic">
-                                Belum ada dompet terdaftar. Dompet utama akan digunakan otomatis.
+                                Belum ada dompet terdaftar. Tambahkan dompet terlebih dahulu di halaman Dompet.
                             </div>
                         )}
                         <InputError message={errors.wallet_id} className="mt-1" />
                     </div>
+
+                    {/* 2b. Destination Wallet Selector (Hanya untuk Transfer) */}
+                    {data.type === 'transfer' && (
+                        <div>
+                            <InputLabel value="Dompet Tujuan (Penerima)" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1" />
+                            {wallets.length >= 2 ? (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                    {wallets
+                                        .filter((w) => String(w.id) !== String(data.wallet_id))
+                                        .map((w) => {
+                                            const Badge = WALLET_BADGES[w.type] || WalletBadge;
+                                            const isSelected = String(data.to_wallet_id) === String(w.id);
+                                            return (
+                                                <button
+                                                    key={w.id}
+                                                    type="button"
+                                                    onClick={() => setData('to_wallet_id', w.id)}
+                                                    className={`flex items-center gap-2 p-2.5 rounded-xl border text-left transition-all duration-150 ${
+                                                        isSelected
+                                                            ? 'border-[#00105B] bg-[#00105B]/10 text-[#00105B] dark:border-sky-400/60 dark:bg-sky-500/15 dark:text-sky-300 shadow-sm'
+                                                            : 'border-slate-200 dark:border-[#2C2C32] bg-slate-50/70 dark:bg-[#161619] text-slate-700 dark:text-zinc-300 hover:border-slate-300 dark:hover:border-white/20'
+                                                    }`}
+                                                >
+                                                    <Badge className="w-6 h-6 shrink-0" />
+                                                    <span className="text-xs font-semibold truncate">{w.name}</span>
+                                                </button>
+                                            );
+                                        })}
+                                </div>
+                            ) : (
+                                <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2.5 text-xs text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+                                    Transfer membutuhkan minimal 2 dompet. Tambahkan dompet lain terlebih dahulu di menu Dompet.
+                                </div>
+                            )}
+                            <InputError message={errors.to_wallet_id} className="mt-1" />
+                        </div>
+                    )}
 
                     {/* 3. Amount Input with Indonesian Rupiah formatting & Terbilang preview */}
                     <div>
@@ -342,7 +427,13 @@ export default function TransactionModal({
                         <TextInput
                             id="title"
                             type="text"
-                            placeholder={data.type === 'expense' ? 'Contoh: Makan Siang, Bensin, Beli Pulsa' : 'Contoh: Gaji Bulanan, Bonus Proyek'}
+                            placeholder={
+                                data.type === 'transfer'
+                                    ? 'Contoh: Tarik Tunai ATM, Top Up GoPay'
+                                    : data.type === 'expense'
+                                      ? 'Contoh: Makan Siang, Bensin, Beli Pulsa'
+                                      : 'Contoh: Gaji Bulanan, Bonus Proyek'
+                            }
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
                             className="mt-1 w-full"
@@ -351,7 +442,8 @@ export default function TransactionModal({
                         <InputError message={errors.title} className="mt-1" />
                     </div>
 
-                    {/* 5. Category & Quick Chips with Add/Delete Management */}
+                    {/* 5. Category & Quick Chips (disembunyikan untuk Transfer) */}
+                    {data.type !== 'transfer' && (
                     <div>
                         <div className="flex items-center justify-between mb-1">
                             <InputLabel htmlFor="category" value="Kategori" className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold" />
@@ -460,6 +552,7 @@ export default function TransactionModal({
                         </div>
                         <InputError message={errors.category} className="mt-1" />
                     </div>
+                    )}
 
                     {/* 6. Date */}
                     <div>
@@ -499,8 +592,17 @@ export default function TransactionModal({
                         <SecondaryButton type="button" onClick={onClose} disabled={processing}>
                             Batal
                         </SecondaryButton>
-                        <PrimaryButton type="submit" disabled={processing}>
-                            {processing ? 'Menyimpan...' : isEditing ? 'Simpan Perubahan' : 'Catat Transaksi'}
+                        <PrimaryButton
+                            type="submit"
+                            disabled={processing || (data.type === 'transfer' && wallets.length < 2)}
+                        >
+                            {processing
+                                ? 'Menyimpan...'
+                                : isEditing
+                                  ? 'Simpan Perubahan'
+                                  : data.type === 'transfer'
+                                    ? 'Kirim Transfer'
+                                    : 'Catat Transaksi'}
                         </PrimaryButton>
                     </div>
                 </form>

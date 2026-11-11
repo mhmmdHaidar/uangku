@@ -2,80 +2,19 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import WalletModal from '@/Components/Wallet/WalletModal';
 import DeleteWalletModal from '@/Components/Wallet/DeleteWalletModal';
 import { formatRupiah } from '@/Utils/format';
-import { Head, Link, router } from '@inertiajs/react';
+import { getWalletCardTheme } from '@/Utils/walletThemes';
+import { Head, Link } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import {
-    WalletIcon,
     Plus,
-    CreditCard,
-    Banknote,
-    Smartphone,
-    TrendingUp,
     Edit3,
     Trash2,
     ArrowUpRight,
-    Sparkles,
-    ShieldCheck,
     Layers,
     Copy,
     Check,
 } from '@/Components/Icons/PhosphorDuotone';
-import {
-    PocketBadge,
-    CardBadge,
-    PhoneBadge,
-    MoneyBadge,
-    CoinsBadge,
-    WalletBadge,
-} from '@/Components/Icons/ColorBadges';
-
-const WALLET_THEMES = {
-    bank: {
-        label: 'Rekening Bank',
-        icon: CreditCard,
-        bgGradient: 'bg-gradient-to-br from-[#112143] via-[#0b162f] to-[#060c1b]',
-        glowColor: 'bg-blue-500/25',
-        borderColor: 'border-[#1E3A6E] hover:border-blue-400/60',
-        pillClass: 'bg-blue-500/20 text-blue-200 border-blue-400/40',
-        accentShadow: 'hover:shadow-[0_16px_40px_-10px_rgba(30,58,110,0.45)]',
-    },
-    cash: {
-        label: 'Uang Tunai (Cash)',
-        icon: Banknote,
-        bgGradient: 'bg-gradient-to-br from-[#381e0b] via-[#241306] to-[#0e0702]',
-        glowColor: 'bg-amber-500/25',
-        borderColor: 'border-amber-600/40 hover:border-amber-400/60',
-        pillClass: 'bg-amber-500/20 text-amber-200 border-amber-400/40',
-        accentShadow: 'hover:shadow-[0_16px_40px_-10px_rgba(245,158,11,0.35)]',
-    },
-    ewallet: {
-        label: 'E-Wallet',
-        icon: Smartphone,
-        bgGradient: 'bg-gradient-to-br from-[#0b2b48] via-[#061729] to-[#030d17]',
-        glowColor: 'bg-cyan-500/20',
-        borderColor: 'border-cyan-500/30 hover:border-cyan-400/50',
-        pillClass: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-        accentShadow: 'hover:shadow-[0_16px_40px_-10px_rgba(6,182,212,0.35)]',
-    },
-    investment: {
-        label: 'Investasi',
-        icon: TrendingUp,
-        bgGradient: 'bg-gradient-to-br from-[#0c2e17] via-[#071d0e] to-[#030d06]',
-        glowColor: 'bg-emerald-500/25',
-        borderColor: 'border-emerald-600/40 hover:border-emerald-400/60',
-        pillClass: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/40',
-        accentShadow: 'hover:shadow-[0_16px_40px_-10px_rgba(16,185,129,0.35)]',
-    },
-    other: {
-        label: 'Kas Lainnya',
-        icon: WalletIcon,
-        bgGradient: 'bg-gradient-to-br from-[#27272D] via-[#1C1C21] to-[#111114]',
-        glowColor: 'bg-white/[0.06]',
-        borderColor: 'border-[#32323A] hover:border-[#4A4A55]',
-        pillClass: 'bg-white/10 text-zinc-200 border-white/15',
-        accentShadow: 'hover:shadow-[0_16px_40px_-10px_rgba(0,0,0,0.45)]',
-    },
-};
+import { PocketBadge } from '@/Components/Icons/ColorBadges';
 
 const SmartCardChip = () => (
     <svg className="w-8 h-6 rounded-md shrink-0 shadow-sm" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -183,83 +122,47 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                     </button>
                 </div>
 
-                {/* Top Summary: 4 Refined Metric Cards */}
-                <div data-tour="wallets-summary" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {/* 1. Total Semua Uang */}
-                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#00105B]/30 dark:hover:border-[#3E3E46]">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-[#00105B]/10 dark:bg-white/[0.04] rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
-                            <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">
-                                Total Semua Saldo
-                            </span>
-                            <PocketBadge className="w-10 h-10" />
+                {/* Condensed 1-Card Total Balance Summary with Category Chips */}
+                <div data-tour="wallets-summary" className="glass-card rounded-3xl p-5 sm:p-6 relative overflow-hidden border border-slate-200 dark:border-[#2C2C32]">
+                    <div className="absolute top-0 right-0 w-44 h-44 bg-[#00105B]/10 dark:bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
+                    <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                        <div className="flex items-center gap-3.5">
+                            <PocketBadge className="w-12 h-12 shrink-0" />
+                            <div>
+                                <div className="flex items-center gap-2">
+                                    <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 text-[11px]">
+                                        Total Semua Saldo
+                                    </span>
+                                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#00105B]/10 dark:bg-[#242429] text-[#00105B] dark:text-zinc-200 border border-[#00105B]/20 dark:border-[#32323A]">
+                                        {summary.wallet_count ?? wallets.length} Akun Terhubung
+                                    </span>
+                                </div>
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight mt-0.5">
+                                    {formatRupiah(summary.total_all ?? 0)}
+                                </h2>
+                            </div>
                         </div>
-                        <div className="my-3">
-                            <h2 className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
-                                {formatRupiah(summary.total_all ?? 0)}
-                            </h2>
-                        </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-white/5 pt-2 flex items-center justify-between">
-                            <span>Akumulasi portofolio</span>
-                            <strong className="text-slate-700 dark:text-slate-300 font-semibold">{summary.wallet_count ?? wallets.length} Akun</strong>
-                        </p>
-                    </div>
 
-                    {/* 2. Total Rekening Bank */}
-                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-[#00105B]/30 dark:hover:border-[#3E3E46]">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-[#00105B]/10 dark:bg-white/[0.04] rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
-                            <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">
-                                Rekening Bank
-                            </span>
-                            <CardBadge className="w-10 h-10" />
+                        <div className="flex flex-wrap items-center gap-2 text-xs">
+                            <div className="px-3 py-1.5 rounded-xl bg-slate-100/90 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] flex items-center gap-1.5">
+                                <span className="text-slate-500 dark:text-zinc-400 font-medium">Bank:</span>
+                                <strong className="font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                    {formatRupiah(summary.total_bank ?? 0)}
+                                </strong>
+                            </div>
+                            <div className="px-3 py-1.5 rounded-xl bg-slate-100/90 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] flex items-center gap-1.5">
+                                <span className="text-slate-500 dark:text-zinc-400 font-medium">E-Wallet:</span>
+                                <strong className="font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                    {formatRupiah(summary.total_ewallet ?? 0)}
+                                </strong>
+                            </div>
+                            <div className="px-3 py-1.5 rounded-xl bg-slate-100/90 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] flex items-center gap-1.5">
+                                <span className="text-slate-500 dark:text-zinc-400 font-medium">Cash &amp; Aset:</span>
+                                <strong className="font-bold text-slate-800 dark:text-zinc-100 tabular-nums">
+                                    {formatRupiah((summary.total_cash ?? 0) + (summary.total_investment ?? 0))}
+                                </strong>
+                            </div>
                         </div>
-                        <div className="my-3">
-                            <h3 className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
-                                {formatRupiah(summary.total_bank ?? 0)}
-                            </h3>
-                        </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-white/5 pt-2">
-                            Giro &amp; tabungan perbankan
-                        </p>
-                    </div>
-
-                    {/* 3. Total E-Wallet */}
-                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-cyan-500/30 dark:hover:border-[#3E3E46]">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-cyan-500/10 dark:bg-white/[0.04] rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
-                            <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">
-                                Dompet Digital (E-Wallet)
-                            </span>
-                            <PhoneBadge className="w-10 h-10" />
-                        </div>
-                        <div className="my-3">
-                            <h3 className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
-                                {formatRupiah(summary.total_ewallet ?? 0)}
-                            </h3>
-                        </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-white/5 pt-2">
-                            GoPay, OVO, QRIS &amp; e-money
-                        </p>
-                    </div>
-
-                    {/* 4. Total Uang Tunai & Lainnya */}
-                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/30">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
-                            <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">
-                                Kas Fisik &amp; Aset
-                            </span>
-                            <MoneyBadge className="w-10 h-10" />
-                        </div>
-                        <div className="my-3">
-                            <h3 className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
-                                {formatRupiah((summary.total_cash ?? 0) + (summary.total_investment ?? 0))}
-                            </h3>
-                        </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-white/5 pt-2">
-                            Uang tunai &amp; investasi likuid
-                        </p>
                     </div>
                 </div>
 
@@ -283,7 +186,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                     {wallets.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {wallets.map((wallet) => {
-                                const theme = WALLET_THEMES[wallet.type] || WALLET_THEMES.other;
+                                const theme = getWalletCardTheme(wallet);
                                 const isCopied = copiedId === wallet.id;
 
                                 return (

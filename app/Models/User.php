@@ -110,6 +110,11 @@ class User extends Authenticatable
         return $this->hasMany(Saran::class);
     }
 
+    public function budgets(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Budget::class);
+    }
+
     public function seedDefaultCategories(): void
     {
         $defaultExpenses = [

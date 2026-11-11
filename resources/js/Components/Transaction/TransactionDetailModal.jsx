@@ -1,5 +1,6 @@
 import Modal from '@/Components/Modal';
 import { formatRupiah, formatFullDate, formatDateTime } from '@/Utils/format';
+import { ArrowLeftRight } from 'lucide-react';
 import {
     X,
     Calendar,
@@ -60,11 +61,14 @@ export default function TransactionDetailModal({
     if (!transaction) return null;
 
     const isIncome = transaction.type === 'income';
+    const isTransfer = transaction.type === 'transfer';
     const wallet = transaction.wallet_account;
-    const walletType = wallet?.type || (transaction.wallet === 'cash' ? 'cash' : 'bank');
+    const toWallet = transaction.to_wallet_account;
+    const walletType = wallet?.type || 'other';
     const WalletTypeIcon = WALLET_ICONS[walletType] || WalletIcon;
     const WalletBadgeComponent = WALLET_BADGES[walletType] || WalletBadge;
-    const walletName = wallet?.name || (transaction.wallet === 'cash' ? 'Uang Tunai (Cash)' : 'Rekening Utama');
+    const walletName = wallet?.name || 'Tanpa Dompet';
+    const toWalletName = toWallet?.name || 'Dompet Tujuan';
 
     return (
         <Modal show={isOpen} onClose={onClose} maxWidth="lg">
@@ -78,13 +82,21 @@ export default function TransactionDetailModal({
                         </span>
                         <span
                             className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold border ${
-                                isIncome
-                                    ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30'
-                                    : 'bg-rose-50 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300 border-rose-200 dark:border-rose-500/30'
+                                isTransfer
+                                    ? 'bg-[#00105B]/10 text-[#00105B] dark:bg-[#242429] dark:text-zinc-200 border-[#00105B]/25 dark:border-[#3E3E46]'
+                                    : isIncome
+                                        ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300 border-emerald-200 dark:border-emerald-500/30'
+                                        : 'bg-rose-50 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300 border-rose-200 dark:border-rose-500/30'
                             }`}
                         >
-                            {isIncome ? <ArrowDownLeft className="w-3.5 h-3.5" /> : <ArrowUpRight className="w-3.5 h-3.5" />}
-                            <span>{isIncome ? 'Pemasukan' : 'Pengeluaran'}</span>
+                            {isTransfer ? (
+                                <ArrowLeftRight className="w-3.5 h-3.5" />
+                            ) : isIncome ? (
+                                <ArrowDownLeft className="w-3.5 h-3.5" />
+                            ) : (
+                                <ArrowUpRight className="w-3.5 h-3.5" />
+                            )}
+                            <span>{isTransfer ? 'Transfer Antar Dompet' : isIncome ? 'Pemasukan' : 'Pengeluaran'}</span>
                         </span>
                     </div>
 
@@ -100,16 +112,18 @@ export default function TransactionDetailModal({
                 {/* Big Amount Card */}
                 <div
                     className={`p-5 rounded-2xl border text-center relative overflow-hidden ${
-                        isIncome
-                            ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/30 text-emerald-900 dark:text-emerald-200'
-                            : 'bg-rose-50/60 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30 text-rose-900 dark:text-rose-200'
+                        isTransfer
+                            ? 'bg-[#00105B]/5 dark:bg-[#242429] border-[#00105B]/20 dark:border-[#3E3E46] text-[#00105B] dark:text-zinc-100'
+                            : isIncome
+                                ? 'bg-emerald-50/60 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-500/30 text-emerald-900 dark:text-emerald-200'
+                                : 'bg-rose-50/60 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30 text-rose-900 dark:text-rose-200'
                     }`}
                 >
                     <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                        Nominal Transaksi
+                        {isTransfer ? 'Nominal Transfer' : 'Nominal Transaksi'}
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums">
-                        {isIncome ? '+' : '–'} {formatRupiah(transaction.amount)}
+                        {isTransfer ? '⇄' : isIncome ? '+' : '–'} {formatRupiah(transaction.amount)}
                     </h2>
                     <p className="text-sm font-bold text-slate-800 dark:text-zinc-100 mt-2 truncate">
                         {transaction.title}
@@ -136,7 +150,7 @@ export default function TransactionDetailModal({
                             <span className="font-semibold">Kategori</span>
                         </div>
                         <p className="font-bold text-slate-800 dark:text-zinc-200 text-sm">
-                            {transaction.category || 'Tanpa Kategori'}
+                            {isTransfer ? 'Transfer Internal' : transaction.category || 'Tanpa Kategori'}
                         </p>
                     </div>
 
@@ -144,17 +158,21 @@ export default function TransactionDetailModal({
                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] sm:col-span-2">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1.5">
                             <WalletTypeIcon className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300" />
-                            <span className="font-semibold">Dompet / Rekening Terkait</span>
+                            <span className="font-semibold">
+                                {isTransfer ? 'Alur Pindah Saldo' : 'Dompet / Rekening Terkait'}
+                            </span>
                         </div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2.5">
                                 <WalletBadgeComponent className="w-9 h-9 rounded-xl shrink-0" />
                                 <div>
                                     <p className="font-bold text-slate-900 dark:text-white text-sm">
-                                        {walletName}
+                                        {isTransfer ? `${walletName} → ${toWalletName}` : walletName}
                                     </p>
                                     <p className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
-                                        {WALLET_TYPE_LABELS[walletType]} {wallet?.account_number ? `• ${wallet.account_number}` : ''}
+                                        {isTransfer
+                                            ? 'Saldo pindah tanpa memengaruhi hitungan pemasukan/pengeluaran'
+                                            : `${WALLET_TYPE_LABELS[walletType]}${wallet?.account_number ? ` • ${wallet.account_number}` : ''}`}
                                     </p>
                                 </div>
                             </div>

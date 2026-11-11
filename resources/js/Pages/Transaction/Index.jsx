@@ -266,11 +266,11 @@ export default function TransactionIndex({
             if (selectedType && item.type !== selectedType) {
                 return false;
             }
-            // 3. Wallet check
+            // 3. Wallet check (including incoming/outgoing transfer)
             if (selectedWalletId && selectedWalletId !== 'all') {
-                const matchId = String(item.wallet_id) === String(selectedWalletId);
-                const matchLegacy = selectedWalletId === 'cash' && item.wallet === 'cash';
-                if (!matchId && !matchLegacy) return false;
+                const matchSource = String(item.wallet_id) === String(selectedWalletId);
+                const matchTarget = String(item.to_wallet_id) === String(selectedWalletId);
+                if (!matchSource && !matchTarget) return false;
             }
             // 4. Category check
             if (selectedCategory && selectedCategory !== 'all') {
@@ -318,7 +318,7 @@ export default function TransactionIndex({
             if (tx.type === 'income') {
                 inc += amount;
                 incCount++;
-            } else {
+            } else if (tx.type === 'expense') {
                 exp += amount;
                 expCount++;
                 if (tx.category) {
@@ -623,9 +623,10 @@ export default function TransactionIndex({
                                 aria-label="Filter Jenis Transaksi"
                                 className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0"
                             >
-                                <option value="">Semua Jenis (Masuk &amp; Keluar)</option>
+                                <option value="">Semua Jenis</option>
                                 <option value="income">Pemasukan (+)</option>
                                 <option value="expense">Pengeluaran (-)</option>
+                                <option value="transfer">Transfer Antar Dompet (⇄)</option>
                             </select>
 
                             {/* Wallet Filter */}
@@ -723,9 +724,13 @@ export default function TransactionIndex({
                             /* --- VIEW MODE 1: DETAILED CARDS --- */
                             <div className="space-y-3">
                                 {paginatedItems.map((item) => {
+                                    const isTransfer = item.type === 'transfer';
                                     const isIncome = item.type === 'income';
                                     const wallet = item.wallet_account;
-                                    const walletName = wallet?.name || (item.wallet === 'cash' ? 'Uang Tunai (Cash)' : 'Rekening Utama');
+                                    const toWallet = item.to_wallet_account;
+                                    const walletName = isTransfer
+                                        ? `${wallet?.name || 'Dompet'} → ${toWallet?.name || 'Tujuan'}`
+                                        : wallet?.name || 'Dompet';
                                     const visuals = getCategoryVisuals(item.category, item.title, isIncome);
                                     const CategoryBadge = visuals.Badge;
 
@@ -740,10 +745,11 @@ export default function TransactionIndex({
                                                 <div className="relative shrink-0 mt-0.5">
                                                     <CategoryBadge className={`w-11 h-11 ${visuals.glow}`} />
                                                     <div
-                                                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${isIncome ? 'bg-emerald-500' : 'bg-rose-500'
-                                                            }`}
+                                                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${
+                                                            isTransfer ? 'bg-[#00105B] dark:bg-sky-500' : isIncome ? 'bg-emerald-500' : 'bg-rose-500'
+                                                        }`}
                                                     >
-                                                        {isIncome ? '+' : '–'}
+                                                        {isTransfer ? '⇄' : isIncome ? '+' : '–'}
                                                     </div>
                                                 </div>
 
@@ -762,9 +768,9 @@ export default function TransactionIndex({
                                                         )}
 
                                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A]">
-                                                            <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
+                                                            <span className={`w-1.5 h-1.5 rounded-full ${isTransfer ? 'bg-[#00105B] dark:bg-sky-400' : isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
                                                             <span>{walletName}</span>
-                                                            {wallet?.account_number && (
+                                                            {!isTransfer && wallet?.account_number && (
                                                                 <span className="text-slate-400 font-mono">
                                                                     ({wallet.account_number})
                                                                 </span>
@@ -798,15 +804,18 @@ export default function TransactionIndex({
                                             <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-[#2C2C32]">
                                                 <div className="text-left md:text-right">
                                                     <p
-                                                        className={`text-base sm:text-lg font-extrabold tabular-nums tracking-tight ${isIncome
-                                                                ? 'text-emerald-600 dark:text-emerald-400'
-                                                                : 'text-slate-900 dark:text-white'
-                                                            }`}
+                                                        className={`text-base sm:text-lg font-extrabold tabular-nums tracking-tight ${
+                                                            isTransfer
+                                                                ? 'text-[#00105B] dark:text-sky-400'
+                                                                : isIncome
+                                                                  ? 'text-emerald-600 dark:text-emerald-400'
+                                                                  : 'text-slate-900 dark:text-white'
+                                                        }`}
                                                     >
-                                                        {isIncome ? '+' : '–'} {formatRupiah(item.amount)}
+                                                        {isTransfer ? '⇄ ' : isIncome ? '+' : '–'} {formatRupiah(item.amount)}
                                                     </p>
                                                     <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
-                                                        {isIncome ? 'Arus Masuk' : 'Arus Keluar'}
+                                                        {isTransfer ? 'Pindah Saldo' : isIncome ? 'Arus Masuk' : 'Arus Keluar'}
                                                     </span>
                                                 </div>
 
@@ -865,9 +874,13 @@ export default function TransactionIndex({
                                     </thead>
                                     <tbody className="divide-y divide-slate-200/70 dark:divide-[#2C2C32]">
                                         {paginatedItems.map((item) => {
+                                            const isTransfer = item.type === 'transfer';
                                             const isIncome = item.type === 'income';
                                             const wallet = item.wallet_account;
-                                            const walletName = wallet?.name || (item.wallet === 'cash' ? 'Uang Tunai' : 'Rekening Utama');
+                                            const toWallet = item.to_wallet_account;
+                                            const walletName = isTransfer
+                                                ? `${wallet?.name || 'Dompet'} → ${toWallet?.name || 'Tujuan'}`
+                                                : wallet?.name || 'Dompet';
 
                                             return (
                                                 <tr
@@ -896,7 +909,7 @@ export default function TransactionIndex({
                                                         <span className="font-semibold text-slate-800 dark:text-slate-200">
                                                             {walletName}
                                                         </span>
-                                                        {wallet?.account_number && (
+                                                        {!isTransfer && wallet?.account_number && (
                                                             <div className="text-[10px] text-slate-400 font-mono">
                                                                 {wallet.account_number}
                                                             </div>
@@ -904,17 +917,28 @@ export default function TransactionIndex({
                                                     </td>
                                                     <td className="py-3.5 px-4 whitespace-nowrap">
                                                         <span
-                                                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${isIncome
-                                                                    ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'
-                                                                    : 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300'
-                                                                }`}
+                                                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                                                                isTransfer
+                                                                    ? 'bg-sky-50 text-[#00105B] dark:bg-sky-500/15 dark:text-sky-300'
+                                                                    : isIncome
+                                                                      ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'
+                                                                      : 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300'
+                                                            }`}
                                                         >
-                                                            {isIncome ? 'Pemasukan' : 'Pengeluaran'}
+                                                            {isTransfer ? 'Transfer' : isIncome ? 'Pemasukan' : 'Pengeluaran'}
                                                         </span>
                                                     </td>
                                                     <td className="py-3.5 px-4 whitespace-nowrap text-right font-bold tabular-nums">
-                                                        <span className={isIncome ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}>
-                                                            {isIncome ? '+' : '–'} {formatRupiah(item.amount)}
+                                                        <span
+                                                            className={
+                                                                isTransfer
+                                                                    ? 'text-[#00105B] dark:text-sky-400'
+                                                                    : isIncome
+                                                                      ? 'text-emerald-600 dark:text-emerald-400'
+                                                                      : 'text-slate-900 dark:text-white'
+                                                            }
+                                                        >
+                                                            {isTransfer ? '⇄ ' : isIncome ? '+' : '–'} {formatRupiah(item.amount)}
                                                         </span>
                                                     </td>
                                                     <td className="py-3.5 px-4 whitespace-nowrap text-center">

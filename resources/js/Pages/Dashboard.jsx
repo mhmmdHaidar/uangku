@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SummaryCards from '@/Components/Dashboard/SummaryCards';
 import TransactionList from '@/Components/Dashboard/TransactionList';
 import TransactionModal from '@/Components/Dashboard/TransactionModal';
+import BudgetSection from '@/Components/Budget/BudgetSection';
 import TransactionDetailModal from '@/Components/Transaction/TransactionDetailModal';
 import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { PlusCircleDuotone } from '@/Components/Icons/PhosphorDuotone';
@@ -14,6 +15,7 @@ export default function Dashboard({
     transactions,
     all_transactions = [],
     wallets = [],
+    budgets = [],
     metrics,
     filters,
     categories = [],
@@ -108,6 +110,9 @@ export default function Dashboard({
                         onDelete={handleOpenDelete}
                     />
                 </div>
+
+                {/* Anggaran Bulanan Ringkas */}
+                <BudgetSection budgets={budgets} compact />
             </div>
 
             {/* Create / Edit Modal */}

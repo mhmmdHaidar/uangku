@@ -156,11 +156,11 @@ export default function TransactionList({
             if (selectedType && item.type !== selectedType) {
                 return false;
             }
-            // Wallet filter
+            // Wallet filter (uniform wallet_id relation, including incoming/outgoing transfers)
             if (selectedWalletId && selectedWalletId !== 'all') {
-                const matchId = String(item.wallet_id) === String(selectedWalletId);
-                const matchLegacy = selectedWalletId === 'cash' && item.wallet === 'cash';
-                if (!matchId && !matchLegacy) return false;
+                const matchFrom = String(item.wallet_id) === String(selectedWalletId);
+                const matchTo = String(item.to_wallet_id) === String(selectedWalletId);
+                if (!matchFrom && !matchTo) return false;
             }
             // Category filter
             if (selectedCategory && selectedCategory !== 'all') {
@@ -309,6 +309,17 @@ export default function TransactionList({
                             <ArrowUpRightDuotone className="w-3.5 h-3.5" />
                             <span>Pengeluaran</span>
                         </button>
+                        <button
+                            type="button"
+                            onClick={() => handleTypeChange('transfer')}
+                            className={`px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
+                                selectedType === 'transfer'
+                                    ? 'bg-[#00105B]/15 dark:bg-[#2A2A32] text-[#00105B] dark:text-zinc-100 shadow-sm border border-[#00105B]/30 dark:border-[#3E3E46]'
+                                    : 'text-slate-600 dark:text-slate-400 hover:text-[#00105B] dark:hover:text-zinc-200'
+                            }`}
+                        >
+                            <span>Transfer</span>
+                        </button>
                     </div>
 
                     {/* Wallet Filter Dropdown */}
@@ -363,8 +374,11 @@ export default function TransactionList({
             {paginatedItems.length > 0 ? (
                 <div className="space-y-1.5 -mx-2 sm:mx-0">
                     {paginatedItems.map((item) => {
+                        const isTransfer = item.type === 'transfer';
                         const isIncome = item.type === 'income';
-                        const walletName = item.wallet_account?.name || (item.wallet === 'cash' ? 'Uang Tunai' : 'Rekening Utama');
+                        const fromWalletName = item.wallet_account?.name || 'Dompet';
+                        const toWalletName = item.to_wallet_account?.name || 'Tujuan';
+                        const walletName = isTransfer ? `${fromWalletName} → ${toWalletName}` : fromWalletName;
                         const visuals = getCategoryVisuals(item.category, item.title, isIncome);
                         const CategoryBadge = visuals.Badge;
 
@@ -388,8 +402,8 @@ export default function TransactionList({
                                     <div className="relative shrink-0">
                                         <CategoryBadge className={`w-10 h-10 ${visuals.glow}`} />
                                         {/* Directional mini pip */}
-                                        <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${isIncome ? 'bg-emerald-500' : 'bg-rose-500'}`}>
-                                            {isIncome ? '+' : '–'}
+                                        <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${isTransfer ? 'bg-[#00105B] dark:bg-sky-500' : isIncome ? 'bg-emerald-500' : 'bg-rose-500'}`}>
+                                            {isTransfer ? '⇄' : isIncome ? '+' : '–'}
                                         </div>
                                     </div>
 
@@ -401,7 +415,7 @@ export default function TransactionList({
 
                                             {/* Refined Frosted Wallet Badge */}
                                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A] shrink-0">
-                                                <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
+                                                <span className={`w-1.5 h-1.5 rounded-full ${isTransfer ? 'bg-[#00105B] dark:bg-sky-400' : isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
                                                 <span>{walletName}</span>
                                             </span>
 
@@ -435,12 +449,14 @@ export default function TransactionList({
                                 <div className="flex items-center gap-3 shrink-0">
                                     <span
                                         className={`text-sm sm:text-base font-extrabold tabular-nums tracking-tight ${
-                                            isIncome
-                                                ? 'text-emerald-600 dark:text-emerald-400'
-                                                : 'text-slate-900 dark:text-white'
+                                            isTransfer
+                                                ? 'text-[#00105B] dark:text-sky-400'
+                                                : isIncome
+                                                  ? 'text-emerald-600 dark:text-emerald-400'
+                                                  : 'text-slate-900 dark:text-white'
                                         }`}
                                     >
-                                        {isIncome ? '+' : '–'} {formatRupiah(item.amount)}
+                                        {isTransfer ? '⇄ ' : isIncome ? '+' : '–'} {formatRupiah(item.amount)}
                                     </span>
 
                                     <div className="flex items-center gap-1">

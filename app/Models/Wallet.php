@@ -64,8 +64,13 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function incomingTransfers(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'to_wallet_id')->where('type', 'transfer');
+    }
+
     /**
-     * Preload balances for a given user's wallets in ONE aggregate query.
+     * Preload balances for a given user's wallets in minimal aggregate queries.
      */
     public static function preloadBalances(int $userId): void
     {
@@ -77,22 +82,35 @@ class Wallet extends Model
         $totals = DB::table('transactions')
             ->where('user_id', $userId)
             ->whereNotNull('wallet_id')
-            ->selectRaw("wallet_id, SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) as total_income, SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) as total_expense")
+            ->selectRaw("
+                wallet_id,
+                SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) as total_income,
+                SUM(CASE WHEN type IN ('expense', 'transfer') THEN amount ELSE 0 END) as total_out
+            ")
             ->groupBy('wallet_id')
             ->get()
             ->keyBy('wallet_id');
 
+        $incomingTransfers = DB::table('transactions')
+            ->where('user_id', $userId)
+            ->where('type', 'transfer')
+            ->whereNotNull('to_wallet_id')
+            ->selectRaw('to_wallet_id, SUM(amount) as total_transfer_in')
+            ->groupBy('to_wallet_id')
+            ->pluck('total_transfer_in', 'to_wallet_id');
+
         foreach ($wallets as $wallet) {
             $row = $totals->get($wallet->id);
             $inc = $row ? (float) $row->total_income : 0.0;
-            $exp = $row ? (float) $row->total_expense : 0.0;
-            self::$balanceCache[$wallet->id] = (float) $wallet->initial_balance + $inc - $exp;
+            $out = $row ? (float) $row->total_out : 0.0;
+            $transferIn = (float) ($incomingTransfers->get($wallet->id) ?? 0.0);
+            self::$balanceCache[$wallet->id] = (float) $wallet->initial_balance + $inc + $transferIn - $out;
         }
     }
 
     /**
-     * Compute current balance based on initial balance plus transactions,
-     * utilizing static cache if available to prevent N+1 query storms.
+     * Compute current balance based on initial balance plus income, transfers in,
+     * minus expenses and transfers out, utilizing static cache to prevent N+1 queries.
      */
     public function getCurrentBalanceAttribute(): float
     {
@@ -105,8 +123,9 @@ class Wallet extends Model
         }
 
         $income = (float) $this->transactions()->where('type', 'income')->sum('amount');
-        $expense = (float) $this->transactions()->where('type', 'expense')->sum('amount');
+        $outflow = (float) $this->transactions()->whereIn('type', ['expense', 'transfer'])->sum('amount');
+        $transferIn = (float) $this->incomingTransfers()->sum('amount');
 
-        return self::$balanceCache[$this->id] = (float) $this->initial_balance + $income - $expense;
+        return self::$balanceCache[$this->id] = (float) $this->initial_balance + $income + $transferIn - $outflow;
     }
 }

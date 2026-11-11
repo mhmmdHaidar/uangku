@@ -1,8 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import BudgetSection from '@/Components/Budget/BudgetSection';
 import ReportChart from '@/Components/Report/ReportChart';
 import CategoryBreakdown from '@/Components/Report/CategoryBreakdown';
 import TransactionList from '@/Components/Dashboard/TransactionList';
 import TransactionModal from '@/Components/Dashboard/TransactionModal';
+import TransactionDetailModal from '@/Components/Transaction/TransactionDetailModal';
 import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { formatRupiah } from '@/Utils/format';
 import { Head, router } from '@inertiajs/react';
@@ -30,21 +32,34 @@ export default function Report({
     metrics = {},
     categoryBreakdown = [],
     incomeCategoryBreakdown = [],
+    budgets = [],
     transactions = {},
     filters = {},
     categories = [],
     wallets = [],
+    selectedWallet = null,
 }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingTransaction, setEditingTransaction] = useState(null);
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [deletingTransaction, setDeletingTransaction] = useState(null);
+    const [detailTransaction, setDetailTransaction] = useState(null);
+
+    const selectedWalletId = filters.wallet_id || '';
 
     const handleTimeframeChange = (newTimeframe) => {
         router.get(
             route('reports.index'),
             { ...filters, timeframe: newTimeframe },
+            { preserveState: true, preserveScroll: true, replace: true }
+        );
+    };
+
+    const handleWalletChange = (newWalletId) => {
+        router.get(
+            route('reports.index'),
+            { ...filters, timeframe, wallet_id: newWalletId },
             { preserveState: true, preserveScroll: true, replace: true }
         );
     };
@@ -86,12 +101,34 @@ export default function Report({
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex flex-wrap items-center gap-2.5">
+                        {wallets.length > 0 && (
+                            <select
+                                value={selectedWalletId}
+                                onChange={(e) => handleWalletChange(e.target.value)}
+                                aria-label="Filter Laporan per Dompet"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-200 dark:border-[#2C2C32] bg-white/80 dark:bg-[#1C1C20] text-slate-700 dark:text-zinc-200 font-semibold shadow-sm focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400"
+                            >
+                                <option value="">Semua Dompet / Rekening</option>
+                                {wallets.map((w) => (
+                                    <option key={w.id} value={String(w.id)}>
+                                        {w.name}
+                                    </option>
+                                ))}
+                            </select>
+                        )}
                         <a
-                            href={route('reports.export', { timeframe })}
+                            href={route('reports.export', {
+                                timeframe,
+                                ...(selectedWalletId ? { wallet_id: selectedWalletId } : {}),
+                            })}
                             className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/70 dark:bg-[#1C1C20] hover:bg-slate-100 dark:hover:bg-[#242429] border border-slate-200 dark:border-[#2C2C32] text-xs font-semibold text-slate-700 dark:text-zinc-200 transition shadow-sm"
                             download
-                            title="Unduh laporan ini dalam format CSV / Excel"
+                            title={
+                                selectedWallet
+                                    ? `Unduh laporan CSV untuk ${selectedWallet.name}`
+                                    : 'Unduh laporan ini dalam format CSV / Excel'
+                            }
                         >
                             <Download className="w-4 h-4 text-slate-400" />
                             Ekspor CSV
@@ -232,6 +269,9 @@ export default function Report({
                     </div>
                 </div>
 
+                {/* Monthly Category Budgets */}
+                <BudgetSection budgets={budgets} />
+
                 {/* Filtered Transaction Table for Selected Timeframe */}
                 <TransactionList
                     transactions={transactions}
@@ -241,8 +281,18 @@ export default function Report({
                     onAddNew={handleOpenCreate}
                     onEdit={handleOpenEdit}
                     onDelete={handleOpenDelete}
+                    onSelect={setDetailTransaction}
                 />
             </div>
+
+            {/* Transaction Detail Modal */}
+            <TransactionDetailModal
+                transaction={detailTransaction}
+                isOpen={!!detailTransaction}
+                onClose={() => setDetailTransaction(null)}
+                onEdit={handleOpenEdit}
+                onDelete={handleOpenDelete}
+            />
 
             {/* Create / Edit Modal */}
             <TransactionModal

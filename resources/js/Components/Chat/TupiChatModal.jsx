@@ -67,7 +67,7 @@ function FormattedMessage({ text, isUser }) {
     );
 }
 
-export default function TupiChatModal({ isOpen, onClose }) {
+export default function TupiChatModal({ isOpen, onClose, onStartTour }) {
     const { auth } = usePage().props;
     const firstName = auth?.user?.name ? auth.user.name.split(' ')[0] : 'Teman';
 
@@ -205,10 +205,10 @@ export default function TupiChatModal({ isOpen, onClose }) {
                         </div>
                         <div className="min-w-0">
                             <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate">
-                                Tanya Tupi
+                                Pusat Bantuan Tupi
                             </h2>
                             <p className="text-[11px] font-medium text-[#00105B] dark:text-zinc-400 truncate">
-                                Layanan Bantuan Uangku
+                                Panduan Tur &amp; Tanya Jawab Asisten
                             </p>
                         </div>
                     </div>
@@ -227,13 +227,44 @@ export default function TupiChatModal({ isOpen, onClose }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            aria-label="Tutup chat"
+                            aria-label="Tutup Pusat Bantuan Tupi"
                             className="w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-zinc-200 hover:bg-slate-200/70 dark:hover:bg-[#2A2A30] text-lg font-medium leading-none transition"
                         >
                             &times;
                         </button>
                     </div>
                 </div>
+
+                {/* Quick Tour Launcher Strip inside Unified Help Center */}
+                {onStartTour && (
+                    <div className="shrink-0 px-4 py-2.5 bg-amber-50/85 dark:bg-amber-500/10 border-b border-amber-200/80 dark:border-amber-500/20 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                            <img
+                                src="/assets/tupi/tupi-wave.png"
+                                alt="Tur Tupi"
+                                className="w-7 h-7 object-contain shrink-0"
+                            />
+                            <div className="min-w-0">
+                                <p className="text-xs font-bold text-slate-800 dark:text-zinc-100 truncate">
+                                    Tur Panduan Interaktif (9 Langkah)
+                                </p>
+                                <p className="text-[10px] text-slate-500 dark:text-zinc-400 truncate">
+                                    Keliling fitur aplikasi dipandu langsung oleh Tupi
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                onClose();
+                                onStartTour();
+                            }}
+                            className="shrink-0 px-3 py-1.5 rounded-xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-[11px] font-bold shadow-xs transition active:scale-95"
+                        >
+                            Putar Tur
+                        </button>
+                    </div>
+                )}
 
                 {/* Messages Scroll Area */}
                 <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-slate-50/50 dark:bg-[#121214]">

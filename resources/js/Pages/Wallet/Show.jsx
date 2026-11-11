@@ -6,15 +6,11 @@ import TransactionList from '@/Components/Dashboard/TransactionList';
 import TransactionModal from '@/Components/Dashboard/TransactionModal';
 import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { formatRupiah } from '@/Utils/format';
+import { getWalletCardTheme } from '@/Utils/walletThemes';
 import { Head, Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import {
     ArrowLeft,
-    WalletIcon,
-    CreditCard,
-    Banknote,
-    Smartphone,
-    TrendingUp,
     PlusCircle,
     Edit3,
     Trash2,
@@ -32,49 +28,6 @@ import {
     ExpenseBadge,
     CoinsBadge,
 } from '@/Components/Icons/ColorBadges';
-
-const WALLET_THEMES = {
-    bank: {
-        label: 'Rekening Bank',
-        icon: CreditCard,
-        bgGradient: 'bg-gradient-to-br from-[#112143] via-[#0b162f] to-[#060c1b]',
-        glowColor: 'bg-blue-500/25',
-        borderColor: 'border-[#1E3A6E]',
-        pillClass: 'bg-blue-500/20 text-blue-200 border-blue-400/40',
-    },
-    cash: {
-        label: 'Uang Tunai (Cash)',
-        icon: Banknote,
-        bgGradient: 'bg-gradient-to-br from-[#381e0b] via-[#241306] to-[#0e0702]',
-        glowColor: 'bg-amber-500/25',
-        borderColor: 'border-amber-600/40',
-        pillClass: 'bg-amber-500/20 text-amber-200 border-amber-400/40',
-    },
-    ewallet: {
-        label: 'E-Wallet',
-        icon: Smartphone,
-        bgGradient: 'bg-gradient-to-br from-[#0b2b48] via-[#061729] to-[#030d17]',
-        glowColor: 'bg-cyan-500/20',
-        borderColor: 'border-cyan-500/30',
-        pillClass: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
-    },
-    investment: {
-        label: 'Investasi',
-        icon: TrendingUp,
-        bgGradient: 'bg-gradient-to-br from-[#0c2e17] via-[#071d0e] to-[#030d06]',
-        glowColor: 'bg-emerald-500/25',
-        borderColor: 'border-emerald-600/40',
-        pillClass: 'bg-emerald-500/20 text-emerald-200 border-emerald-400/40',
-    },
-    other: {
-        label: 'Kas Lainnya',
-        icon: WalletIcon,
-        bgGradient: 'bg-gradient-to-br from-[#27272D] via-[#1C1C21] to-[#111114]',
-        glowColor: 'bg-white/[0.06]',
-        borderColor: 'border-[#32323A]',
-        pillClass: 'bg-white/10 text-zinc-200 border-white/15',
-    },
-};
 
 const SmartCardChip = () => (
     <svg className="w-8 h-6 rounded-md shrink-0 shadow-sm" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +78,7 @@ export default function WalletShow({
 
     const [copied, setCopied] = useState(false);
 
-    const theme = WALLET_THEMES[wallet.type] || WALLET_THEMES.other;
+    const theme = getWalletCardTheme(wallet);
 
     const handleTimeframeChange = (newTimeframe) => {
         router.get(

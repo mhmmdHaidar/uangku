@@ -204,19 +204,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                         </Dropdown.Link>
                                         <button
                                             type="button"
-                                            onClick={launchTupiTour}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] transition"
-                                        >
-                                            <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-4 h-4 rounded-sm object-cover" />
-                                            <span>Tur Panduan Tupi</span>
-                                        </button>
-                                        <button
-                                            type="button"
                                             onClick={() => setShowingTupiChat(true)}
                                             className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-[#00105B] dark:text-zinc-100 font-semibold hover:bg-[#00105B]/10 dark:hover:bg-[#242429] transition"
                                         >
-                                            <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
-                                            <span>Tanya Tupi</span>
+                                            <img src="/assets/tupi/tupi-wave.png" alt="Pusat Bantuan Tupi" className="w-4 h-4 object-contain" />
+                                            <span>Pusat Bantuan Tupi</span>
                                         </button>
                                         <button
                                             type="button"
@@ -463,37 +455,17 @@ export default function AuthenticatedLayout({ header, children }) {
                             type="button"
                             onClick={() => {
                                 setShowingProfileDrawer(false);
-                                launchTupiTour();
-                            }}
-                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-amber-50/70 hover:bg-amber-100/80 dark:bg-amber-500/10 dark:hover:bg-amber-500/20 border border-amber-200/80 dark:border-amber-500/25 transition group"
-                        >
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center border border-amber-300/60 dark:border-amber-500/30 overflow-hidden group-hover:scale-105 transition">
-                                    <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-8 h-8 object-contain" />
-                                </div>
-                                <div className="text-left">
-                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Tur Panduan Tupi</p>
-                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Pelajari semua fitur bersama Tupi</p>
-                                </div>
-                            </div>
-                            <span className="text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition">&rarr;</span>
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setShowingProfileDrawer(false);
                                 setShowingTupiChat(true);
                             }}
                             className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#00105B]/5 hover:bg-[#00105B]/10 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-[#00105B]/20 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-xl bg-[#00105B]/10 dark:bg-[#2A2A30] flex items-center justify-center border border-[#00105B]/20 dark:border-[#3E3E46] overflow-hidden group-hover:scale-105 transition">
-                                    <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-8 h-8 object-contain" />
+                                    <img src="/assets/tupi/tupi-wave.png" alt="Pusat Bantuan Tupi" className="w-8 h-8 object-contain" />
                                 </div>
                                 <div className="text-left">
-                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Tanya Tupi</p>
-                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Layanan tanya jawab seputar Uangku</p>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Pusat Bantuan Tupi</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Tur panduan &amp; tanya jawab asisten</p>
                                 </div>
                             </div>
                             <span className="text-[#00105B] dark:text-zinc-300 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
@@ -579,10 +551,11 @@ export default function AuthenticatedLayout({ header, children }) {
             {/* Full-Body Tupi Interactive Cross-Page Tutorial */}
             <TupiOnboardingTour />
 
-            {/* Tanya Tupi Customer Service Chatbot Modal */}
+            {/* Pusat Bantuan Tupi (Tur Panduan & Tanya Tupi Chatbot Modal) */}
             <TupiChatModal
                 isOpen={showingTupiChat}
                 onClose={() => setShowingTupiChat(false)}
+                onStartTour={launchTupiTour}
             />
 
             {/* Saran & Masukan Developer Feedback Modal */}
