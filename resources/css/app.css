@@ -4,11 +4,11 @@
 
 @layer base {
     html {
-        @apply bg-white dark:bg-[#0B1426];
+        @apply bg-white dark:bg-[#161619];
     }
 
     body {
-        @apply bg-[#F1F5F9] dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 antialiased selection:bg-blue-500/25 selection:text-blue-800 dark:selection:text-blue-200;
+        @apply bg-[#F1F5F9] dark:bg-[#121214] text-slate-800 dark:text-zinc-100 antialiased selection:bg-blue-500/25 selection:text-blue-800 dark:selection:bg-zinc-600/40 dark:selection:text-zinc-100;
         font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     }
 
@@ -19,20 +19,20 @@
 }
 
 @layer utilities {
-    /* High-performance brand-aligned card with crisp daylight contrast and deep navy ambient */
+    /* High-performance brand-aligned card with crisp daylight contrast and elevated neutral charcoal in Dark Mode */
     .glass-card {
-        @apply bg-white dark:bg-[#0E1A33]/95 backdrop-blur-sm sm:backdrop-blur-md border border-slate-200 dark:border-[#1E3158]/70 shadow-[0_1px_3px_0_rgba(15,23,42,0.06),0_6px_16px_-2px_rgba(15,23,42,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-150;
+        @apply bg-white dark:bg-[#1C1C20]/95 backdrop-blur-sm sm:backdrop-blur-md border border-slate-200 dark:border-[#2C2C32] shadow-[0_1px_3px_0_rgba(15,23,42,0.06),0_6px_16px_-2px_rgba(15,23,42,0.05)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.45)] transition-all duration-150;
     }
     
     .glass-card-hover {
-        @apply hover:border-slate-300 dark:hover:border-[#2C487D]/80 hover:shadow-[0_4px_8px_-1px_rgba(15,23,42,0.08),0_12px_24px_-4px_rgba(15,23,42,0.07)] dark:hover:shadow-[0_12px_36px_rgba(0,0,0,0.55)] transition-all duration-150;
+        @apply hover:border-slate-300 dark:hover:border-[#3E3E46] hover:shadow-[0_4px_8px_-1px_rgba(15,23,42,0.08),0_12px_24px_-4px_rgba(15,23,42,0.07)] dark:hover:shadow-[0_12px_36px_rgba(0,0,0,0.55)] transition-all duration-150;
     }
 
     .glass-input {
-        @apply bg-white dark:bg-[#0B152B]/90 border border-slate-300 dark:border-[#1E3158] focus:border-blue-600 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-blue-400/20 rounded-xl transition duration-150 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 shadow-xs;
+        @apply bg-white dark:bg-[#151518] border border-slate-300 dark:border-[#2C2C32] focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-zinc-400/20 rounded-xl transition duration-150 text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 shadow-xs;
     }
 
-    /* Zero-lag GPU radial ambient lighting (Deep Navy & Royal Cobalt + Warm Amber Gold) */
+    /* Zero-lag GPU radial ambient lighting (Light: Cobalt + Amber | Dark: Pure Neutral Charcoal Glow) */
     .ambient-bg-glow {
         background-image: 
             radial-gradient(circle at 25% 10%, rgba(37, 99, 235, 0.08) 0%, transparent 45%),
@@ -42,9 +42,9 @@
 
     .dark .ambient-bg-glow {
         background-image: 
-            radial-gradient(circle at 25% 10%, rgba(37, 99, 235, 0.14) 0%, transparent 45%),
-            radial-gradient(circle at 85% 25%, rgba(30, 58, 138, 0.28) 0%, transparent 45%),
-            radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
+            radial-gradient(circle at 25% 10%, rgba(255, 255, 255, 0.035) 0%, transparent 45%),
+            radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.025) 0%, transparent 45%),
+            radial-gradient(circle at 15% 85%, rgba(245, 158, 11, 0.035) 0%, transparent 40%);
     }
 
     /* Subtle ambient mesh background effects inspired by Uangku mascot */
@@ -62,6 +62,11 @@
 
     .mesh-glow-blue {
         background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+    }
+
+    .dark .mesh-glow-navy,
+    .dark .mesh-glow-blue {
+        background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
     }
 
     .mesh-glow-rose {
@@ -134,6 +139,15 @@
     }
 }
 
+@keyframes tupiRingPulseDark {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(244, 244, 245, 0.35), 0 0 24px rgba(255, 255, 255, 0.18);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(244, 244, 245, 0), 0 0 34px rgba(255, 255, 255, 0.28);
+    }
+}
+
 .animate-tupi-float {
     animation: tupiFloat 3.2s ease-in-out infinite;
 }
@@ -148,6 +162,10 @@
 
 .animate-tupi-ring {
     animation: tupiRingPulse 2s ease-in-out infinite;
+}
+
+.dark .animate-tupi-ring {
+    animation: tupiRingPulseDark 2s ease-in-out infinite;
 }
 
 /* Pilihan 1: Tupi Bouncing Mascot & Shadow Animations */

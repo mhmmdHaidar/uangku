@@ -4,11 +4,11 @@ import { Link } from '@inertiajs/react';
 
 export default function GuestLayout({ children }) {
     return (
-        <div className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 pt-safe pb-safe px-safe bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200">
+        <div className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 pt-safe pb-safe px-safe bg-[#F1F5F9] dark:bg-[#121214] transition-colors duration-200">
             {/* Ambient background glows matching Uangku palette */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-60 dark:opacity-40">
-                <div className="absolute top-10 left-1/4 w-80 h-80 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-3xl" />
-                <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-3xl" />
+                <div className="absolute top-10 left-1/4 w-80 h-80 bg-blue-500/10 dark:bg-white/[0.04] rounded-full blur-3xl" />
+                <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-amber-500/10 dark:bg-amber-500/[0.06] rounded-full blur-3xl" />
             </div>
 
             {/* Top theme switcher */}
@@ -23,11 +23,11 @@ export default function GuestLayout({ children }) {
                     </Link>
                 </div>
 
-                <div className="w-full glass-card border border-slate-300 dark:border-[#1E3158]/70 rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-2xl">
+                <div className="w-full glass-card border border-slate-300 dark:border-[#2C2C32] rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-2xl">
                     {children}
                 </div>
 
-                <div className="mt-6 text-center text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                <div className="mt-6 text-center text-xs text-slate-500 dark:text-zinc-400 space-y-1">
                     <p>&copy; {new Date().getFullYear()} Uangku &bull; Kelola keuangan pribadi lebih mudah</p>
                     <p>
                         Dibuat oleh{' '}
@@ -35,7 +35,7 @@ export default function GuestLayout({ children }) {
                             href="https://my-portfolio-alpha-roan-39.vercel.app"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-bold text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-500 transition inline-flex items-center gap-1"
+                            className="font-bold text-blue-600 dark:text-zinc-200 hover:underline hover:text-blue-500 dark:hover:text-white transition inline-flex items-center gap-1"
                         >
                             <span>Nur Muhammad Haidar</span>
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

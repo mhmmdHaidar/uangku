@@ -397,7 +397,7 @@ export default function TransactionIndex({
                 {/* Header: Title, Subtitle, & Primary Actions with Solar Bold Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300">
                             <ReceiptTextBold className="w-4 h-4" />
                             <span>Audit &amp; Catatan Keuangan</span>
                         </div>
@@ -413,9 +413,9 @@ export default function TransactionIndex({
                         {/* Export CSV Button */}
                         <a
                             href={route('transactions.export', currentExportQuery)}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#0E1A33] border border-slate-300 dark:border-[#1E3158] hover:border-blue-500 dark:hover:border-blue-500/50 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1C1C20] border border-slate-300 dark:border-[#2C2C32] hover:border-blue-500 dark:hover:border-[#3E3E46] text-slate-700 dark:text-zinc-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
                         >
-                            <ExportBold className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            <ExportBold className="w-4 h-4 text-blue-600 dark:text-zinc-300" />
                             <span>Ekspor CSV</span>
                         </a>
 
@@ -426,7 +426,7 @@ export default function TransactionIndex({
                                 setEditingTransaction(null);
                                 setIsCreateOpen(true);
                             }}
-                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 transition-all duration-200 focus:outline-none"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-none transition-all duration-200 focus:outline-none"
                         >
                             <PlusBold className="w-4 h-4" />
                             <span>Catat Transaksi Baru</span>
@@ -439,7 +439,7 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 <div data-tour="transactions-summary" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Card 1: Total Transaksi */}
-                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm flex flex-col justify-between group">
+                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#2C2C32] shadow-sm flex flex-col justify-between group">
                         <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             <span>Total Transaksi</span>
                             <PocketBadge className="w-10 h-10" />
@@ -452,13 +452,13 @@ export default function TransactionIndex({
                                 {liveSummary.income_count} Pemasukan • {liveSummary.expense_count} Pengeluaran
                             </p>
                         </div>
-                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#1E3158]/60 text-[11px] text-slate-400">
+                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#2C2C32] text-[11px] text-slate-400">
                             Terhitung instan real-time
                         </div>
                     </div>
 
                     {/* Card 2: Total Pemasukan Periode Ini */}
-                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm flex flex-col justify-between group">
+                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#2C2C32] shadow-sm flex flex-col justify-between group">
                         <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             <span>Pemasukan Terfilter</span>
                             <MoneyBadge className="w-10 h-10" />
@@ -471,13 +471,13 @@ export default function TransactionIndex({
                                 Rata-rata: {formatRupiah(liveSummary.avg_income)} / trx
                             </p>
                         </div>
-                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#1E3158]/60 text-[11px] text-slate-400">
+                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#2C2C32] text-[11px] text-slate-400">
                             {liveSummary.income_count} catatan arus masuk
                         </div>
                     </div>
 
                     {/* Card 3: Total Pengeluaran Periode Ini */}
-                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm flex flex-col justify-between group">
+                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#2C2C32] shadow-sm flex flex-col justify-between group">
                         <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             <span>Pengeluaran Terfilter</span>
                             <ExpenseBadge className="w-10 h-10" />
@@ -490,13 +490,13 @@ export default function TransactionIndex({
                                 Rata-rata: {formatRupiah(liveSummary.avg_expense)} / trx
                             </p>
                         </div>
-                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#1E3158]/60 text-[11px] text-slate-400">
+                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#2C2C32] text-[11px] text-slate-400">
                             {liveSummary.expense_count} catatan arus keluar
                         </div>
                     </div>
 
                     {/* Card 4: Arus Kas Bersih (Net Cash Flow) */}
-                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm flex flex-col justify-between group">
+                    <div className="glass-card rounded-3xl p-5 border border-slate-200 dark:border-[#2C2C32] shadow-sm flex flex-col justify-between group">
                         <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                             <span>Arus Kas Bersih (Net)</span>
                             <CoinsBadge className="w-10 h-10" />
@@ -522,7 +522,7 @@ export default function TransactionIndex({
                                 </span>
                             </div>
                         </div>
-                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#1E3158]/60 text-[11px] text-slate-400 truncate">
+                        <div className="pt-2.5 border-t border-slate-100 dark:border-[#2C2C32] text-[11px] text-slate-400 truncate">
                             {liveSummary.top_expense_category ? `Terbesar: ${liveSummary.top_expense_category.name}` : 'Saldo Arus Terkonsolidasi'}
                         </div>
                     </div>
@@ -531,12 +531,12 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 {/* 2. FILTER & SEARCH CONTROL SUITE (REAL-TIME 0MS)         */}
                 {/* ======================================================== */}
-                <div data-tour="transactions-filter" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
+                <div data-tour="transactions-filter" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#2C2C32] shadow-sm">
                     {/* Period Selector Tabs */}
                     <div>
                         <div className="flex items-center justify-between mb-2.5">
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <CalendarBold className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                                <CalendarBold className="w-3.5 h-3.5 text-blue-600 dark:text-zinc-300" />
                                 Filter Periode Waktu
                             </span>
                             {hasActiveFilters && (
@@ -560,8 +560,8 @@ export default function TransactionIndex({
                                     onClick={() => setSelectedPeriod(opt.key)}
                                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all duration-150 ${
                                         selectedPeriod === opt.key
-                                            ? 'bg-blue-600 text-white shadow-sm'
-                                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#112143] dark:text-slate-300 dark:hover:bg-[#162A54] border border-slate-200 dark:border-[#1E3158]'
+                                            ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm'
+                                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#222227] dark:text-zinc-300 dark:hover:bg-[#2A2A32] border border-slate-200 dark:border-[#2C2C32]'
                                     }`}
                                 >
                                     {opt.label}
@@ -571,14 +571,14 @@ export default function TransactionIndex({
 
                         {/* Custom Date Inputs if 'custom' is active */}
                         {selectedPeriod === 'custom' && (
-                            <div className="mt-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200 dark:border-[#1E3158] flex flex-wrap items-center gap-3 text-xs">
+                            <div className="mt-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-[#161619] border border-slate-200 dark:border-[#2C2C32] flex flex-wrap items-center gap-3 text-xs">
                                 <div className="flex items-center gap-2">
                                     <span className="font-semibold text-slate-500 dark:text-slate-400">Mulai:</span>
                                     <input
                                         type="date"
                                         value={startDate}
                                         onChange={(e) => setStartDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400"
                                     />
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -587,7 +587,7 @@ export default function TransactionIndex({
                                         type="date"
                                         value={endDate}
                                         onChange={(e) => setEndDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400"
                                     />
                                 </div>
                             </div>
@@ -595,7 +595,7 @@ export default function TransactionIndex({
                     </div>
 
                     {/* Filter & Search Toolbar */}
-                    <div className="pt-3 border-t border-slate-200/80 dark:border-[#1E3158]/60 flex flex-col lg:flex-row gap-3">
+                    <div className="pt-3 border-t border-slate-200/80 dark:border-[#2C2C32] flex flex-col lg:flex-row gap-3">
                         {/* Search Input (Real-time live typing) */}
                         <div className="relative flex-1">
                             <SearchBold className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -604,7 +604,7 @@ export default function TransactionIndex({
                                 placeholder="Cari judul, catatan, atau kategori..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 shadow-xs transition"
+                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
                             />
                             {search && (
                                 <button
@@ -624,7 +624,7 @@ export default function TransactionIndex({
                                 value={selectedType}
                                 onChange={(e) => setSelectedType(e.target.value)}
                                 aria-label="Filter Jenis Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
                             >
                                 <option value="">Semua Jenis (Masuk &amp; Keluar)</option>
                                 <option value="income">Pemasukan (+)</option>
@@ -637,7 +637,7 @@ export default function TransactionIndex({
                                     value={selectedWalletId}
                                     onChange={(e) => setSelectedWalletId(e.target.value)}
                                     aria-label="Filter Dompet / Rekening"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
                                 >
                                     <option value="">Semua Dompet / Rekening</option>
                                     {wallets.map((w) => (
@@ -654,7 +654,7 @@ export default function TransactionIndex({
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
                                     aria-label="Filter Kategori"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
                                 >
                                     <option value="">Semua Kategori</option>
                                     {categories.map((c) => (
@@ -670,7 +670,7 @@ export default function TransactionIndex({
                                 value={selectedSort}
                                 onChange={(e) => setSelectedSort(e.target.value)}
                                 aria-label="Urutkan Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
                             >
                                 <option value="date_desc">Tanggal: Terbaru</option>
                                 <option value="date_asc">Tanggal: Terlama</option>
@@ -679,14 +679,14 @@ export default function TransactionIndex({
                             </select>
 
                             {/* View Mode Toggle: Cards vs Table */}
-                            <div className="flex items-center p-0.5 rounded-xl bg-slate-200/80 dark:bg-[#0A1120] border border-slate-300/80 dark:border-[#1E3158] shrink-0">
+                            <div className="flex items-center p-0.5 rounded-xl bg-slate-200/80 dark:bg-[#161619] border border-slate-300/80 dark:border-[#2C2C32] shrink-0">
                                 <button
                                     type="button"
                                     onClick={() => setViewMode('cards')}
                                     title="Tampilan Kartu Detail"
                                     className={`p-1.5 rounded-lg transition ${
                                         viewMode === 'cards'
-                                            ? 'bg-white dark:bg-[#112143] text-blue-600 dark:text-blue-400 shadow-sm'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-600 dark:text-white shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
                                     }`}
                                 >
@@ -698,7 +698,7 @@ export default function TransactionIndex({
                                     title="Tampilan Tabel Ringkas"
                                     className={`p-1.5 rounded-lg transition ${
                                         viewMode === 'table'
-                                            ? 'bg-white dark:bg-[#112143] text-blue-600 dark:text-blue-400 shadow-sm'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-600 dark:text-white shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
                                     }`}
                                 >
@@ -712,9 +712,9 @@ export default function TransactionIndex({
                 {/* ======================================================== */}
                 {/* 3. DETAILED TRANSACTION LIST / TABLE VIEW                */}
                 {/* ======================================================== */}
-                <div data-tour="transactions-list" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
+                <div data-tour="transactions-list" className="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-slate-200 dark:border-[#2C2C32] shadow-sm">
                     {/* Header: Found count */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pb-2 border-b border-slate-100 dark:border-[#1E3158]/60">
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pb-2 border-b border-slate-100 dark:border-[#2C2C32]">
                         <span className="font-semibold">
                             Menampilkan <strong>{totalFiltered}</strong> catatan transaksi
                         </span>
@@ -737,7 +737,7 @@ export default function TransactionIndex({
                                     return (
                                         <div
                                             key={item.id}
-                                            className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0E1A33]/70 hover:bg-slate-50/90 dark:hover:bg-[#112143]/80 border border-slate-200/90 hover:border-slate-300 dark:border-[#1E3158]/60 dark:hover:border-[#1E3158] transition-all duration-150 shadow-2xs group flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                                            className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1C1C20]/90 hover:bg-slate-50/90 dark:hover:bg-[#242429] border border-slate-200/90 hover:border-slate-300 dark:border-[#2C2C32] dark:hover:border-[#3E3E46] transition-all duration-150 shadow-2xs group flex flex-col md:flex-row md:items-center md:justify-between gap-4"
                                         >
                                             {/* Left Section: Icon, Title, Badges & Notes */}
                                             <div className="flex items-start gap-3.5 min-w-0">
@@ -761,14 +761,14 @@ export default function TransactionIndex({
                                                         </h3>
 
                                                         {item.category && (
-                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#112143] dark:text-slate-300 border border-slate-200 dark:border-[#1E3158]">
+                                                            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-300 border border-slate-200 dark:border-[#32323A]">
                                                                 <TagBold className="w-3 h-3 mr-1 text-slate-400" />
                                                                 {item.category}
                                                             </span>
                                                         )}
 
-                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#112143] dark:text-slate-200 border border-slate-200 dark:border-[#1E3158]">
-                                                            <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500'}`} />
+                                                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A]">
+                                                            <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500 dark:bg-zinc-400'}`} />
                                                             <span>{walletName}</span>
                                                             {wallet?.account_number && (
                                                                 <span className="text-slate-400 font-mono">
@@ -790,7 +790,7 @@ export default function TransactionIndex({
 
                                                     {/* Full Unclipped Notes (if any) */}
                                                     {item.notes && (
-                                                        <div className="mt-2 text-xs text-slate-600 dark:text-slate-300 p-2.5 rounded-xl bg-slate-100/70 dark:bg-[#0A1120]/60 border border-slate-200/70 dark:border-[#1E3158]/50 flex items-start gap-2 max-w-2xl">
+                                                        <div className="mt-2 text-xs text-slate-600 dark:text-slate-300 p-2.5 rounded-xl bg-slate-100/70 dark:bg-[#151518] border border-slate-200/70 dark:border-[#2C2C32] flex items-start gap-2 max-w-2xl">
                                                             <NotesBold className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
                                                             <span className="whitespace-pre-wrap leading-relaxed">
                                                                 {item.notes}
@@ -801,7 +801,7 @@ export default function TransactionIndex({
                                             </div>
 
                                             {/* Right Section: Amount & Actions */}
-                                            <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-[#1E3158]/40">
+                                            <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-[#2C2C32]">
                                                 <div className="text-left md:text-right">
                                                     <p
                                                         className={`text-base sm:text-lg font-extrabold tabular-nums tracking-tight ${
@@ -823,7 +823,7 @@ export default function TransactionIndex({
                                                         type="button"
                                                         onClick={() => setDetailTransaction(item)}
                                                         title="Lihat Detail Transaksi"
-                                                        className="p-2 rounded-xl text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent hover:border-slate-300 dark:hover:border-[#1E3158] transition"
+                                                        className="p-2 rounded-xl text-slate-500 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent hover:border-slate-300 dark:hover:border-[#32323A] transition"
                                                     >
                                                         <EyeBold className="w-4 h-4" />
                                                     </button>
@@ -834,7 +834,7 @@ export default function TransactionIndex({
                                                             setIsCreateOpen(true);
                                                         }}
                                                         title="Ubah Transaksi"
-                                                        className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent hover:border-slate-300 dark:hover:border-[#1E3158] transition"
+                                                        className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent hover:border-slate-300 dark:hover:border-[#32323A] transition"
                                                     >
                                                         <EditBold className="w-4 h-4" />
                                                     </button>
@@ -857,10 +857,10 @@ export default function TransactionIndex({
                             </div>
                         ) : (
                             /* --- VIEW MODE 2: COMPLETE TABLE --- */
-                            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-[#1E3158]/70">
+                            <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-[#2C2C32]">
                                 <table className="w-full text-left text-xs border-collapse">
                                     <thead>
-                                        <tr className="bg-slate-100/80 dark:bg-[#0A1120] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-[#1E3158]/70">
+                                        <tr className="bg-slate-100/80 dark:bg-[#161619] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-[#2C2C32]">
                                             <th className="py-3 px-4">Tanggal</th>
                                             <th className="py-3 px-4">Judul &amp; Catatan</th>
                                             <th className="py-3 px-4">Kategori</th>
@@ -870,7 +870,7 @@ export default function TransactionIndex({
                                             <th className="py-3 px-4 text-center">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-slate-200/70 dark:divide-[#1E3158]/50">
+                                    <tbody className="divide-y divide-slate-200/70 dark:divide-[#2C2C32]">
                                         {paginatedItems.map((item) => {
                                             const isIncome = item.type === 'income';
                                             const wallet = item.wallet_account;
@@ -895,7 +895,7 @@ export default function TransactionIndex({
                                                         )}
                                                     </td>
                                                     <td className="py-3.5 px-4 whitespace-nowrap">
-                                                        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#112143] dark:text-slate-300 border border-slate-200 dark:border-[#1E3158]">
+                                                        <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-300 border border-slate-200 dark:border-[#32323A]">
                                                             {item.category || '-'}
                                                         </span>
                                                     </td>
@@ -930,7 +930,7 @@ export default function TransactionIndex({
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setDetailTransaction(item)}
-                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-[#112143]"
+                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429]"
                                                                 title="Detail"
                                                             >
                                                                 <EyeBold className="w-3.5 h-3.5" />
@@ -941,7 +941,7 @@ export default function TransactionIndex({
                                                                     setEditingTransaction(item);
                                                                     setIsCreateOpen(true);
                                                                 }}
-                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#112143]"
+                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429]"
                                                                 title="Ubah"
                                                             >
                                                                 <EditBold className="w-3.5 h-3.5" />
@@ -969,7 +969,7 @@ export default function TransactionIndex({
                     ) : (
                         /* Empty State with Mascot */
                         <div className="py-14 px-4 text-center">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] p-1.5 border border-[#1E3158] mb-3.5 shadow-md flex items-center justify-center overflow-hidden group">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#1E3158] dark:border-[#32323A] mb-3.5 shadow-md flex items-center justify-center overflow-hidden group">
                                 <img
                                     src="/assets/mascot-avatar.png"
                                     alt="Si Uangku"
@@ -989,7 +989,7 @@ export default function TransactionIndex({
                                     <button
                                         type="button"
                                         onClick={handleResetAll}
-                                        className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#112143] dark:hover:bg-[#162A54] border border-slate-300/80 dark:border-[#1E3158] transition"
+                                        className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-zinc-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#222227] dark:hover:bg-[#2A2A32] border border-slate-300/80 dark:border-[#32323A] transition"
                                     >
                                         Reset Filter
                                     </button>
@@ -1000,7 +1000,7 @@ export default function TransactionIndex({
                                         setEditingTransaction(null);
                                         setIsCreateOpen(true);
                                     }}
-                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 transition shadow-sm"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
                                 >
                                     <PlusBold className="w-4 h-4" />
                                     <span>Catat Transaksi Baru</span>
@@ -1011,7 +1011,7 @@ export default function TransactionIndex({
 
                     {/* Instant Real-Time Client Pagination Controls (0ms Delay) */}
                     {totalPages > 1 && (
-                        <div className="pt-4 border-t border-slate-200/80 dark:border-[#1E3158]/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+                        <div className="pt-4 border-t border-slate-200/80 dark:border-[#2C2C32] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
                             <div>
                                 Menampilkan <span className="font-semibold text-slate-700 dark:text-slate-200">{(currentPage - 1) * pageSize + 1}</span> sampai{' '}
                                 <span className="font-semibold text-slate-700 dark:text-slate-200">{Math.min(currentPage * pageSize, totalFiltered)}</span> dari{' '}
@@ -1023,7 +1023,7 @@ export default function TransactionIndex({
                                     type="button"
                                     disabled={currentPage === 1}
                                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                                    className="p-1.5 rounded-lg border border-slate-200 dark:border-[#1E3158] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#112143]"
+                                    className="p-1.5 rounded-lg border border-slate-200 dark:border-[#2C2C32] text-slate-600 dark:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#242429]"
                                 >
                                     <ChevronLeft className="w-4 h-4" />
                                 </button>
@@ -1042,8 +1042,8 @@ export default function TransactionIndex({
                                             onClick={() => setCurrentPage(pageNum)}
                                             className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${
                                                 currentPage === pageNum
-                                                    ? 'bg-blue-600 text-white shadow-xs'
-                                                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent'
+                                                    ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
+                                                    : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent'
                                             }`}
                                         >
                                             {pageNum}
@@ -1055,7 +1055,7 @@ export default function TransactionIndex({
                                     type="button"
                                     disabled={currentPage === totalPages}
                                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                                    className="p-1.5 rounded-lg border border-slate-200 dark:border-[#1E3158] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#112143]"
+                                    className="p-1.5 rounded-lg border border-slate-200 dark:border-[#2C2C32] text-slate-600 dark:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#242429]"
                                 >
                                     <ChevronRight className="w-4 h-4" />
                                 </button>

@@ -124,7 +124,7 @@ export default function WalletModal({
                     <button
                         type="button"
                         onClick={onClose}
-                        className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                        className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -145,11 +145,11 @@ export default function WalletModal({
                                         onClick={() => setData('type', t.key)}
                                         className={`flex flex-col items-start p-2.5 rounded-xl border text-left transition-all ${
                                             isSelected
-                                                ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-500 text-blue-800 dark:text-blue-300 ring-1 ring-blue-500/30 shadow-xs'
-                                                : 'bg-white dark:bg-slate-900/40 border-slate-300 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-slate-400 shadow-2xs'
+                                                ? 'bg-blue-50 dark:bg-[#26262C] border-blue-500 dark:border-zinc-300 text-blue-800 dark:text-white ring-1 ring-blue-500/30 dark:ring-zinc-300/20 shadow-xs'
+                                                : 'bg-white dark:bg-[#151518] border-slate-300 dark:border-[#2C2C32] text-slate-700 dark:text-zinc-300 hover:border-slate-400 dark:hover:border-[#3E3E46] shadow-2xs'
                                         }`}
                                     >
-                                        <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`} />
+                                        <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? 'text-blue-600 dark:text-white' : 'text-slate-400'}`} />
                                         <span className="text-xs font-bold leading-tight">{t.label}</span>
                                         <span className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{t.desc}</span>
                                     </button>
@@ -213,7 +213,7 @@ export default function WalletModal({
                         </div>
 
                         {data.initial_balance > 0 && (
-                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/40 px-2.5 py-1 rounded-xl border border-blue-200 dark:border-blue-500/25">
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-blue-700 dark:text-zinc-200 bg-blue-50 dark:bg-[#242429] px-2.5 py-1 rounded-xl border border-blue-200 dark:border-[#32323A]">
                                 <span className="font-semibold shrink-0">Terbaca:</span>
                                 <span className="italic font-medium truncate">{terbilangRupiah(data.initial_balance)}</span>
                             </div>

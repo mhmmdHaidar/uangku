@@ -61,14 +61,14 @@ export default function Dashboard({
                 {/* Top Header: Date, Welcome Greeting & Add Transaction Button */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
-                            <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300">
+                            <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-zinc-300 animate-pulse" />
                             <span>{formatToday()}</span>
                         </div>
                         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
                             Selamat Datang, {firstName}
                         </h1>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-0.5">
                             Pantau dan kendalikan seluruh arus kas finansialmu dengan presisi.
                         </p>
                     </div>
@@ -78,7 +78,7 @@ export default function Dashboard({
                             type="button"
                             data-tour="dashboard-add-tx"
                             onClick={handleOpenCreate}
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 transition-all duration-200 focus:outline-none"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-black/40 transition-all duration-200 focus:outline-none"
                         >
                             <PlusCircleDuotone className="w-4 h-4" />
                             <span>Tambah Transaksi Baru</span>

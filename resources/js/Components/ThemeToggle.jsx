@@ -9,7 +9,7 @@ export default function ThemeToggle({ className = '' }) {
         document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
         const themeMeta = document.querySelector('meta[name="theme-color"]');
         if (themeMeta) {
-            themeMeta.setAttribute('content', dark ? '#0B1426' : '#FFFFFF');
+            themeMeta.setAttribute('content', dark ? '#161619' : '#FFFFFF');
         }
     };
 
@@ -33,7 +33,7 @@ export default function ThemeToggle({ className = '' }) {
             onClick={toggleTheme}
             aria-label={isDark ? 'Ganti ke Mode Terang' : 'Ganti ke Mode Gelap'}
             title={isDark ? 'Mode Terang' : 'Mode Gelap'}
-            className={`relative inline-flex items-center justify-center p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/70 border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 transition duration-150 focus:outline-none ${className}`}
+            className={`relative inline-flex items-center justify-center p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-zinc-100 hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent hover:border-slate-200/80 dark:hover:border-white/10 transition duration-150 focus:outline-none ${className}`}
         >
             {isDark ? (
                 <SunDuotone className="w-4 h-4 text-amber-400 transition-transform duration-200 rotate-0 hover:rotate-45" />

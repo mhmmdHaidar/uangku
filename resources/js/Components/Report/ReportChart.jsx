@@ -121,7 +121,7 @@ export default function ReportChart({
 
                 <div className="flex flex-wrap items-center gap-3">
                     {/* Timeframe Switcher Tabs */}
-                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-slate-800/80 rounded-xl border border-slate-300/80 dark:border-white/5">
+                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32]">
                         {[
                             { key: '1w', label: '1 Minggu' },
                             { key: '1m', label: '1 Bulan' },
@@ -134,8 +134,8 @@ export default function ReportChart({
                                 onClick={() => onTimeframeChange(item.key)}
                                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 ${
                                     timeframe === item.key
-                                        ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs border border-slate-300/80 dark:border-transparent'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                                        ? 'bg-white dark:bg-[#2A2A32] text-slate-900 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                        : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                                 }`}
                             >
                                 {item.label}
@@ -144,15 +144,15 @@ export default function ReportChart({
                     </div>
 
                     {/* Chart Mode Toggle */}
-                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-slate-800/80 rounded-xl border border-slate-300/80 dark:border-white/5">
+                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32]">
                         <button
                             type="button"
                             onClick={() => setChartMode('bar')}
                             title="Diagram Batang"
                             className={`p-1.5 rounded-lg transition-all ${
                                 chartMode === 'bar'
-                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
-                                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >
                             <BarChart3 className="w-4 h-4" />
@@ -163,8 +163,8 @@ export default function ReportChart({
                             title="Grafik Garis Area"
                             className={`p-1.5 rounded-lg transition-all ${
                                 chartMode === 'area'
-                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
-                                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >
                             <LineChart className="w-4 h-4" />
@@ -407,7 +407,7 @@ export default function ReportChart({
                                                     cx={ptIncome.x}
                                                     cy={ptIncome.y}
                                                     r="5"
-                                                    className="fill-emerald-500 stroke-white dark:stroke-slate-900"
+                                                    className="fill-emerald-500 stroke-white dark:stroke-[#1C1C20]"
                                                     strokeWidth="2"
                                                 />
 
@@ -416,7 +416,7 @@ export default function ReportChart({
                                                     cx={ptExpense.x}
                                                     cy={ptExpense.y}
                                                     r="5"
-                                                    className="fill-rose-500 stroke-white dark:stroke-slate-900"
+                                                    className="fill-rose-500 stroke-white dark:stroke-[#1C1C20]"
                                                     strokeWidth="2"
                                                 />
                                             </g>

@@ -9,15 +9,15 @@ export default function GoldCoinLoader({
 
     return createPortal(
         <div
-            className="fixed inset-0 z-[95] flex items-center justify-center p-4 bg-slate-900/35 dark:bg-[#070D19]/70 backdrop-blur-[2px]"
+            className="fixed inset-0 z-[95] flex items-center justify-center p-4 bg-slate-900/35 dark:bg-black/75 backdrop-blur-[2px]"
             role="status"
             aria-live="polite"
             aria-label={message}
         >
-            <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#0E1A33]/95 border border-slate-200 dark:border-[#1E3158] shadow-2xl px-8 py-7 min-w-[240px] max-w-[90vw] text-center">
-                {/* Pulsing Cobalt Halo Ring + 3D Spinning Gold Rp Coin */}
+            <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#1C1C20]/95 border border-slate-200 dark:border-[#2C2C32] shadow-2xl px-8 py-7 min-w-[240px] max-w-[90vw] text-center">
+                {/* Pulsing Halo Ring + 3D Spinning Gold Rp Coin */}
                 <div
-                    className="relative w-24 h-24 rounded-full border-2 border-blue-500/40 bg-blue-500/5 flex items-center justify-center animate-tupi-ring"
+                    className="relative w-24 h-24 rounded-full border-2 border-blue-500/40 dark:border-zinc-400/40 bg-blue-500/5 dark:bg-white/[0.04] flex items-center justify-center animate-tupi-ring"
                     style={{ perspective: '700px' }}
                 >
                     <svg

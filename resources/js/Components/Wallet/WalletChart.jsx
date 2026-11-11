@@ -115,7 +115,7 @@ export default function WalletChart({
             {/* Top Toolbar: Title, Period, Metric Summary, and Controls */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-white/5">
                 <div>
-                    <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 mb-0.5">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300 mb-0.5">
                         <TrendingUp className="w-3.5 h-3.5" />
                         <span>Tren Arus Kas {walletName ? `• ${walletName}` : ''}</span>
                     </div>
@@ -166,7 +166,7 @@ export default function WalletChart({
                 {/* Timeframe & Display Mode Controls */}
                 <div className="flex items-center gap-2 shrink-0">
                     {/* Timeframe filter pills */}
-                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-white/[0.04] rounded-xl border border-slate-300/80 dark:border-white/[0.05]">
+                    <div className="flex items-center p-1 bg-slate-200/60 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32]">
                         {timeframes.map((tf) => (
                             <button
                                 key={tf.key}
@@ -174,8 +174,8 @@ export default function WalletChart({
                                 onClick={() => onTimeframeChange(tf.key)}
                                 className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition ${
                                     timeframe === tf.key
-                                        ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-xs border border-slate-300/80 dark:border-transparent'
-                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                                        ? 'bg-white dark:bg-[#2A2A32] text-slate-900 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                        : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
                                 }`}
                             >
                                 {tf.label}
@@ -184,15 +184,15 @@ export default function WalletChart({
                     </div>
 
                     {/* Chart Style Toggle: Bar vs Area */}
-                    <div className="hidden sm:flex items-center p-1 bg-slate-200/60 dark:bg-white/[0.04] rounded-xl border border-slate-300/80 dark:border-white/[0.05]">
+                    <div className="hidden sm:flex items-center p-1 bg-slate-200/60 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32]">
                         <button
                             type="button"
                             onClick={() => setChartMode('bar')}
                             title="Tampilan Grafik Batang"
                             className={`p-1.5 rounded-lg transition ${
                                 chartMode === 'bar'
-                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
-                                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >
                             <BarChart3 className="w-3.5 h-3.5" />
@@ -203,8 +203,8 @@ export default function WalletChart({
                             title="Tampilan Grafik Garis / Area"
                             className={`p-1.5 rounded-lg transition ${
                                 chartMode === 'area'
-                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
-                                    : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >
                             <LineChart className="w-3.5 h-3.5" />
@@ -385,7 +385,7 @@ export default function WalletChart({
                                                     cx={ptIncome.x}
                                                     cy={ptIncome.y}
                                                     r="5"
-                                                    className="fill-emerald-500 stroke-white dark:stroke-slate-900"
+                                                    className="fill-emerald-500 stroke-white dark:stroke-[#1C1C20]"
                                                     strokeWidth="2"
                                                 />
                                                 {/* Expense dot */}
@@ -393,7 +393,7 @@ export default function WalletChart({
                                                     cx={ptExpense.x}
                                                     cy={ptExpense.y}
                                                     r="5"
-                                                    className="fill-rose-500 stroke-white dark:stroke-slate-900"
+                                                    className="fill-rose-500 stroke-white dark:stroke-[#1C1C20]"
                                                     strokeWidth="2"
                                                 />
                                             </>
@@ -432,7 +432,7 @@ export default function WalletChart({
 
                 {/* Interactive Tooltip Card */}
                 {hoveredData && (
-                    <div className="absolute top-3 right-3 sm:right-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-xl p-3 border border-slate-200 dark:border-white/10 shadow-lg text-xs pointer-events-none transition-all duration-150 min-w-[190px]">
+                    <div className="absolute top-3 right-3 sm:right-6 bg-white/95 dark:bg-[#1C1C20]/95 backdrop-blur-md rounded-xl p-3 border border-slate-200 dark:border-[#2C2C32] shadow-lg text-xs pointer-events-none transition-all duration-150 min-w-[190px]">
                         <p className="font-semibold text-slate-900 dark:text-white border-b border-slate-100 dark:border-white/5 pb-1.5 mb-2">
                             {hoveredData.full_label || hoveredData.label}
                         </p>

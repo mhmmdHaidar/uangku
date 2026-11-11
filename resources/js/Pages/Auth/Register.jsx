@@ -128,7 +128,7 @@ export default function Register() {
                     Sudah memiliki akun?{' '}
                     <Link
                         href={route('login')}
-                        className="font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                        className="font-semibold text-blue-600 dark:text-zinc-200 hover:underline"
                     >
                         Masuk di sini
                     </Link>

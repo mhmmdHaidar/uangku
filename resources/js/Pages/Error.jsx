@@ -30,7 +30,7 @@ export default function Error({ status = 404 }) {
     const currentError = errorDetails[status] || errorDetails[404];
 
     return (
-        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 flex flex-col justify-between p-4 sm:p-6 relative overflow-hidden transition-colors duration-200">
+        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#121214] text-slate-800 dark:text-zinc-100 flex flex-col justify-between p-4 sm:p-6 relative overflow-hidden transition-colors duration-200">
             <Head title={currentError.title} />
 
             {/* Zero-lag ambient background glow */}
@@ -46,10 +46,10 @@ export default function Error({ status = 404 }) {
 
             {/* Content Card with Mascot */}
             <main className="relative z-10 max-w-lg w-full mx-auto my-auto py-8 text-center">
-                <div className="glass-card rounded-3xl p-8 sm:p-10 border border-slate-200 dark:border-[#1E3158]/80 shadow-xl">
+                <div className="glass-card rounded-3xl p-8 sm:p-10 border border-slate-200 dark:border-[#2C2C32] shadow-xl">
                     {/* Mascot Illustration with Gentle Float */}
                     <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-blue-500/15 dark:bg-blue-500/20 rounded-full blur-2xl" />
+                        <div className="absolute inset-0 bg-blue-500/15 dark:bg-white/[0.06] rounded-full blur-2xl" />
                         <img
                             src="/assets/mascot.png"
                             alt="Si Uangku"
@@ -66,7 +66,7 @@ export default function Error({ status = 404 }) {
                         {currentError.subtitle}
                     </h1>
 
-                    <p className="mt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm mx-auto">
+                    <p className="mt-2 text-xs sm:text-sm text-slate-500 dark:text-zinc-400 leading-relaxed max-w-sm mx-auto">
                         {currentError.description}
                     </p>
 
@@ -75,7 +75,7 @@ export default function Error({ status = 404 }) {
                         <Link
                             href={route('dashboard')}
                             prefetch
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 transition duration-150"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-black/40 transition duration-150"
                         >
                             <SquaresFourDuotone className="w-4 h-4" />
                             <span>Buka Dashboard</span>
@@ -84,7 +84,7 @@ export default function Error({ status = 404 }) {
                         <button
                             type="button"
                             onClick={() => window.history.back()}
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-[#112143] dark:hover:bg-[#182e5c] text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold transition active:scale-95 border border-slate-200 dark:border-[#1E3158]"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-[#242429] dark:hover:bg-[#2E2E35] text-slate-700 dark:text-zinc-200 text-xs sm:text-sm font-bold transition active:scale-95 border border-slate-200 dark:border-[#2C2C32]"
                         >
                             <ArrowLeft className="w-4 h-4" />
                             <span>Kembali</span>
@@ -94,7 +94,7 @@ export default function Error({ status = 404 }) {
             </main>
 
             {/* Footer */}
-            <footer className="relative z-10 max-w-7xl w-full mx-auto text-center text-xs text-slate-400 dark:text-slate-500 py-3 space-y-1">
+            <footer className="relative z-10 max-w-7xl w-full mx-auto text-center text-xs text-slate-400 dark:text-zinc-500 py-3 space-y-1">
                 <p>&copy; {new Date().getFullYear()} Uangku &bull; Kelola Keuangan Lebih Mudah &amp; Aman</p>
                 <p>
                     Dibuat oleh{' '}
@@ -102,7 +102,7 @@ export default function Error({ status = 404 }) {
                         href="https://my-portfolio-alpha-roan-39.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-500 transition inline-flex items-center gap-1"
+                        className="font-bold text-blue-600 dark:text-zinc-200 hover:underline hover:text-blue-500 dark:hover:text-white transition inline-flex items-center gap-1"
                     >
                         <span>Nur Muhammad Haidar</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

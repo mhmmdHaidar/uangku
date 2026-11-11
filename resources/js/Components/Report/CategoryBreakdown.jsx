@@ -17,23 +17,23 @@ export default function CategoryBreakdown({
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
                 <div>
                     <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
-                        <PieChart className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                        <PieChart className="w-5 h-5 text-blue-600 dark:text-zinc-200" />
                         Analisis Alokasi Kategori
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">
                         Distribusi persentase aliran dana berdasarkan kategori transaksi
                     </p>
                 </div>
 
                 {/* Tabs */}
-                <div className="flex items-center p-1 bg-slate-100/80 dark:bg-white/[0.04] rounded-xl border border-slate-200/60 dark:border-white/[0.05] self-start sm:self-auto">
+                <div className="flex items-center p-1 bg-slate-100/80 dark:bg-[#161619] rounded-xl border border-slate-200/60 dark:border-[#2C2C32] self-start sm:self-auto">
                     <button
                         type="button"
                         onClick={() => setActiveTab('expense')}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                             activeTab === 'expense'
-                                ? 'bg-white dark:bg-slate-900 text-rose-600 dark:text-rose-400 shadow-sm'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                                ? 'bg-white dark:bg-[#2A2A32] text-rose-600 dark:text-rose-400 shadow-sm'
+                                : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
                         }`}
                     >
                         <ArrowUpRight className="w-3.5 h-3.5" />
@@ -44,8 +44,8 @@ export default function CategoryBreakdown({
                         onClick={() => setActiveTab('income')}
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                             activeTab === 'income'
-                                ? 'bg-white dark:bg-slate-900 text-emerald-600 dark:text-emerald-400 shadow-sm'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                                ? 'bg-white dark:bg-[#2A2A32] text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
                         }`}
                     >
                         <ArrowDownLeft className="w-3.5 h-3.5" />

@@ -505,14 +505,14 @@ export default function TupiOnboardingTour() {
     if (!isActive || !user) return null;
 
     if (isNavigating) {
-        return <div className="fixed inset-0 z-[75] bg-[#070D19]/60 backdrop-blur-[2px] transition-opacity duration-200" />;
+        return <div className="fixed inset-0 z-[75] bg-[#070D19]/60 dark:bg-black/75 backdrop-blur-[2px] transition-opacity duration-200" />;
     }
 
     const isCenterModal = currentStep.mode === 'modal';
     const isSpotlightReady = currentStep.mode === 'spotlight' && targetRect !== null;
 
     if (currentStep.mode === 'spotlight' && !isSpotlightReady) {
-        return <div className="fixed inset-0 z-[75] bg-[#070D19]/70 transition-opacity duration-150" />;
+        return <div className="fixed inset-0 z-[75] bg-[#070D19]/70 dark:bg-black/75 transition-opacity duration-150" />;
     }
 
     const isFirstStep = stepIndex === 0;
@@ -565,7 +565,7 @@ export default function TupiOnboardingTour() {
         <div className="fixed inset-0 z-[75]" aria-modal="true" role="dialog">
             {/* Backdrop / Spotlight Cutout */}
             {isCenterModal ? (
-                <div className="fixed inset-0 bg-[#070D19]/75 backdrop-blur-sm transition-opacity duration-300" />
+                <div className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300" />
             ) : (
                 <>
                     <div className="fixed inset-0 z-[75]" />
@@ -573,7 +573,7 @@ export default function TupiOnboardingTour() {
                         className={`fixed z-[76] pointer-events-none rounded-2xl transition-all duration-300 ease-out border-2 ${
                             isSpecial
                                 ? 'border-amber-400 shadow-[0_0_32px_rgba(251,191,36,0.55)]'
-                                : 'border-blue-400 animate-tupi-ring'
+                                : 'border-blue-400 dark:border-zinc-200 animate-tupi-ring'
                         }`}
                         style={{
                             top: `${Math.max(4, targetRect.top - 8)}px`,
@@ -581,8 +581,8 @@ export default function TupiOnboardingTour() {
                             width: `${targetRect.width + 16}px`,
                             height: `${targetRect.height + 16}px`,
                             boxShadow: isSpecial
-                                ? '0 0 0 9999px rgba(7, 13, 25, 0.78), 0 0 28px rgba(251, 191, 36, 0.45)'
-                                : '0 0 0 9999px rgba(7, 13, 25, 0.76)',
+                                ? '0 0 0 9999px rgba(0, 0, 0, 0.78), 0 0 28px rgba(251, 191, 36, 0.45)'
+                                : '0 0 0 9999px rgba(0, 0, 0, 0.76)',
                         }}
                     />
                     {isSpecial && (
@@ -608,15 +608,15 @@ export default function TupiOnboardingTour() {
                 <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 overflow-y-auto">
                     <div
                         key={currentStep.id}
-                        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-lg rounded-3xl bg-white dark:bg-[#0E1A33] border border-slate-200 dark:border-[#1E3158] shadow-2xl p-6 sm:p-8 text-center animate-tupi-spring overflow-visible mt-14 sm:mt-8"
+                        className="relative w-full max-w-[calc(100vw-24px)] sm:max-w-lg rounded-3xl bg-white dark:bg-[#1C1C20] border border-slate-200 dark:border-[#2C2C32] shadow-2xl p-6 sm:p-8 text-center animate-tupi-spring overflow-visible mt-14 sm:mt-8"
                     >
-                        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-56 h-56 bg-blue-500/20 dark:bg-blue-500/25 rounded-full blur-3xl pointer-events-none" />
+                        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-56 h-56 bg-blue-500/20 dark:bg-white/[0.06] rounded-full blur-3xl pointer-events-none" />
 
                         <button
                             type="button"
                             onClick={() => markTutorialCompleted()}
                             aria-label="Tutup tutorial"
-                            className="absolute top-4 right-4 w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-lg font-medium leading-none transition"
+                            className="absolute top-4 right-4 w-8 h-8 rounded-xl flex items-center justify-center text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#2A2A30] text-lg font-medium leading-none transition"
                         >
                             &times;
                         </button>
@@ -630,22 +630,22 @@ export default function TupiOnboardingTour() {
                             />
                         </div>
 
-                        <div className="inline-block px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-bold mb-3">
+                        <div className="inline-block px-3.5 py-1 rounded-full bg-blue-50 dark:bg-[#242429] border border-blue-200 dark:border-[#3E3E46] text-blue-700 dark:text-zinc-200 text-xs font-bold mb-3">
                             {currentStep.badge}
                         </div>
 
                         <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                             {currentStep.title(firstName)}
                         </h2>
-                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md mx-auto">
+                        <p className="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed max-w-md mx-auto">
                             {currentStep.description}
                         </p>
 
                         {/* Progress Bar */}
                         <div className="mt-5 max-w-xs mx-auto">
-                            <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-700/70 overflow-hidden">
+                            <div className="h-1.5 w-full rounded-full bg-slate-200 dark:bg-[#2C2C32] overflow-hidden">
                                 <div
-                                    className="h-full bg-blue-600 dark:bg-blue-500 rounded-full transition-all duration-300"
+                                    className="h-full bg-blue-600 dark:bg-zinc-200 rounded-full transition-all duration-300"
                                     style={{ width: isFirstStep ? '8%' : '100%' }}
                                 />
                             </div>
@@ -658,14 +658,14 @@ export default function TupiOnboardingTour() {
                                     <button
                                         type="button"
                                         onClick={() => goToStep(1)}
-                                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] text-white text-sm font-bold shadow-lg shadow-blue-600/25 transition"
+                                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:bg-none dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-[0.98] text-white text-sm font-bold shadow-lg shadow-blue-600/25 dark:shadow-black/40 transition"
                                     >
                                         Mulai Tur Bersama Tupi
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => markTutorialCompleted()}
-                                        className="w-full sm:w-auto px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                        className="w-full sm:w-auto px-5 py-3 rounded-2xl text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#2A2A30] transition"
                                     >
                                         Lewati dulu
                                     </button>
@@ -675,14 +675,14 @@ export default function TupiOnboardingTour() {
                                     <button
                                         type="button"
                                         onClick={() => markTutorialCompleted('/dashboard?open_tx=1')}
-                                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] text-white text-sm font-bold shadow-lg shadow-blue-600/25 transition"
+                                        className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:bg-none dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-[0.98] text-white text-sm font-bold shadow-lg shadow-blue-600/25 dark:shadow-black/40 transition"
                                     >
                                         Catat Transaksi Pertama
                                     </button>
                                     <button
                                         type="button"
                                         onClick={() => markTutorialCompleted('/dashboard')}
-                                        className="w-full sm:w-auto px-5 py-3 rounded-2xl border border-slate-300 dark:border-white/10 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                        className="w-full sm:w-auto px-5 py-3 rounded-2xl border border-slate-300 dark:border-[#32323A] text-xs sm:text-sm font-semibold text-slate-700 dark:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#2A2A30] transition"
                                     >
                                         Selesai &amp; ke Dashboard
                                     </button>
@@ -701,10 +701,10 @@ export default function TupiOnboardingTour() {
                     className="fixed z-[80] transition-all duration-300 ease-out"
                 >
                     <div
-                        className={`relative rounded-3xl bg-white dark:bg-[#0E1A33] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-4 sm:p-5 animate-tupi-spring border ${
+                        className={`relative rounded-3xl bg-white dark:bg-[#1C1C20] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-4 sm:p-5 animate-tupi-spring border ${
                             isSpecial
                                 ? 'border-amber-400/80 dark:border-amber-400/60 ring-1 ring-amber-400/30'
-                                : 'border-blue-500/40 dark:border-blue-500/40'
+                                : 'border-blue-500/40 dark:border-[#3E3E46]'
                         }`}
                     >
                         {/* Row 1: Full-Body Tupi on Left + Title & Explanation on Right */}
@@ -723,7 +723,7 @@ export default function TupiOnboardingTour() {
                                         className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold truncate ${
                                             isSpecial
                                                 ? 'bg-amber-50 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/35 text-amber-800 dark:text-amber-300'
-                                                : 'bg-blue-50 dark:bg-blue-500/15 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300'
+                                                : 'bg-blue-50 dark:bg-[#242429] border border-blue-200 dark:border-[#3E3E46] text-blue-700 dark:text-zinc-200'
                                         }`}
                                     >
                                         {currentStep.badge}
@@ -731,7 +731,7 @@ export default function TupiOnboardingTour() {
                                     <button
                                         type="button"
                                         onClick={() => markTutorialCompleted()}
-                                        className="shrink-0 text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition px-1.5 py-0.5 rounded-lg"
+                                        className="shrink-0 text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition px-1.5 py-0.5 rounded-lg"
                                     >
                                         Lewati
                                     </button>
@@ -740,22 +740,22 @@ export default function TupiOnboardingTour() {
                                 <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-snug">
                                     {currentStep.title(firstName)}
                                 </h3>
-                                <p className="mt-1 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                                <p className="mt-1 text-xs sm:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed">
                                     {currentStep.description}
                                 </p>
                             </div>
                         </div>
 
                         {/* Row 2: Full-width Progress & Navigation Footer (Never clips or overflows on mobile) */}
-                        <div className="mt-3.5 pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-between gap-3">
+                        <div className="mt-3.5 pt-3 border-t border-slate-100 dark:border-[#2C2C32] flex items-center justify-between gap-3">
                             <div className="flex items-center gap-2.5 min-w-0">
-                                <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums whitespace-nowrap">
+                                <span className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 tabular-nums whitespace-nowrap">
                                     Langkah {stepIndex} / {totalGuidedSteps}
                                 </span>
-                                <div className="hidden sm:block w-20 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700/80 overflow-hidden">
+                                <div className="hidden sm:block w-20 h-1.5 rounded-full bg-slate-200 dark:bg-[#2C2C32] overflow-hidden">
                                     <div
                                         className={`h-full rounded-full transition-all duration-300 ${
-                                            isSpecial ? 'bg-amber-400' : 'bg-blue-600 dark:bg-blue-500'
+                                            isSpecial ? 'bg-amber-400' : 'bg-blue-600 dark:bg-zinc-200'
                                         }`}
                                         style={{ width: `${Math.round((stepIndex / totalGuidedSteps) * 100)}%` }}
                                     />
@@ -766,7 +766,7 @@ export default function TupiOnboardingTour() {
                                 <button
                                     type="button"
                                     onClick={() => goToStep(stepIndex - 1)}
-                                    className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition whitespace-nowrap"
+                                    className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-[#32323A] text-xs font-semibold text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#2A2A30] transition whitespace-nowrap"
                                 >
                                     Kembali
                                 </button>
@@ -776,7 +776,7 @@ export default function TupiOnboardingTour() {
                                     className={`px-4 py-1.5 rounded-xl active:scale-95 text-white text-xs font-bold shadow-sm transition whitespace-nowrap ${
                                         isSpecial
                                             ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-600/25'
-                                            : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/25'
+                                            : 'bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 shadow-blue-600/25 dark:shadow-black/40'
                                     }`}
                                 >
                                     Lanjut

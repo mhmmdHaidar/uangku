@@ -67,13 +67,13 @@ export default function AuthenticatedLayout({ header, children }) {
     }, [flash]);
 
     return (
-        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200 relative selection:bg-blue-500/25 selection:text-blue-800 dark:selection:text-blue-200">
+        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#121214] transition-colors duration-200 relative selection:bg-blue-500/25 selection:text-blue-800 dark:selection:bg-zinc-600/40 dark:selection:text-zinc-100">
             {/* Zero-lag hardware-accelerated ambient background */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 ambient-bg-glow" />
 
             {/* Toast Notification */}
             {toastMessage && (
-                <div className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] right-[calc(1rem+env(safe-area-inset-right,0px))] z-50 flex items-center gap-3 px-4 py-3 rounded-2xl glass-card border border-slate-300 dark:border-[#1E3158] shadow-2xl text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-200">
+                <div className="fixed top-[calc(1.25rem+env(safe-area-inset-top,0px))] right-[calc(1rem+env(safe-area-inset-right,0px))] z-50 flex items-center gap-3 px-4 py-3 rounded-2xl glass-card border border-slate-300 dark:border-[#2C2C32] shadow-2xl text-sm font-medium animate-in fade-in slide-in-from-top-4 duration-200">
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${toastType === 'success' ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/15 text-rose-500 dark:text-rose-400 border border-rose-500/20'}`}>
                         {toastType === 'success' ? (
                             <CheckCircleDuotone className="w-4 h-4" />
@@ -81,10 +81,10 @@ export default function AuthenticatedLayout({ header, children }) {
                             <WarningCircleDuotone className="w-4 h-4" />
                         )}
                     </div>
-                    <span className="text-slate-800 dark:text-slate-100">{toastMessage}</span>
+                    <span className="text-slate-800 dark:text-zinc-100">{toastMessage}</span>
                     <button
                         onClick={() => setToastMessage(null)}
-                        className="ml-2 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        className="ml-2 p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#2A2A30]"
                     >
                         <XDuotone className="w-3.5 h-3.5" />
                     </button>
@@ -92,7 +92,7 @@ export default function AuthenticatedLayout({ header, children }) {
             )}
 
             {/* Navigation Header (Safe-Area aware for Notch / Dynamic Island / Punch-Hole) */}
-            <nav className="sticky top-0 z-40 pt-safe px-safe bg-white/95 dark:bg-[#0B1426]/90 backdrop-blur-xl border-b border-slate-200 dark:border-[#1E3158]/70 shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+            <nav className="sticky top-0 z-40 pt-safe px-safe bg-white/95 dark:bg-[#161619]/95 backdrop-blur-xl border-b border-slate-200 dark:border-[#2C2C32] shadow-[0_1px_4px_rgba(15,23,42,0.05)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.45)]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between items-center">
                         {/* Left: Brand & Navigation */}
@@ -101,14 +101,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <ApplicationLogo className="h-10 sm:h-11 w-auto" />
                             </Link>
 
-                            <div className="hidden sm:flex items-center gap-1.5 p-1 rounded-2xl bg-slate-200/60 dark:bg-[#0E1A33] border border-slate-300/60 dark:border-[#1E3158]">
+                            <div className="hidden sm:flex items-center gap-1.5 p-1 rounded-2xl bg-slate-200/60 dark:bg-[#1E1E23] border border-slate-300/60 dark:border-[#2C2C32]">
                                 <Link
                                     href={route('dashboard')}
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('dashboard')
-                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
-                                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
                                     <SquaresFourDuotone className="w-4 h-4" />
@@ -120,8 +120,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('transactions.*')
-                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
-                                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
                                     <ReceiptDuotone className="w-4 h-4" />
@@ -133,8 +133,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('wallets.*')
-                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
-                                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
                                     <WalletDuotone className="w-4 h-4" />
@@ -146,8 +146,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('reports.index')
-                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
-                                            : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
                                     <ChartBarDuotone className="w-4 h-4" />
@@ -167,13 +167,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <Dropdown.Trigger>
                                         <button
                                             type="button"
-                                            className="inline-flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] hover:bg-slate-50 dark:hover:bg-[#112143] text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 focus:outline-none transition duration-150 shadow-xs"
+                                            className="inline-flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20] hover:bg-slate-50 dark:hover:bg-[#242429] text-xs sm:text-sm font-semibold text-slate-700 dark:text-zinc-200 focus:outline-none transition duration-150 shadow-xs"
                                         >
                                             <div className="relative">
-                                                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                                                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-bold flex items-center justify-center text-xs shadow-sm">
                                                     {user.name.charAt(0).toUpperCase()}
                                                 </div>
-                                                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
+                                                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
                                             </div>
                                             <span className="max-w-[130px] truncate text-left">{user.name}</span>
                                             <svg
@@ -187,14 +187,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                         </button>
                                     </Dropdown.Trigger>
 
-                                    <Dropdown.Content contentClasses="py-1 bg-white/95 dark:bg-[#0E1A33]/95 backdrop-blur-md border border-slate-200 dark:border-[#1E3158] rounded-2xl shadow-xl">
+                                    <Dropdown.Content contentClasses="py-1 bg-white/95 dark:bg-[#1C1C20]/95 backdrop-blur-md border border-slate-200 dark:border-[#2C2C32] rounded-2xl shadow-xl">
                                         <div className="px-4 py-2 border-b border-slate-100 dark:border-white/5">
-                                            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">Masuk sebagai</p>
-                                            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">{user.email}</p>
+                                            <p className="text-xs text-slate-400 dark:text-zinc-500 font-medium">Masuk sebagai</p>
+                                            <p className="text-xs font-semibold text-slate-800 dark:text-zinc-200 truncate">{user.email}</p>
                                         </div>
                                         <Dropdown.Link
                                             href={route('profile.edit')}
-                                            className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70"
+                                            className="flex items-center gap-2 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429]"
                                         >
                                             <UserDuotone className="w-4 h-4 text-slate-400" />
                                             Pengaturan Akun
@@ -202,7 +202,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <button
                                             type="button"
                                             onClick={launchTupiTour}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                                         >
                                             <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-4 h-4 rounded-sm object-cover" />
                                             <span>Tur Panduan Tupi</span>
@@ -210,7 +210,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <button
                                             type="button"
                                             onClick={() => setShowingTupiChat(true)}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-blue-700 dark:text-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-950/30 transition"
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-blue-700 dark:text-zinc-100 font-semibold hover:bg-blue-50 dark:hover:bg-[#242429] transition"
                                         >
                                             <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
                                             <span>Tanya Tupi</span>
@@ -218,9 +218,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <button
                                             type="button"
                                             onClick={() => setShowingFeedbackModal(true)}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-zinc-300 font-medium hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                                         >
-                                            <MessageSquarePlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                            <MessageSquarePlus className="w-4 h-4 text-blue-600 dark:text-zinc-200" />
                                             <span>Saran &amp; Masukan</span>
                                         </button>
                                         <Dropdown.Link
@@ -244,12 +244,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 type="button"
                                 onClick={() => setShowingProfileDrawer(true)}
                                 aria-label="Buka profil pengguna"
-                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#1E3158] hover:border-blue-500 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
+                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#2C2C32] hover:border-blue-500 dark:hover:border-zinc-400 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
                             >
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
+                                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#161619] rounded-full" />
                             </button>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Optional Header Banner */}
             {header && (
-                <header className="relative z-10 border-b border-slate-200/50 dark:border-white/5 bg-white/40 dark:bg-slate-900/30 backdrop-blur-sm">
+                <header className="relative z-10 border-b border-slate-200/50 dark:border-[#2C2C32] bg-white/40 dark:bg-[#161619]/60 backdrop-blur-sm">
                     <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
@@ -271,7 +271,7 @@ export default function AuthenticatedLayout({ header, children }) {
             </main>
 
             {/* App Footer */}
-            <footer className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-6 border-t border-slate-200/80 dark:border-[#1E3158]/50 text-xs text-slate-500 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <footer className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] sm:pb-6 border-t border-slate-200/80 dark:border-[#2C2C32] text-xs text-slate-500 dark:text-zinc-400 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
                 <p>&copy; {new Date().getFullYear()} Uangku &bull; Seluruh hak cipta dilindungi.</p>
                 <p
                     data-tour="app-footer-dev"
@@ -282,7 +282,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         href="https://my-portfolio-alpha-roan-39.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 hover:underline transition inline-flex items-center gap-1"
+                        className="font-bold text-blue-600 dark:text-zinc-200 hover:text-blue-500 dark:hover:text-white hover:underline transition inline-flex items-center gap-1"
                     >
                         <span>Nur Muhammad Haidar</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -293,18 +293,18 @@ export default function AuthenticatedLayout({ header, children }) {
             </footer>
 
             {/* Modern Mobile Bottom Navigation Dock (Thumb-friendly + Home Indicator safe area) */}
-            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe px-safe bg-white dark:bg-[#0B1426] border-t border-slate-200/90 dark:border-[#1E3158] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.5)]">
+            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe px-safe bg-white dark:bg-[#161619] border-t border-slate-200/90 dark:border-[#2C2C32] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.55)]">
                 <div className="px-3 py-1.5 grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
                     <Link
                         href={route('dashboard')}
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('dashboard')
-                                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
+                                ? 'text-blue-600 dark:text-white font-bold'
+                                : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
                             <SquaresFourDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dashboard</span>
@@ -315,11 +315,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('transactions.*')
-                                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
+                                ? 'text-blue-600 dark:text-white font-bold'
+                                : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
                             <ReceiptDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Riwayat</span>
@@ -330,11 +330,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('wallets.*')
-                                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
+                                ? 'text-blue-600 dark:text-white font-bold'
+                                : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
                             <WalletDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dompet</span>
@@ -345,11 +345,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('reports.index')
-                                ? 'text-blue-600 dark:text-blue-400 font-bold'
-                                : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
+                                ? 'text-blue-600 dark:text-white font-bold'
+                                : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
                             <ChartBarDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Laporan</span>
@@ -361,7 +361,7 @@ export default function AuthenticatedLayout({ header, children }) {
             {/* 1. Backdrop Overlay */}
             <div
                 onClick={() => setShowingProfileDrawer(false)}
-                className={`fixed inset-0 z-50 bg-black/70 backdrop-blur-sm sm:hidden transition-opacity duration-300 ease-in-out ${
+                className={`fixed inset-0 z-50 bg-black/75 backdrop-blur-sm sm:hidden transition-opacity duration-300 ease-in-out ${
                     showingProfileDrawer ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
                 aria-hidden="true"
@@ -369,7 +369,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* 2. Drawer Sheet */}
             <aside
-                className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-[320px] h-full sm:hidden pt-safe pb-safe bg-white dark:bg-[#0E1A33] border-l border-slate-200 dark:border-[#1E3158] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-in-out transform ${
+                className={`fixed top-0 right-0 bottom-0 z-50 w-[85%] max-w-[320px] h-full sm:hidden pt-safe pb-safe bg-white dark:bg-[#1C1C20] border-l border-slate-200 dark:border-[#2C2C32] shadow-2xl flex flex-col justify-between overflow-y-auto transition-transform duration-300 ease-in-out transform ${
                     showingProfileDrawer ? 'translate-x-0 pointer-events-auto' : 'translate-x-full pointer-events-none'
                 }`}
                 aria-label="Menu Profil Pengguna"
@@ -377,40 +377,40 @@ export default function AuthenticatedLayout({ header, children }) {
                 {/* Top Section */}
                 <div>
                     {/* Drawer Header */}
-                    <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 dark:border-[#1E3158] bg-slate-50 dark:bg-[#0A1224]">
-                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            <UserDuotone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#161619]">
+                        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                            <UserDuotone className="w-4 h-4 text-blue-600 dark:text-zinc-200" />
                             <span>Profil Pengguna</span>
                         </div>
                         <button
                             type="button"
                             onClick={() => setShowingProfileDrawer(false)}
                             aria-label="Tutup menu profil"
-                            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/70 dark:hover:bg-[#1E3158] transition active:scale-95"
+                            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-200/70 dark:hover:bg-[#2A2A30] transition active:scale-95"
                         >
                             <XDuotone className="w-5 h-5" />
                         </button>
                     </div>
 
                     {/* User Profile Card */}
-                    <div className="p-5 border-b border-slate-200/80 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33]">
+                    <div className="p-5 border-b border-slate-200/80 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20]">
                         <div className="flex items-center gap-3.5">
                             <div className="relative shrink-0">
-                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-blue-500/20">
+                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-blue-500/20 dark:ring-white/10">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
+                                <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
                             </div>
 
                             <div className="min-w-0 flex-1">
                                 <h4 className="text-base font-extrabold text-slate-900 dark:text-white truncate">
                                     {user.name}
                                 </h4>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate">
+                                <p className="text-xs text-slate-500 dark:text-zinc-400 font-mono truncate">
                                     {user.email}
                                 </p>
-                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30">
-                                    <ShieldCheckDuotone className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-[#242429] dark:text-zinc-200 border border-blue-200 dark:border-[#3E3E46]">
+                                    <ShieldCheckDuotone className="w-3 h-3 text-blue-600 dark:text-zinc-200" />
                                     <span>Akun Terverifikasi</span>
                                 </div>
                             </div>
@@ -419,25 +419,25 @@ export default function AuthenticatedLayout({ header, children }) {
 
                     {/* Menu Actions */}
                     <div className="p-4 space-y-2">
-                        <p className="px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                        <p className="px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">
                             Menu Akun
                         </p>
                         <Link
                             href={route('profile.edit')}
                             prefetch
                             onClick={() => setShowingProfileDrawer(false)}
-                            className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#122143]/60 dark:hover:bg-[#122143] border border-slate-200/80 dark:border-[#1E3158] transition group"
+                            className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-slate-200/80 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-[#2A2A30] text-blue-600 dark:text-zinc-200 flex items-center justify-center border border-blue-500/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
                                     <UserDuotone className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Pengaturan Akun</p>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Pengaturan Akun</p>
                                     <p className="text-[11px] text-slate-400 font-normal">Profil, sandi &amp; info akun</p>
                                 </div>
                             </div>
-                            <span className="text-slate-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-slate-400 group-hover:text-blue-500 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </Link>
 
                         <button
@@ -453,8 +453,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <img src="/assets/mascot-avatar.png" alt="Tupi" className="w-8 h-8 object-contain" />
                                 </div>
                                 <div className="text-left">
-                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Tur Panduan Tupi</p>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Pelajari semua fitur bersama Tupi</p>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Tur Panduan Tupi</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Pelajari semua fitur bersama Tupi</p>
                                 </div>
                             </div>
                             <span className="text-amber-600 dark:text-amber-400 group-hover:translate-x-0.5 transition">&rarr;</span>
@@ -466,18 +466,18 @@ export default function AuthenticatedLayout({ header, children }) {
                                 setShowingProfileDrawer(false);
                                 setShowingTupiChat(true);
                             }}
-                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 border border-blue-200/80 dark:border-blue-500/25 transition group"
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-blue-200/80 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center border border-blue-300/60 dark:border-blue-500/30 overflow-hidden group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-[#2A2A30] flex items-center justify-center border border-blue-300/60 dark:border-[#3E3E46] overflow-hidden group-hover:scale-105 transition">
                                     <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-8 h-8 object-contain" />
                                 </div>
                                 <div className="text-left">
-                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Tanya Tupi</p>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Layanan tanya jawab seputar Uangku</p>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Tanya Tupi</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Layanan tanya jawab seputar Uangku</p>
                                 </div>
                             </div>
-                            <span className="text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-blue-600 dark:text-zinc-300 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
 
                         <button
@@ -486,28 +486,28 @@ export default function AuthenticatedLayout({ header, children }) {
                                 setShowingProfileDrawer(false);
                                 setShowingFeedbackModal(true);
                             }}
-                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#122143]/60 dark:hover:bg-[#122143] border border-slate-200/80 dark:border-[#1E3158] transition group"
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-slate-200/80 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-[#2A2A30] text-blue-600 dark:text-zinc-200 flex items-center justify-center border border-blue-500/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
                                     <MessageSquarePlus className="w-5 h-5" />
                                 </div>
                                 <div className="text-left">
-                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Saran &amp; Masukan</p>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Kirim masukan &amp; hubungi pengembang</p>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Saran &amp; Masukan</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Kirim masukan &amp; hubungi pengembang</p>
                                 </div>
                             </div>
-                            <span className="text-slate-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-slate-400 group-hover:text-blue-500 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
                     </div>
                 </div>
 
                 {/* Bottom Section: App Info, Developer Credit & Logout */}
-                <div className="p-4 border-t border-slate-200/80 dark:border-[#1E3158] space-y-3 bg-slate-50 dark:bg-[#0A1224]">
+                <div className="p-4 border-t border-slate-200/80 dark:border-[#2C2C32] space-y-3 bg-slate-50 dark:bg-[#161619]">
                     <div className="space-y-1.5 px-1 text-[11px] text-slate-400">
                         <div className="flex items-center justify-between">
                             <span>Versi Aplikasi</span>
-                            <span className="font-mono font-bold text-slate-600 dark:text-slate-300">v1.0 &bull; Uangku</span>
+                            <span className="font-mono font-bold text-slate-600 dark:text-zinc-300">v1.0 &bull; Uangku</span>
                         </div>
                         <div className="flex items-center justify-between pt-1.5 border-t border-slate-200/60 dark:border-white/5">
                             <span>Pengembang</span>
@@ -515,7 +515,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href="https://my-portfolio-alpha-roan-39.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+                                className="font-bold text-blue-600 dark:text-zinc-200 dark:hover:text-white hover:underline inline-flex items-center gap-1"
                             >
                                 <span>Nur Muhammad Haidar</span>
                                 <span className="text-[10px]">&nearr;</span>

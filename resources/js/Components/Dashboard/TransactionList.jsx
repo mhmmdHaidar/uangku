@@ -183,9 +183,9 @@ export default function TransactionList({
     const hasActiveFilters = Boolean(search || selectedType || selectedWalletId || selectedCategory);
 
     return (
-        <div className="glass-card rounded-3xl p-5 sm:p-6 space-y-5 border border-slate-200 dark:border-[#1E3158]/70 shadow-sm">
+        <div className="glass-card rounded-3xl p-5 sm:p-6 space-y-5 border border-slate-200 dark:border-[#2C2C32] shadow-sm">
             {/* Header: Title, Count & Add Button */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-200/80 dark:border-[#1E3158]/60">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-200/80 dark:border-[#2C2C32]">
                 <div>
                     <div className="flex items-center gap-3">
                         <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -195,7 +195,7 @@ export default function TransactionList({
                             <Link
                                 href={route('transactions.index')}
                                 prefetch
-                                className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition group"
+                                className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-zinc-300 dark:hover:text-white transition group"
                             >
                                 <span>Lihat Riwayat Lengkap</span>
                                 <CaretRightDuotone className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -211,7 +211,7 @@ export default function TransactionList({
                     <button
                         onClick={onAddNew}
                         type="button"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xs font-semibold shadow-md shadow-blue-600/20 active:scale-95 transition-all duration-150 focus:outline-none"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:bg-none dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs font-semibold shadow-md shadow-blue-600/20 dark:shadow-none active:scale-95 transition-all duration-150 focus:outline-none"
                     >
                         <PlusCircleDuotone className="w-3.5 h-3.5" />
                         <span>Catat Transaksi</span>
@@ -229,7 +229,7 @@ export default function TransactionList({
                         placeholder="Cari transaksi langsung..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120]/80 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 shadow-xs transition"
+                        className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
                     />
                     {search && (
                         <button
@@ -245,13 +245,13 @@ export default function TransactionList({
                 {/* Filter Controls: Type, Wallet & Category Dropdown */}
                 <div className="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
                     {/* Phosphor Duotone Segmented Type Filter */}
-                    <div className="flex items-center p-1 bg-slate-200/70 dark:bg-[#0A1120] rounded-xl border border-slate-300/80 dark:border-[#1E3158] shrink-0">
+                    <div className="flex items-center p-1 bg-slate-200/70 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32] shrink-0">
                         <button
                             type="button"
                             onClick={() => handleTypeChange('')}
                             className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                                 selectedType === ''
-                                    ? 'bg-white dark:bg-[#112143] text-slate-900 dark:text-white shadow-sm border border-slate-300/80 dark:border-blue-500/30'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-slate-900 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                             }`}
                         >
@@ -289,7 +289,7 @@ export default function TransactionList({
                             value={selectedWalletId}
                             onChange={(e) => setSelectedWalletId(e.target.value)}
                             aria-label="Filter berdasarkan dompet"
-                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0 font-semibold shadow-xs"
+                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
                         >
                             <option value="">Semua Dompet / Rekening</option>
                             {wallets.map((w) => (
@@ -306,7 +306,7 @@ export default function TransactionList({
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
                             aria-label="Filter berdasarkan kategori"
-                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0 font-semibold shadow-xs"
+                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
                         >
                             <option value="">Semua Kategori</option>
                             {categories.map((c) => (
@@ -343,7 +343,7 @@ export default function TransactionList({
                         return (
                             <div
                                 key={item.id}
-                                className="px-3.5 sm:px-4 py-3 rounded-2xl flex items-center justify-between bg-white dark:bg-[#0E1A33]/70 hover:bg-slate-50 dark:hover:bg-[#112143]/90 transition-all duration-150 border border-slate-200/90 hover:border-slate-300 dark:border-[#1E3158]/60 dark:hover:border-[#1E3158] shadow-xs group"
+                                className="px-3.5 sm:px-4 py-3 rounded-2xl flex items-center justify-between bg-white dark:bg-[#1C1C20]/90 hover:bg-slate-50 dark:hover:bg-[#242429] transition-all duration-150 border border-slate-200/90 hover:border-slate-300 dark:border-[#2C2C32] dark:hover:border-[#3E3E46] shadow-xs group"
                             >
                                 {/* Left Side: Icon & Info */}
                                 <div className="flex items-center gap-3.5 min-w-0 pr-3">
@@ -363,13 +363,13 @@ export default function TransactionList({
                                             </p>
 
                                             {/* Refined Frosted Wallet Badge */}
-                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#112143] dark:text-slate-200 border border-slate-200 dark:border-[#1E3158] shrink-0">
-                                                <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500'}`} />
+                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A] shrink-0">
+                                                <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500 dark:bg-zinc-400'}`} />
                                                 <span>{walletName}</span>
                                             </span>
 
                                             {item.category && (
-                                                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-600 dark:bg-[#112143]/70 dark:text-slate-300 border border-slate-200 dark:border-[#1E3158]/50">
+                                                <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-600 dark:bg-[#242429]/80 dark:text-zinc-300 border border-slate-200 dark:border-[#2C2C32]">
                                                     {item.category}
                                                 </span>
                                             )}
@@ -386,7 +386,7 @@ export default function TransactionList({
                                                 </>
                                             )}
                                             {item.category && (
-                                                <span className="sm:hidden font-medium text-blue-700 dark:text-blue-400">
+                                                <span className="sm:hidden font-medium text-blue-700 dark:text-zinc-300">
                                                     &bull; {item.category}
                                                 </span>
                                             )}
@@ -411,7 +411,7 @@ export default function TransactionList({
                                             type="button"
                                             onClick={() => onEdit(item)}
                                             title="Ubah Transaksi"
-                                            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:white hover:bg-slate-200/60 dark:hover:bg-white/10 transition"
+                                            className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition"
                                         >
                                             <PencilSimpleDuotone className="w-3.5 h-3.5" />
                                         </button>
@@ -432,7 +432,7 @@ export default function TransactionList({
             ) : (
                 /* Empty State with Mascot */
                 <div className="py-12 px-4 text-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] p-1.5 border border-[#1E3158] mb-3 shadow-md flex items-center justify-center overflow-hidden group">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#1E3158] dark:border-[#32323A] mb-3 shadow-md flex items-center justify-center overflow-hidden group">
                         <img
                             src="/assets/mascot-avatar.png"
                             alt="Si Uangku"
@@ -452,7 +452,7 @@ export default function TransactionList({
                             <button
                                 type="button"
                                 onClick={handleResetFilters}
-                                className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#112143] dark:hover:bg-[#162A54] border border-slate-300/80 dark:border-[#1E3158] transition"
+                                className="inline-flex items-center px-4 py-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-zinc-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#222227] dark:hover:bg-[#2A2A32] border border-slate-300/80 dark:border-[#32323A] transition"
                             >
                                 Hapus Filter
                             </button>
@@ -460,7 +460,7 @@ export default function TransactionList({
                             <button
                                 type="button"
                                 onClick={onAddNew}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 transition shadow-sm"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
                             >
                                 <PlusCircleDuotone className="w-3.5 h-3.5" />
                                 <span>Catat Transaksi Pertama</span>
@@ -472,7 +472,7 @@ export default function TransactionList({
 
             {/* Instant Real-Time Client Pagination Controls (0ms Delay) */}
             {totalPages > 1 && (
-                <div className="pt-4 border-t border-slate-200/80 dark:border-[#1E3158]/60 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+                <div className="pt-4 border-t border-slate-200/80 dark:border-[#2C2C32] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
                     <div>
                         Menampilkan <span className="font-semibold text-slate-700 dark:text-slate-200">{(currentPage - 1) * pageSize + 1}</span> sampai{' '}
                         <span className="font-semibold text-slate-700 dark:text-slate-200">{Math.min(currentPage * pageSize, totalFiltered)}</span> dari{' '}
@@ -484,7 +484,7 @@ export default function TransactionList({
                             type="button"
                             disabled={currentPage === 1}
                             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                            className="p-1.5 rounded-lg border border-slate-200 dark:border-[#1E3158] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#112143]"
+                            className="p-1.5 rounded-lg border border-slate-200 dark:border-[#2C2C32] text-slate-600 dark:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#242429]"
                         >
                             <CaretLeftDuotone className="w-4 h-4" />
                         </button>
@@ -504,8 +504,8 @@ export default function TransactionList({
                                     onClick={() => setCurrentPage(pageNum)}
                                     className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${
                                         currentPage === pageNum
-                                            ? 'bg-blue-600 text-white shadow-xs'
-                                            : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent'
+                                            ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
+                                            : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent'
                                     }`}
                                 >
                                     {pageNum}
@@ -517,7 +517,7 @@ export default function TransactionList({
                             type="button"
                             disabled={currentPage === totalPages}
                             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                            className="p-1.5 rounded-lg border border-slate-200 dark:border-[#1E3158] text-slate-600 dark:text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#112143]"
+                            className="p-1.5 rounded-lg border border-slate-200 dark:border-[#2C2C32] text-slate-600 dark:text-zinc-300 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-100 dark:hover:bg-[#242429]"
                         >
                             <CaretRightDuotone className="w-4 h-4" />
                         </button>

@@ -37,17 +37,17 @@ export default function Welcome({ auth }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0A1120] text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-blue-500/25 selection:text-blue-800 relative font-sans overflow-x-hidden">
+        <div className="min-h-screen bg-[#0A1120] dark:bg-[#121214] text-slate-800 dark:text-zinc-100 transition-colors duration-200 selection:bg-blue-500/25 dark:selection:bg-zinc-600/40 selection:text-blue-800 dark:selection:text-zinc-100 relative font-sans overflow-x-hidden">
             <Head title="Uangku — Kelola Keuanganmu Lebih Mudah" />
 
             {/* ======================================================== */}
             {/* 1. TOP WHITE CURVED ISLAND (HERO & NAVIGATION)           */}
             {/* ======================================================== */}
-            <div className="bg-white dark:bg-[#0E1A33] rounded-b-[40px] sm:rounded-b-[56px] lg:rounded-b-[64px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)] border-b border-slate-200/90 dark:border-[#1E3158]/80 relative z-20 pb-16 sm:pb-24 lg:pb-32">
+            <div className="bg-white dark:bg-[#161619] rounded-b-[40px] sm:rounded-b-[56px] lg:rounded-b-[64px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)] border-b border-slate-200/90 dark:border-[#2C2C32] relative z-20 pb-16 sm:pb-24 lg:pb-32">
 
                 {/* Ambient glow inside white island */}
-                <div className="absolute top-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-amber-500/8 via-blue-500/6 to-transparent rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute top-1/3 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-blue-500/8 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-amber-500/8 via-blue-500/6 dark:from-amber-500/5 dark:via-white/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-1/3 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-blue-500/8 dark:from-white/[0.03] to-transparent rounded-full blur-3xl pointer-events-none" />
 
                 {/* --- NAVIGATION BAR (Safe-Area aware for Notch / Dynamic Island / Punch-Hole) --- */}
                 <div className="pt-safe px-safe relative z-30">
@@ -60,10 +60,10 @@ export default function Welcome({ auth }) {
 
                         {/* Center: Navigation Links (Desktop) */}
                         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                            <a href="#fitur" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <a href="#fitur" className="hover:text-blue-600 dark:hover:text-white transition-colors">
                                 Fitur
                             </a>
-                            <a href="#cara-kerja" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                            <a href="#cara-kerja" className="hover:text-blue-600 dark:hover:text-white transition-colors">
                                 Cara Kerja
                             </a>
 
@@ -77,7 +77,7 @@ export default function Welcome({ auth }) {
                                 <Link
                                     href={route('dashboard')}
                                     prefetch
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#112143] hover:bg-[#182e5c] text-white text-xs sm:text-sm font-bold shadow-sm transition active:scale-95"
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#112143] hover:bg-[#182e5c] dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-sm transition active:scale-95"
                                 >
                                     <span>Buka Dashboard</span>
                                     <ArrowRight className="w-4 h-4" />
@@ -87,14 +87,14 @@ export default function Welcome({ auth }) {
                                     <Link
                                         href={route('login')}
                                         prefetch
-                                        className="px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition"
+                                        className="px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-white transition"
                                     >
                                         Masuk
                                     </Link>
                                     <Link
                                         href={route('register')}
                                         prefetch
-                                        className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#112143] hover:bg-[#182e5c] text-white text-xs sm:text-sm font-bold shadow-sm transition active:scale-95"
+                                        className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#112143] hover:bg-[#182e5c] dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-sm transition active:scale-95"
                                     >
                                         <span>Mulai Sekarang</span>
                                     </Link>
@@ -109,7 +109,7 @@ export default function Welcome({ auth }) {
                                 type="button"
                                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                                 aria-label="Toggle Navigation Menu"
-                                className="p-2.5 min-w-[42px] min-h-[42px] inline-flex items-center justify-center rounded-xl text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition touch-manipulation cursor-pointer"
+                                className="p-2.5 min-w-[42px] min-h-[42px] inline-flex items-center justify-center rounded-xl text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-[#242429] transition touch-manipulation cursor-pointer"
                             >
                                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                             </button>
@@ -118,19 +118,19 @@ export default function Welcome({ auth }) {
 
                     {/* Mobile Dropdown Menu */}
                     {mobileMenuOpen && (
-                        <div className="md:hidden mt-4 p-5 rounded-3xl glass-card border border-slate-200 dark:border-[#1E3158] shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+                        <div className="md:hidden mt-4 p-5 rounded-3xl glass-card border border-slate-200 dark:border-[#2C2C32] shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
                             <nav className="flex flex-col gap-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
                                 <a
                                     href="#fitur"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#112143] transition"
+                                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                                 >
                                     Fitur
                                 </a>
                                 <a
                                     href="#cara-kerja"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#112143] transition"
+                                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                                 >
                                     Cara Kerja
                                 </a>
@@ -141,7 +141,7 @@ export default function Welcome({ auth }) {
                                     <Link
                                         href={route('dashboard')}
                                         prefetch
-                                        className="w-full text-center py-2.5 rounded-full bg-[#112143] text-white text-sm font-bold shadow-sm"
+                                        className="w-full text-center py-2.5 rounded-full bg-[#112143] dark:bg-zinc-100 text-white dark:text-zinc-950 text-sm font-bold shadow-sm"
                                     >
                                         Buka Dashboard
                                     </Link>
@@ -150,7 +150,7 @@ export default function Welcome({ auth }) {
                                         <Link
                                             href={route('register')}
                                             prefetch
-                                            className="w-full text-center py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-sm"
+                                            className="w-full text-center py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-sm font-bold shadow-sm"
                                         >
                                             Coba Gratis Sekarang
                                         </Link>
@@ -176,7 +176,7 @@ export default function Welcome({ auth }) {
                         {/* LEFT COLUMN: Headings & CTA (7 cols on desktop) */}
                         <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                             {/* Brand Pill with Mascot Pip */}
-                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/90 dark:border-blue-500/30 text-xs font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-800 dark:bg-[#222227] dark:text-zinc-200 border border-blue-200/90 dark:border-[#32323A] text-xs font-semibold shadow-2xs">
                                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                                 <span>Aplikasi Manajemen Keuangan Pribadi Modern</span>
                             </div>
@@ -184,7 +184,7 @@ export default function Welcome({ auth }) {
                             {/* Main Reference Headline */}
                             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
                                 Kelola Keuanganmu Lebih Mudah Bersama{' '}
-                                <span className="text-blue-600 dark:text-blue-400">
+                                <span className="text-blue-600 dark:bg-gradient-to-r dark:from-white dark:via-zinc-200 dark:to-zinc-400 dark:bg-clip-text dark:text-transparent">
                                     Uangku
                                 </span>
                             </h1>
@@ -199,7 +199,7 @@ export default function Welcome({ auth }) {
                                 <Link
                                     href={auth?.user ? route('dashboard') : route('register')}
                                     prefetch
-                                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-600/30 transition-all duration-200"
+                                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 font-bold text-sm sm:text-base shadow-lg shadow-blue-600/30 dark:shadow-none transition-all duration-200"
                                 >
                                     <span>Coba Gratis Sekarang</span>
                                     <ArrowRight className="w-4 h-4" />
@@ -207,7 +207,7 @@ export default function Welcome({ auth }) {
 
                                 <a
                                     href="#cara-kerja"
-                                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#112143] hover:bg-[#182e5c] active:scale-95 text-white font-bold text-sm sm:text-base shadow-md transition-all duration-200"
+                                    className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-[#112143] hover:bg-[#182e5c] dark:bg-[#242429] dark:hover:bg-[#2E2E35] active:scale-95 text-white dark:border dark:border-[#32323A] font-bold text-sm sm:text-base shadow-md transition-all duration-200"
                                 >
                                     <span>Lihat Cara Kerja</span>
                                 </a>
@@ -216,15 +216,15 @@ export default function Welcome({ auth }) {
                             {/* Trust Signals */}
                             <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-slate-500 dark:text-slate-400 font-medium">
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-emerald-400 stroke-[3]" />
                                     <span>100% Gratis &amp; Mandiri</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-emerald-400 stroke-[3]" />
                                     <span>Privasi Multi-Tenant Terisolasi</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-emerald-400 stroke-[3]" />
                                     <span>Tanpa Iklan atau Tracking</span>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ export default function Welcome({ auth }) {
                         {/* RIGHT COLUMN: Mascot Hero Visual with Interactive Floating Cards (5 cols) */}
                         <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-0">
                             {/* Radial Ambient Glow Behind Mascot */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/20 via-blue-400/15 to-indigo-400/10 rounded-full blur-3xl pointer-events-none transform scale-90" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/20 via-blue-400/15 to-indigo-400/10 dark:from-amber-400/12 dark:via-white/[0.04] dark:to-transparent rounded-full blur-3xl pointer-events-none transform scale-90" />
 
                             <div className="relative z-10 w-full max-w-sm sm:max-w-md mx-auto flex items-center justify-center">
                                 {/* Mascot Illustration (Tupai Si Uangku dengan Koin Rp & Grafik) */}
@@ -245,7 +245,7 @@ export default function Welcome({ auth }) {
                                     />
 
                                     {/* Floating Pill 1: Tabungan Terjaga (Top Left) */}
-                                    <div className="absolute -top-3 -left-4 sm:-top-4 sm:-left-8 bg-white/95 dark:bg-[#0E1A33]/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-slate-200/90 dark:border-[#1E3158] shadow-xl flex items-center gap-2.5 animate-bounce [animation-duration:5s]">
+                                    <div className="absolute -top-3 -left-4 sm:-top-4 sm:-left-8 bg-white/95 dark:bg-[#1C1C20]/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-slate-200/90 dark:border-[#2C2C32] shadow-xl flex items-center gap-2.5 animate-bounce [animation-duration:5s]">
                                         <CoinsBadge className="w-8 h-8 rounded-xl" />
                                         <div>
                                             <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Kas &amp; Tabungan</p>
@@ -254,7 +254,7 @@ export default function Welcome({ auth }) {
                                     </div>
 
                                     {/* Floating Pill 2: Arus Kas Positif (Bottom Right) */}
-                                    <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-8 bg-white/95 dark:bg-[#0E1A33]/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-slate-200/90 dark:border-[#1E3158] shadow-xl flex items-center gap-2.5 animate-bounce [animation-duration:6s]">
+                                    <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-8 bg-white/95 dark:bg-[#1C1C20]/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 border border-slate-200/90 dark:border-[#2C2C32] shadow-xl flex items-center gap-2.5 animate-bounce [animation-duration:6s]">
                                         <MoneyBadge className="w-8 h-8 rounded-xl" />
                                         <div>
                                             <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400">Surplus Kas</p>
@@ -263,7 +263,7 @@ export default function Welcome({ auth }) {
                                     </div>
 
                                     {/* Floating Pill 3: Budget Healthy (Top Right) */}
-                                    <div className="hidden sm:flex absolute top-6 -right-6 bg-white/95 dark:bg-[#0E1A33]/95 backdrop-blur-md rounded-xl px-3 py-1.5 border border-slate-200/90 dark:border-[#1E3158] shadow-md items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 animate-pulse [animation-duration:3s]">
+                                    <div className="hidden sm:flex absolute top-6 -right-6 bg-white/95 dark:bg-[#1C1C20]/95 backdrop-blur-md rounded-xl px-3 py-1.5 border border-slate-200/90 dark:border-[#2C2C32] shadow-md items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 animate-pulse [animation-duration:3s]">
                                         <span className="w-2 h-2 rounded-full bg-emerald-500" />
                                         <span>Target Sehat 86%</span>
                                     </div>
@@ -276,15 +276,15 @@ export default function Welcome({ auth }) {
             </div>
 
             {/* ======================================================== */}
-            {/* 2. OVERLAPPING DASHBOARD PREVIEW ON DEEP NAVY CANVAS     */}
+            {/* 2. OVERLAPPING DASHBOARD PREVIEW ON DEEP CANVAS          */}
             {/* ======================================================== */}
             <div id="preview" className="relative z-30 -mt-12 sm:-mt-20 lg:-mt-24 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Mockup Window Container */}
-                <div className="rounded-3xl sm:rounded-[36px] bg-slate-900/90 dark:bg-[#0E1A33]/90 p-2 sm:p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-slate-700/60 dark:border-[#1E3158] backdrop-blur-xl">
-                    <div className="rounded-2xl sm:rounded-[28px] bg-[#F1F5F9] dark:bg-[#0A1120] border border-slate-200 dark:border-[#1E3158] overflow-hidden">
+                <div className="rounded-3xl sm:rounded-[36px] bg-slate-900/90 dark:bg-[#161619]/95 p-2 sm:p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.6)] border border-slate-700/60 dark:border-[#2C2C32] backdrop-blur-xl">
+                    <div className="rounded-2xl sm:rounded-[28px] bg-[#F1F5F9] dark:bg-[#121214] border border-slate-200 dark:border-[#2C2C32] overflow-hidden">
 
                         {/* Mockup Window Toolbar */}
-                        <div className="bg-white dark:bg-[#0B1426] px-4 py-3 border-b border-slate-200 dark:border-[#1E3158] flex items-center justify-between">
+                        <div className="bg-white dark:bg-[#161619] px-4 py-3 border-b border-slate-200 dark:border-[#2C2C32] flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
                                 <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
@@ -295,7 +295,7 @@ export default function Welcome({ auth }) {
                             </div>
 
                             <div className="flex items-center gap-2 text-xs font-semibold">
-                                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30">
+                                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-[#242429] text-blue-700 dark:text-zinc-200 border border-blue-200 dark:border-[#32323A]">
                                     Live App Preview
                                 </span>
                             </div>
@@ -306,34 +306,34 @@ export default function Welcome({ auth }) {
                             {/* Mockup Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-zinc-300">
                                         • Senin, 9 November 2026
                                     </div>
                                     <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">
                                         Selamat Datang, Haidar!
                                     </h3>
                                 </div>
-                                <div className="px-3 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-sm flex items-center gap-1.5">
+                                <div className="px-3 py-1.5 rounded-xl bg-blue-600 dark:bg-zinc-100 text-white dark:text-zinc-950 font-bold text-xs shadow-sm flex items-center gap-1.5">
                                     <span>+ Catat Transaksi</span>
                                 </div>
                             </div>
 
                             {/* Mockup 3 Metrics */}
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#1E3158]/70 flex items-center justify-between">
+                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#2C2C32] flex items-center justify-between">
                                     <div>
                                         <span className="font-bold text-[10px] uppercase tracking-wider text-slate-500 mb-1 block">Total Seluruh Uang</span>
                                         <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tabular-nums">
                                             Rp 206.806.403
                                         </p>
-                                        <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300">
+                                        <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-800 dark:bg-emerald-500/15 dark:text-emerald-300">
                                             Kas Sehat • 5 Dompet
                                         </div>
                                     </div>
                                     <PocketBadge className="w-10 h-10" />
                                 </div>
 
-                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#1E3158]/70 flex items-center justify-between">
+                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#2C2C32] flex items-center justify-between">
                                     <div>
                                         <span className="font-bold text-[10px] uppercase tracking-wider text-slate-500 mb-1 block">Total Pemasukan</span>
                                         <p className="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 tabular-nums">
@@ -344,7 +344,7 @@ export default function Welcome({ auth }) {
                                     <MoneyBadge className="w-10 h-10" />
                                 </div>
 
-                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#1E3158]/70 flex items-center justify-between">
+                                <div className="glass-card rounded-2xl p-4 border border-slate-200 dark:border-[#2C2C32] flex items-center justify-between">
                                     <div>
                                         <span className="font-bold text-[10px] uppercase tracking-wider text-slate-500 mb-1 block">Total Pengeluaran</span>
                                         <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tabular-nums">
@@ -357,7 +357,7 @@ export default function Welcome({ auth }) {
                             </div>
 
                             {/* Mockup Progress Bar */}
-                            <div className="glass-card rounded-xl p-3 border border-slate-200 dark:border-[#1E3158]/70">
+                            <div className="glass-card rounded-xl p-3 border border-slate-200 dark:border-[#2C2C32]">
                                 <div className="flex items-center justify-between text-xs mb-1.5 font-semibold">
                                     <span className="text-slate-600 dark:text-slate-300 text-[11px]">Proporsi Arus Kas Keseluruhan</span>
                                     <div className="flex items-center gap-3 text-[11px]">
@@ -365,7 +365,7 @@ export default function Welcome({ auth }) {
                                         <span className="text-rose-600 dark:text-rose-400">Terpakai: 14%</span>
                                     </div>
                                 </div>
-                                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-[#0E1A33] overflow-hidden flex gap-0.5">
+                                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-[#1C1C20] overflow-hidden flex gap-0.5">
                                     <div className="h-full bg-emerald-500 rounded-full" style={{ width: '86%' }} />
                                     <div className="h-full bg-rose-500 rounded-full" style={{ width: '14%' }} />
                                 </div>
@@ -377,11 +377,11 @@ export default function Welcome({ auth }) {
             </div>
 
             {/* ======================================================== */}
-            {/* 3. FITUR UTAMA SECTION (DEEP ROYAL NAVY BACKGROUND)      */}
+            {/* 3. FITUR UTAMA SECTION (DEEP ROYAL NAVY / CHARCOAL BG)   */}
             {/* ======================================================== */}
             <section id="fitur" className="relative z-20 py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#112143] border border-[#1E3A6E] text-blue-400 text-xs font-semibold mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#112143] dark:bg-[#1C1C20] border border-[#1E3A6E] dark:border-[#2C2C32] text-blue-400 dark:text-zinc-200 text-xs font-semibold mb-3">
                         <Zap className="w-3.5 h-3.5 text-amber-400" />
                         <span>Dirancang untuk Kebutuhan Riil</span>
                     </div>
@@ -395,7 +395,7 @@ export default function Welcome({ auth }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Feature 1: Multi-Dompet */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-amber-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] hover:border-amber-500/40 dark:hover:border-amber-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
                         <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <Wallet className="w-6 h-6" />
                         </div>
@@ -408,8 +408,8 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 2: Grafik & Analisis */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-sky-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-                        <div className="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/30 text-sky-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] hover:border-sky-500/40 dark:hover:border-zinc-500/50 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div className="w-12 h-12 rounded-2xl bg-sky-500/15 dark:bg-white/[0.06] border border-sky-500/30 dark:border-[#3E3E46] text-sky-400 dark:text-zinc-200 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <BarChart3 className="w-6 h-6" />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">
@@ -421,8 +421,8 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 3: Pencatatan Cepat */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-blue-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] hover:border-blue-500/40 dark:hover:border-zinc-500/50 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div className="w-12 h-12 rounded-2xl bg-blue-500/15 dark:bg-white/[0.06] border border-blue-500/30 dark:border-[#3E3E46] text-blue-400 dark:text-zinc-200 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <Zap className="w-6 h-6" />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">
@@ -434,8 +434,8 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 4: Keamanan Mandiri */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-indigo-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] hover:border-indigo-500/40 dark:hover:border-emerald-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 dark:bg-emerald-500/15 border border-indigo-500/30 dark:border-emerald-500/30 text-indigo-400 dark:text-emerald-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <ShieldCheck className="w-6 h-6" />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">
@@ -451,7 +451,7 @@ export default function Welcome({ auth }) {
             {/* ======================================================== */}
             {/* 4. CARA KERJA 3 LANGKAH SECTION                         */}
             {/* ======================================================== */}
-            <section id="cara-kerja" className="relative z-20 py-20 bg-[#070D18] border-y border-[#1E3158]/60">
+            <section id="cara-kerja" className="relative z-20 py-20 bg-[#070D18] dark:bg-[#161619] border-y border-[#1E3158]/60 dark:border-[#2C2C32]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center max-w-2xl mx-auto mb-16">
                         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
@@ -464,8 +464,8 @@ export default function Welcome({ auth }) {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                         {/* Step 1 */}
-                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] border border-[#1E3158]/80 text-center space-y-4">
-                            <div className="w-12 h-12 mx-auto rounded-2xl bg-blue-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
+                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] text-center space-y-4">
+                            <div className="w-12 h-12 mx-auto rounded-2xl bg-blue-600 dark:bg-zinc-100 text-white dark:text-zinc-950 font-extrabold text-lg flex items-center justify-center shadow-lg shadow-blue-600/30 dark:shadow-none">
                                 1
                             </div>
                             <h3 className="text-lg font-bold text-white">
@@ -477,7 +477,7 @@ export default function Welcome({ auth }) {
                         </div>
 
                         {/* Step 2 */}
-                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] border border-[#1E3158]/80 text-center space-y-4">
+                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] text-center space-y-4">
                             <div className="w-12 h-12 mx-auto rounded-2xl bg-amber-500 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-amber-500/30">
                                 2
                             </div>
@@ -490,8 +490,8 @@ export default function Welcome({ auth }) {
                         </div>
 
                         {/* Step 3 */}
-                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] border border-[#1E3158]/80 text-center space-y-4">
-                            <div className="w-12 h-12 mx-auto rounded-2xl bg-sky-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-sky-600/30">
+                        <div className="relative p-7 rounded-3xl bg-[#0E1A33] dark:bg-[#1C1C20] border border-[#1E3158]/80 dark:border-[#2C2C32] text-center space-y-4">
+                            <div className="w-12 h-12 mx-auto rounded-2xl bg-sky-600 dark:bg-emerald-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-sky-600/30 dark:shadow-emerald-600/30">
                                 3
                             </div>
                             <h3 className="text-lg font-bold text-white">
@@ -509,12 +509,12 @@ export default function Welcome({ auth }) {
             {/* 5. BOTTOM CALL TO ACTION BANNER                          */}
             {/* ======================================================== */}
             <section className="relative z-20 py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#080E1C] p-8 sm:p-14 border border-[#1E3A6E] shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8">
+                <div className="rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#080E1C] dark:bg-none dark:bg-[#1C1C20] p-8 sm:p-14 border border-[#1E3A6E] dark:border-[#2C2C32] shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8">
                     {/* Ambient glow */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/15 dark:bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
 
                     <div className="relative z-10 max-w-xl text-center sm:text-left space-y-3">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 text-xs font-semibold">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 dark:bg-[#242429] text-blue-300 dark:text-zinc-200 border border-blue-500/30 dark:border-[#32323A] text-xs font-semibold">
                             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                             <span>Mulai Gratis Hari Ini</span>
                         </div>
@@ -529,7 +529,7 @@ export default function Welcome({ auth }) {
                     <div className="relative z-10 shrink-0">
                         <Link
                             href={auth?.user ? route('dashboard') : route('register')}
-                            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-xl shadow-blue-600/30 transition-all duration-200"
+                            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 font-bold text-sm sm:text-base shadow-xl shadow-blue-600/30 dark:shadow-none transition-all duration-200"
                         >
                             <span>{auth?.user ? 'Buka Dashboard' : 'Daftar Akun Gratis'}</span>
                             <ArrowRight className="w-4 h-4" />
@@ -541,7 +541,7 @@ export default function Welcome({ auth }) {
             {/* ======================================================== */}
             {/* 6. FOOTER                                                */}
             {/* ======================================================== */}
-            <footer className="relative z-20 border-t border-[#1E3158]/60 py-10 text-xs text-slate-500">
+            <footer className="relative z-20 border-t border-[#1E3158]/60 dark:border-[#2C2C32] py-10 text-xs text-slate-500">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
                         <Link href="/" className="focus:outline-none">
@@ -559,7 +559,7 @@ export default function Welcome({ auth }) {
                                 href="https://my-portfolio-alpha-roan-39.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-bold text-blue-400 hover:text-blue-300 hover:underline transition inline-flex items-center gap-1"
+                                className="font-bold text-blue-400 hover:text-blue-300 dark:text-zinc-200 dark:hover:text-white hover:underline transition inline-flex items-center gap-1"
                             >
                                 <span>Nur Muhammad Haidar</span>
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -73,7 +73,7 @@
             }
             var meta = document.getElementById('theme-color-meta');
             if (meta) {
-                meta.setAttribute('content', isDark ? '#0B1426' : '#FFFFFF');
+                meta.setAttribute('content', isDark ? '#161619' : '#FFFFFF');
             }
         })();
     </script>
@@ -92,7 +92,7 @@
 </head>
 
 <body
-    class="font-sans antialiased text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-[#0B0F17] transition-colors duration-200">
+    class="font-sans antialiased text-slate-800 dark:text-zinc-100 bg-slate-50 dark:bg-[#121214] transition-colors duration-200">
     @inertia
 </body>
 

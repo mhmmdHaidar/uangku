@@ -70,9 +70,9 @@ export default function TransactionDetailModal({
         <Modal show={isOpen} onClose={onClose} maxWidth="lg">
             <div className="p-6 space-y-6">
                 {/* Header: ID, Title & Close Button */}
-                <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-[#1E3158]/70">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-[#2C2C32]">
                     <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-[#112143] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[#1E3158]">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-100 dark:bg-[#242429] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-[#32323A]">
                             <Hash className="w-3 h-3 text-slate-400" />
                             TRX-{String(transaction.id).padStart(5, '0')}
                         </span>
@@ -91,7 +91,7 @@ export default function TransactionDetailModal({
                     <button
                         type="button"
                         onClick={onClose}
-                        className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                        className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-[#2A2A30] transition"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -105,13 +105,13 @@ export default function TransactionDetailModal({
                             : 'bg-rose-50/60 dark:bg-rose-950/20 border-rose-200 dark:border-rose-500/30 text-rose-900 dark:text-rose-200'
                     }`}
                 >
-                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
                         Nominal Transaksi
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums">
                         {isIncome ? '+' : '–'} {formatRupiah(transaction.amount)}
                     </h2>
-                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-2 truncate">
+                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100 mt-2 truncate">
                         {transaction.title}
                     </p>
                 </div>
@@ -119,31 +119,31 @@ export default function TransactionDetailModal({
                 {/* Detailed Spec List */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                     {/* Date */}
-                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70">
+                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32]">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                            <Calendar className="w-3.5 h-3.5 text-blue-500" />
+                            <Calendar className="w-3.5 h-3.5 text-blue-500 dark:text-zinc-300" />
                             <span className="font-semibold">Tanggal Transaksi</span>
                         </div>
-                        <p className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                        <p className="font-bold text-slate-800 dark:text-zinc-200 text-sm">
                             {formatFullDate(transaction.transaction_date)}
                         </p>
                     </div>
 
                     {/* Category */}
-                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70">
+                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32]">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                             <Tag className="w-3.5 h-3.5 text-amber-500" />
                             <span className="font-semibold">Kategori</span>
                         </div>
-                        <p className="font-bold text-slate-800 dark:text-slate-200 text-sm">
+                        <p className="font-bold text-slate-800 dark:text-zinc-200 text-sm">
                             {transaction.category || 'Tanpa Kategori'}
                         </p>
                     </div>
 
                     {/* Source Wallet / Rekening */}
-                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70 sm:col-span-2">
+                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] sm:col-span-2">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1.5">
-                            <WalletTypeIcon className="w-3.5 h-3.5 text-blue-500" />
+                            <WalletTypeIcon className="w-3.5 h-3.5 text-blue-500 dark:text-zinc-300" />
                             <span className="font-semibold">Dompet / Rekening Terkait</span>
                         </div>
                         <div className="flex items-center justify-between">
@@ -153,7 +153,7 @@ export default function TransactionDetailModal({
                                     <p className="font-bold text-slate-900 dark:text-white text-sm">
                                         {walletName}
                                     </p>
-                                    <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
+                                    <p className="text-slate-500 dark:text-zinc-400 text-xs mt-0.5">
                                         {WALLET_TYPE_LABELS[walletType]} {wallet?.account_number ? `• ${wallet.account_number}` : ''}
                                     </p>
                                 </div>
@@ -161,7 +161,7 @@ export default function TransactionDetailModal({
                             {wallet?.current_balance !== undefined && (
                                 <div className="text-right">
                                     <p className="text-[10px] text-slate-400 font-medium">Saldo Dompet Saat Ini</p>
-                                    <p className="font-bold text-slate-800 dark:text-slate-200 tabular-nums">
+                                    <p className="font-bold text-slate-800 dark:text-zinc-200 tabular-nums">
                                         {formatRupiah(wallet.current_balance)}
                                     </p>
                                 </div>
@@ -171,35 +171,35 @@ export default function TransactionDetailModal({
 
                     {/* Complete Notes */}
                     {transaction.notes && (
-                        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70 sm:col-span-2">
+                        <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] sm:col-span-2">
                             <div className="flex items-center gap-1.5 text-slate-400 mb-1.5">
                                 <FileText className="w-3.5 h-3.5 text-slate-500" />
                                 <span className="font-semibold">Catatan / Keterangan</span>
                             </div>
-                            <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
+                            <p className="text-slate-700 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
                                 {transaction.notes}
                             </p>
                         </div>
                     )}
 
                     {/* Timestamp */}
-                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70 sm:col-span-2 flex items-center justify-between text-xs text-slate-400">
+                    <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] sm:col-span-2 flex items-center justify-between text-xs text-slate-400">
                         <div className="flex items-center gap-1.5">
                             <Clock className="w-3.5 h-3.5 text-slate-400" />
                             <span>Waktu Pencatatan:</span>
                         </div>
-                        <span className="font-semibold text-slate-600 dark:text-slate-300">
+                        <span className="font-semibold text-slate-600 dark:text-zinc-300">
                             {formatDateTime(transaction.created_at)}
                         </span>
                     </div>
                 </div>
 
                 {/* Footer Actions */}
-                <div className="pt-4 border-t border-slate-200 dark:border-[#1E3158]/70 flex items-center justify-between gap-3">
+                <div className="pt-4 border-t border-slate-200 dark:border-[#2C2C32] flex items-center justify-between gap-3">
                     <button
                         type="button"
                         onClick={onClose}
-                        className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                        className="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#2A2A30] transition"
                     >
                         Tutup
                     </button>
@@ -211,7 +211,7 @@ export default function TransactionDetailModal({
                                 onClose();
                                 onEdit(transaction);
                             }}
-                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#112143] dark:hover:bg-[#162A54] border border-slate-200 dark:border-[#1E3158] transition"
+                            className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-zinc-200 bg-slate-100 hover:bg-slate-200 dark:bg-[#242429] dark:hover:bg-[#2E2E35] border border-slate-200 dark:border-[#32323A] transition"
                         >
                             <Edit3 className="w-3.5 h-3.5" />
                             <span>Ubah</span>

@@ -69,10 +69,10 @@ const WALLET_THEMES = {
     other: {
         label: 'Kas Lainnya',
         icon: WalletIcon,
-        bgGradient: 'bg-gradient-to-br from-[#1e2533] via-[#10141d] to-[#07090d]',
-        glowColor: 'bg-slate-500/20',
-        borderColor: 'border-slate-500/30',
-        pillClass: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+        bgGradient: 'bg-gradient-to-br from-[#27272D] via-[#1C1C21] to-[#111114]',
+        glowColor: 'bg-white/[0.06]',
+        borderColor: 'border-[#32323A]',
+        pillClass: 'bg-white/10 text-zinc-200 border-white/15',
     },
 };
 
@@ -167,7 +167,7 @@ export default function WalletShow({
                 <div className="flex items-center justify-between">
                     <Link
                         href={route('wallets.index')}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-white/60 dark:bg-white/[0.04] border border-slate-200/60 dark:border-white/10 transition shadow-sm hover:shadow"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 dark:text-zinc-300 dark:hover:text-white bg-white/60 dark:bg-[#1C1C20] border border-slate-200/60 dark:border-[#2C2C32] transition shadow-sm hover:shadow"
                     >
                         <ArrowLeft className="w-3.5 h-3.5" />
                         <span>Kembali ke Semua Dompet</span>
@@ -177,7 +177,7 @@ export default function WalletShow({
                         <button
                             type="button"
                             onClick={() => setIsEditWalletOpen(true)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 bg-white/70 dark:bg-white/[0.05] hover:bg-slate-100 dark:hover:bg-white/[0.1] border border-slate-200/80 dark:border-white/10 transition shadow-sm"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-zinc-200 bg-white/70 dark:bg-[#1C1C20] hover:bg-slate-100 dark:hover:bg-[#242429] border border-slate-200/80 dark:border-[#2C2C32] transition shadow-sm"
                         >
                             <Edit3 className="w-3.5 h-3.5 text-slate-400" />
                             <span>Edit Dompet</span>
@@ -225,7 +225,7 @@ export default function WalletShow({
                         <button
                             type="button"
                             onClick={handleOpenCreateTx}
-                            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/25 transition-all duration-200 focus:outline-none shrink-0"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:bg-none dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/25 dark:shadow-none transition-all duration-200 focus:outline-none shrink-0"
                         >
                             <PlusCircle className="w-4 h-4" />
                             <span>Catat Transaksi di Dompet Ini</span>
