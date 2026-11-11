@@ -2,10 +2,10 @@ import { usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 const QUICK_QUESTIONS = [
-    'Cara tambah atau hapus kategori transaksi?',
-    'Bagaimana cara pisahkan saldo dompet & e-wallet?',
+    'Cara catat transfer saldo antar dompet?',
+    'Bagaimana cara atur anggaran bulanan kategori?',
+    'Bagaimana cara filter laporan per dompet?',
     'Bagaimana cara pasang Uangku jadi aplikasi di HP?',
-    'Cara ekspor laporan transaksi ke Excel / CSV?',
 ];
 
 function renderBoldSegments(line) {

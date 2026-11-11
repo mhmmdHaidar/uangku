@@ -183,6 +183,11 @@ export default function TransactionList({
         setCurrentPage(1);
     }, [selectedType, selectedWalletId, selectedCategory, search]);
 
+    // Keep inner wallet filter synced when parent page reloads filters with preserveState
+    useEffect(() => {
+        setSelectedWalletId(filters.wallet_id || '');
+    }, [filters.wallet_id]);
+
     // Pagination calculations
     const totalFiltered = filteredList.length;
     const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
@@ -271,48 +276,53 @@ export default function TransactionList({
                 </div>
 
                 {/* Filter Controls: Type, Wallet & Category Dropdown */}
-                <div className="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
+                <div className="flex flex-wrap items-center gap-2 pb-1 lg:pb-0">
                     {/* Phosphor Duotone Segmented Type Filter */}
-                    <div className="flex items-center p-1 bg-slate-200/70 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32] shrink-0">
-                        <button
-                            type="button"
-                            onClick={() => handleTypeChange('')}
-                            className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
-                                selectedType === ''
-                                    ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-[#00105B]/20 dark:border-[#3E3E46]'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
-                            }`}
-                        >
-                            Semua
-                        </button>
+                    <div className="flex items-center p-1 bg-slate-200/70 dark:bg-[#161619] rounded-xl border border-slate-300/80 dark:border-[#2C2C32] max-w-full overflow-x-auto">
+                        {!onlyToday && (
+                            <button
+                                type="button"
+                                onClick={() => handleTypeChange('')}
+                                className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition whitespace-nowrap ${
+                                    selectedType === ''
+                                        ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-[#00105B]/20 dark:border-[#3E3E46]'
+                                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                                }`}
+                            >
+                                Semua
+                            </button>
+                        )}
                         <button
                             type="button"
                             onClick={() => handleTypeChange('income')}
-                            className={`px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
+                            title={selectedType === 'income' ? 'Klik lagi untuk tampilkan semua jenis' : 'Filter Pemasukan'}
+                            className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 whitespace-nowrap ${
                                 selectedType === 'income'
                                     ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 shadow-sm border border-emerald-500/30'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-emerald-700'
                             }`}
                         >
-                            <ArrowDownLeftDuotone className="w-3.5 h-3.5" />
+                            <ArrowDownLeftDuotone className="w-3.5 h-3.5 shrink-0" />
                             <span>Pemasukan</span>
                         </button>
                         <button
                             type="button"
                             onClick={() => handleTypeChange('expense')}
-                            className={`px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
+                            title={selectedType === 'expense' ? 'Klik lagi untuk tampilkan semua jenis' : 'Filter Pengeluaran'}
+                            className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 whitespace-nowrap ${
                                 selectedType === 'expense'
                                     ? 'bg-rose-500/20 text-rose-700 dark:text-rose-400 shadow-sm border border-rose-500/30'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-rose-700'
                             }`}
                         >
-                            <ArrowUpRightDuotone className="w-3.5 h-3.5" />
+                            <ArrowUpRightDuotone className="w-3.5 h-3.5 shrink-0" />
                             <span>Pengeluaran</span>
                         </button>
                         <button
                             type="button"
                             onClick={() => handleTypeChange('transfer')}
-                            className={`px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
+                            title={selectedType === 'transfer' ? 'Klik lagi untuk tampilkan semua jenis' : 'Filter Transfer'}
+                            className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 whitespace-nowrap ${
                                 selectedType === 'transfer'
                                     ? 'bg-[#00105B]/15 dark:bg-[#2A2A32] text-[#00105B] dark:text-zinc-100 shadow-sm border border-[#00105B]/30 dark:border-[#3E3E46]'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-[#00105B] dark:hover:text-zinc-200'

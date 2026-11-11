@@ -183,34 +183,33 @@ KONTEKS AKUN USER SAAT INI (Gunakan seperlunya, jangan bocorkan hal sensitif):
 
 PANDUAN LENGKAP FITUR APLIKASI UANGKU (JAWAB PERTANYAAN BERDASARKAN DATA AKURAT INI):
 1. **Dashboard (`/dashboard`)**:
-   - **Tambah Transaksi Baru**: Tombol hijau di bagian atas Dashboard (dan tombol "Catat Transaksi" di bagian riwayat). User bisa memilih **Pengeluaran** atau **Pemasukan**, memilih **Dompet / Rekening**, mengisi **Nominal** (otomatis diformat Rupiah dan muncul tulisan ejaan huruf / Terbilang di bawahnya agar terhindar dari salah ketik nol), mengisi **Judul / Keterangan**, memilih atau mengelola **Kategori**, menentukan **Tanggal Transaksi**, dan menambahkan **Catatan Tambahan** opsional.
+   - **Tambah Transaksi Baru**: Tombol di bagian atas Dashboard (dan tombol "Catat Transaksi" di bagian riwayat). User bisa memilih **Keluar** (Pengeluaran), **Masuk** (Pemasukan), atau **Transfer** (Transfer Antar Dompet), memilih **Dompet / Rekening** sambil langsung melihat saldo terkini masing-masing opsi dompet, mengisi **Nominal** (otomatis diformat Rupiah beserta tulisan Terbilang di bawahnya), **Judul / Keterangan**, memilih atau mengelola **Kategori** (khusus Pemasukan/Pengeluaran), **Tanggal Transaksi**, dan **Catatan Tambahan** opsional.
+   - **Transfer Antar Dompet**: Saat memilih jenis **Transfer**, user memilih **Dompet Asal** dan **Dompet Tujuan**. Saldo kedua dompet otomatis menyesuaikan, tanpa memengaruhi atau menggelembungkan total pemasukan/pengeluaran bulanan maupun progres anggaran.
+   - **Anggaran Bulanan Kategori**: Di Dashboard dan halaman Laporan terdapat panel **Anggaran Bulanan Kategori** (**Atur Anggaran**). User menetapkan batas pengeluaran bulanan per kategori (pencocokan mengabaikan huruf besar/kecil), lalu sistem menghitung progres real-time bulan berjalan dengan status **Aman** (< 80%), **Hampir Habis** (80%-99%), dan **Melebihi Batas** (>= 100%).
    - **Kategori Kustom (Tambah & Hapus)**: Di dalam modal input transaksi bagian Kategori, user bisa menekan **+ Kategori Baru** untuk menambahkan kategori baru secara permanen ke akun mereka. Untuk menghapus kategori yang tidak dipakai, tekan ikon silang (**x**) di sebelah nama chip kategori tersebut (menghapus kategori tidak akan merusak catatan transaksi lama). User baru otomatis mendapatkan kategori default: Pengeluaran (`Makanan & Minuman`, `Transportasi`, `Belanja`, `Tagihan`, `Kesehatan`) dan Pemasukan (`Gaji`, `Bonus`, `Investasi`, `Bisnis`, `Lainnya`).
    - **Ringkasan Saldo**: Menampilkan Total Seluruh Uang gabungan dari semua dompet, status kondisi kas, total Pemasukan, dan Pengeluaran bulan berjalan secara real-time.
-   - **Riwayat Cepat**: Berada di bawah ringkasan, bisa langsung mencari transaksi, memfilter jenis/dompet/kategori, mengedit (ikon pensil), atau menghapus (ikon tempat sampah).
+   - **Riwayat Cepat**: Berada di bawah ringkasan, bisa langsung mencari transaksi, memfilter jenis (termasuk Transfer)/dompet/kategori, mengedit (ikon pensil), atau menghapus (ikon tempat sampah).
 
 2. **Riwayat Transaksi Lengkap (`/transactions`)**:
-   - Menyediakan **4 Kartu Metrik Real-Time (0ms)**: Total Transaksi, Pemasukan Terfilter, Pengeluaran Terfilter, dan Arus Kas Bersih (Surplus/Defisit) beserta kategori pengeluaran terbesar.
-   - **Filter & Pencarian 0ms**: Filter berdasarkan periode (**Semua**, **Hari Ini**, **Minggu Ini**, **Bulan Ini**, **Tahun Ini**, atau **Rentang Tanggal Kustom**), pencarian teks (judul, catatan, kategori), filter jenis, filter dompet, filter kategori, dan pengurutan (terbaru, terlama, nominal terbesar/terkecil).
+   - Menyediakan **4 Kartu Metrik Real-Time (0ms)**: Total Transaksi, Pemasukan Terfilter, Pengeluaran Terfilter (transfer internal tidak ikut dihitung sebagai pengeluaran/pemasukan), dan Arus Kas Bersih beserta kategori pengeluaran terbesar.
+   - **Filter & Pencarian 0ms**: Filter berdasarkan periode (**Semua**, **Hari Ini**, **Minggu Ini**, **Bulan Ini**, **Tahun Ini**, atau **Rentang Tanggal Kustom**), pencarian teks, filter jenis (`income`, `expense`, `transfer`), filter dompet, filter kategori, dan pengurutan.
    - **Mode Tampilan**: User bisa mengganti tampilan antara **Kartu Detail** atau **Tabel Ringkas** lewat tombol ikon di sebelah kanan filter urutkan.
    - **Detail Struk & Aksi**: Klik ikon **Mata** untuk membuka rincian lengkap transaksi beserta ID referensi `#TRX-...`.
    - **Ekspor CSV**: Tombol **Ekspor CSV** di kanan atas mengunduh data transaksi yang sedang terfilter ke format `.csv` yang bisa dibuka di Microsoft Excel atau Google Sheets.
 
 3. **Dompet & Rekening (`/wallets`)**:
-   - Digunakan untuk memisahkan sumber dana agar saldo tidak tercampur, mendukung tipe: **Uang Tunai (Cash)**, **Rekening Bank**, **E-Wallet** (GoPay/OVO/DANA/ShopeePay), **Investasi**, dan **Kas Lainnya**.
-   - Tombol **Tambah Dompet Baru** di kanan atas untuk menambah dompet dengan nama, jenis, nomor rekening/kartu (opsional), dan saldo awal.
-   - Kartu dompet menampilkan saldo terkini otomatis (Saldo Awal + Pemasukan - Pengeluaran) dan tombol salin nomor rekening.
+   - Ringkasan atas menampilkan kartu **Total Semua Saldo** beserta ringkasan chip **Bank**, **E-Wallet**, **Cash & Aset**, dan jumlah **Akun Terhubung**.
+   - Tombol **Tambah Dompet Baru** di kanan atas untuk menambah dompet dengan nama, jenis (`Rekening Bank`, `Uang Tunai (Cash)`, `E-Wallet`, `Investasi`, `Kas Lainnya`), nomor rekening/kartu (opsional), saldo awal, serta **8 pilihan Aksen Warna Gradasi Kartu**.
+   - Kartu dompet menampilkan saldo terkini otomatis (Saldo Awal + Pemasukan + Transfer Masuk - Pengeluaran - Transfer Keluar) dan tombol salin nomor rekening.
    - Mengklik salah satu kartu dompet akan membuka halaman **Detail Dompet** (`/wallets/{id}`) berisi grafik & mutasi khusus untuk dompet tersebut.
-   - Catatan keamanan: Menghapus dompet dapat berdampak pada transaksi terkait, pastikan memindahkan atau mengecek transaksi terlebih dahulu.
 
 4. **Laporan & Grafik (`/reports`)**:
-   - Menampilkan 4 metrik periode terpilih: Pemasukan, Pengeluaran (beserta rata-rata harian), Selisih Bersih, dan **Rasio Tabungan (%)**.
-   - **Grafik Interaktif**: Menampilkan grafik perbandingan Pemasukan vs Pengeluaran dengan pilihan rentang waktu (Minggu Ini, Bulan Ini, Tahun Ini, dsb).
-   - **Rincian Kategori & Catatan Evaluasi Finansial**: Menampilkan alokasi persentase tiap kategori, pengeluaran tunggal terbesar, dan evaluasi otomatis apakah rasio tabungan sudah sehat (ambang sehat minimal 20%).
-   - Juga tersedia tombol **Ekspor CSV** di kanan atas.
+   - Menampilkan 4 metrik periode terpilih, **Grafik Interaktif** Pemasukan vs Pengeluaran, **Rincian Kategori**, dan panel lengkap **Anggaran Bulanan Kategori**.
+   - Menyediakan dropdown filter **per Dompet / Rekening** di bagian kanan atas sehingga seluruh grafik, metrik, rincian kategori, tabel transaksi, dan **Ekspor CSV** tersaring khusus untuk dompet yang dipilih.
 
-5. **Tema Tampilan, Profil, Tur Panduan & Tanya Tupi**:
+5. **Tema Tampilan, Profil & Pusat Bantuan Tupi**:
    - **Tema Terang / Gelap**: Ubah lewat tombol ikon matahari/bulan di pojok kanan atas navigasi.
-   - **Sidebar / Menu Profil**: Klik nama atau inisial profil di pojok kanan atas untuk mengakses **Pengaturan Akun** (`/profile` - ubah nama, email, ganti password, atau hapus akun), **Tur Panduan Tupi** (memutar ulang tur keliling seluruh halaman), **Tanya Tupi** (chat bantuan ini), dan **Keluar**.
+   - **Menu Profil**: Klik nama atau inisial profil untuk mengakses **Pengaturan Akun** (`/profile`), **Pusat Bantuan Tupi** (chat asisten ini plus tombol **Putar Tur** 9 langkah untuk memutar ulang tur panduan interaktif), **Saran & Masukan**, **Tentang Uangku**, dan **Keluar**.
 
 6. **Pasang Jadi Aplikasi di HP (PWA)**:
    - Di Chrome Android: buka web Uangku, tekan menu titik tiga di kanan atas Chrome, lalu pilih **Instal aplikasi** agar ikon Tupi terpasang langsung di layar utama HP.
@@ -233,6 +232,14 @@ PROMPT;
             return "Hai {$firstName}, gampang banget kok atur kategori di Uangku:\n\n1. Tekan tombol **Tambah Transaksi Baru** di Dashboard.\n2. Di bagian **Kategori**, klik **+ Kategori Baru** untuk menambah kategori kustom sesuai kebutuhanmu.\n3. Kalau mau hapus kategori yang sudah nggak kepakai, cukup klik tanda silang (**x**) di sebelah chip kategori tersebut.\n\n*(Catatan admin: Tambahkan GEMINI_API_KEY di environment agar mode AI Tupi aktif sepenuhnya.)*";
         }
 
+        if (str_contains($q, 'anggaran') || str_contains($q, 'budget') || str_contains($q, 'batas')) {
+            return "Hai {$firstName}, begini cara mengatur **Anggaran Bulanan Kategori**:\n\n1. Buka halaman **Dashboard** atau **Laporan & Grafik**, lalu cari panel **Anggaran Bulanan Kategori**.\n2. Klik **Atur Anggaran**, pilih chip kategori pengeluaran (misal `Makanan & Minuman`), dan isi batas pengeluaran per bulan.\n3. Progres pemakaian akan berubah warna otomatis: **Aman** (< 80%), **Hampir Habis** (80%-99%), dan **Melebihi Batas** (>= 100%).\n\n*(Catatan admin: Tambahkan GEMINI_API_KEY di environment agar mode AI Tupi aktif sepenuhnya.)*";
+        }
+
+        if (str_contains($q, 'transfer') || str_contains($q, 'pindah')) {
+            return "Untuk mencatat **Transfer Antar Dompet** di Uangku:\n\n1. Tekan **Tambah Transaksi Baru** di Dashboard.\n2. Pilih jenis transaksi **Transfer**.\n3. Pilih **Dompet Asal** dan **Dompet Tujuan** (saldo masing-masing dompet langsung terlihat di pilihan dompet).\n4. Masukkan nominal dan simpan. Saldo kedua dompet otomatis diperbarui tanpa memengaruhi laporan pemasukan/pengeluaran.\n\n*(Catatan admin: Tambahkan GEMINI_API_KEY di environment agar mode AI Tupi aktif sepenuhnya.)*";
+        }
+
         if (str_contains($q, 'dompet') || str_contains($q, 'rekening') || str_contains($q, 'wallet') || str_contains($q, 'saldo')) {
             return "Untuk mengatur dompet atau memisahkan saldo Cash, Bank, dan E-Wallet:\n\n1. Buka menu **Dompet & Rekening**.\n2. Tekan **Tambah Dompet Baru** di kanan atas untuk membuat pos dana baru beserta saldo awalnya.\n3. Klik kartu dompet mana saja kalau ingin melihat riwayat transaksi dan grafik khusus dompet itu.\n\n*(Catatan admin: Tambahkan GEMINI_API_KEY di environment agar mode AI Tupi aktif sepenuhnya.)*";
         }
@@ -245,7 +252,7 @@ PROMPT;
             return "Kamu bisa mengunduh data transaksi ke Excel/CSV dengan mudah:\n\n1. Masuk ke halaman **Riwayat Transaksi** atau **Laporan & Grafik**.\n2. Atur filter periode atau kategori jika diperlukan.\n3. Klik tombol **Ekspor CSV** di kanan atas, lalu file langsung terunduh ke perangkatmu.\n\n*(Catatan admin: Tambahkan GEMINI_API_KEY di environment agar mode AI Tupi aktif sepenuhnya.)*";
         }
 
-        return "Hai {$firstName}, aku Tupi siap bantu seputar Uangku! Saat ini API AI Gemini belum terpasang di server (`GEMINI_API_KEY` belum diisi), jadi Tupi baru bisa menjawab pertanyaan umum seperti cara atur **kategori**, mengelola **dompet**, **ekspor CSV**, atau cara **instal aplikasi di HP**. Coba ketik salah satu topik itu ya!";
+        return "Hai {$firstName}, aku Tupi siap bantu seputar Uangku! Saat ini API AI Gemini belum terpasang di server (`GEMINI_API_KEY` belum diisi), jadi Tupi baru bisa menjawab pertanyaan umum seperti **transfer antar dompet**, **anggaran bulanan**, cara atur **kategori**, mengelola **dompet**, **ekspor CSV**, atau cara **instal aplikasi di HP**. Coba ketik salah satu topik itu ya!";
     }
 }
 

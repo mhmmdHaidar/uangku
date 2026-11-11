@@ -1,6 +1,6 @@
 import BudgetModal from '@/Components/Budget/BudgetModal';
 import { formatRupiah } from '@/Utils/format';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { AlertTriangle, CheckCircle2, Gauge, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -60,6 +60,7 @@ export default function BudgetSection({ budgets = [], compact = false }) {
                 </div>
 
                 {displayedBudgets.length > 0 ? (
+                    <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                         {displayedBudgets.map((budget) => {
                             const isExceeded = budget.status === 'exceeded';
@@ -155,6 +156,21 @@ export default function BudgetSection({ budgets = [], compact = false }) {
                             );
                         })}
                     </div>
+                    {compact && budgets.length > 4 && route().has('reports.index') && (
+                        <div className="pt-2 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                            <span className="text-slate-500 dark:text-zinc-400">
+                                Menampilkan 4 dari {budgets.length} kategori anggaran
+                            </span>
+                            <Link
+                                href={route('reports.index')}
+                                prefetch
+                                className="font-bold text-[#00105B] hover:text-[#001875] dark:text-zinc-200 dark:hover:text-white transition"
+                            >
+                                Lihat semua di Laporan &rarr;
+                            </Link>
+                        </div>
+                    )}
+                </>
                 ) : (
                     <div className="py-5 px-4 rounded-2xl bg-slate-50/70 dark:bg-[#161619]/70 border border-dashed border-slate-300 dark:border-[#2C2C32] text-center space-y-1.5">
                         <p className="text-xs font-semibold text-slate-700 dark:text-zinc-200">
@@ -176,3 +192,4 @@ export default function BudgetSection({ budgets = [], compact = false }) {
         </>
     );
 }
+

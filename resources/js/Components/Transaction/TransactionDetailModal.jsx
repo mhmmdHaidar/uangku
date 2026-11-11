@@ -176,13 +176,30 @@ export default function TransactionDetailModal({
                                     </p>
                                 </div>
                             </div>
-                            {wallet?.current_balance !== undefined && (
-                                <div className="text-right">
-                                    <p className="text-[10px] text-slate-400 font-medium">Saldo Dompet Saat Ini</p>
-                                    <p className="font-bold text-slate-800 dark:text-zinc-200 tabular-nums">
-                                        {formatRupiah(wallet.current_balance)}
-                                    </p>
+                            {isTransfer ? (
+                                <div className="text-right space-y-0.5">
+                                    {wallet?.current_balance !== undefined && (
+                                        <p className="text-[11px] text-slate-600 dark:text-zinc-300 tabular-nums">
+                                            <span className="text-slate-400">Saldo {walletName}: </span>
+                                            <strong className="font-bold">{formatRupiah(wallet.current_balance)}</strong>
+                                        </p>
+                                    )}
+                                    {toWallet?.current_balance !== undefined && (
+                                        <p className="text-[11px] text-slate-600 dark:text-zinc-300 tabular-nums">
+                                            <span className="text-slate-400">Saldo {toWalletName}: </span>
+                                            <strong className="font-bold">{formatRupiah(toWallet.current_balance)}</strong>
+                                        </p>
+                                    )}
                                 </div>
+                            ) : (
+                                wallet?.current_balance !== undefined && (
+                                    <div className="text-right">
+                                        <p className="text-[10px] text-slate-400 font-medium">Saldo Dompet Saat Ini</p>
+                                        <p className="font-bold text-slate-800 dark:text-zinc-200 tabular-nums">
+                                            {formatRupiah(wallet.current_balance)}
+                                        </p>
+                                    </div>
+                                )
                             )}
                         </div>
                     </div>

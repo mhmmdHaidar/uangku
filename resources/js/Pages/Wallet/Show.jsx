@@ -4,6 +4,7 @@ import WalletModal from '@/Components/Wallet/WalletModal';
 import DeleteWalletModal from '@/Components/Wallet/DeleteWalletModal';
 import TransactionList from '@/Components/Dashboard/TransactionList';
 import TransactionModal from '@/Components/Dashboard/TransactionModal';
+import TransactionDetailModal from '@/Components/Transaction/TransactionDetailModal';
 import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { formatRupiah } from '@/Utils/format';
 import { getWalletCardTheme } from '@/Utils/walletThemes';
@@ -69,6 +70,7 @@ export default function WalletShow({
     // Transaction modals
     const [isTxModalOpen, setIsTxModalOpen] = useState(false);
     const [editingTx, setEditingTx] = useState(null);
+    const [detailTx, setDetailTx] = useState(null);
     const [isDeleteTxOpen, setIsDeleteTxOpen] = useState(false);
     const [deletingTx, setDeletingTx] = useState(null);
 
@@ -274,10 +276,20 @@ export default function WalletShow({
                     title={`Riwayat Transaksi • ${wallet.name}`}
                     subtitle={`${transactions.total || 0} catatan transaksi di dompet ini`}
                     onAddNew={handleOpenCreateTx}
+                    onSelect={setDetailTx}
                     onEdit={handleOpenEditTx}
                     onDelete={handleOpenDeleteTx}
                 />
             </div>
+
+            {/* Transaction Detail Modal */}
+            <TransactionDetailModal
+                isOpen={Boolean(detailTx)}
+                onClose={() => setDetailTx(null)}
+                transaction={detailTx}
+                onEdit={handleOpenEditTx}
+                onDelete={handleOpenDeleteTx}
+            />
 
             {/* Create / Edit Transaction Modal */}
             <TransactionModal

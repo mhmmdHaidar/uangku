@@ -278,6 +278,7 @@ export default function Report({
                     filters={filters}
                     categories={categories}
                     wallets={wallets}
+                    hideWalletFilter={wallets.length > 0}
                     onAddNew={handleOpenCreate}
                     onEdit={handleOpenEdit}
                     onDelete={handleOpenDelete}
