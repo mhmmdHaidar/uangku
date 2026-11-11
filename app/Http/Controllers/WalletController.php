@@ -17,23 +17,8 @@ class WalletController extends Controller
     {
         $user = $request->user();
 
-        // Seed starter wallets if user doesn't have any yet
-        if ($user->wallets()->count() === 0) {
-            $user->wallets()->create([
-                'name' => 'Rekening Utama',
-                'type' => 'bank',
-                'account_number' => 'Bank / Virtual Account',
-                'initial_balance' => 0,
-                'color' => 'teal',
-            ]);
-            $user->wallets()->create([
-                'name' => 'Uang Tunai (Cash)',
-                'type' => 'cash',
-                'account_number' => 'Dompet Fisik',
-                'initial_balance' => 0,
-                'color' => 'amber',
-            ]);
-        }
+        // Seed starter cash wallet if user doesn't have any yet
+        $user->seedDefaultCashWallet();
 
         Wallet::preloadBalances($user->id);
 
@@ -291,7 +276,12 @@ class WalletController extends Controller
             $validated['color'] = 'emerald';
         }
 
-        $request->user()->wallets()->create($validated);
+        $user = $request->user();
+        $user->wallets()->create($validated);
+
+        if (! $user->has_created_wallet) {
+            $user->forceFill(['has_created_wallet' => true])->save();
+        }
 
         return redirect()->back()->with('success', 'Dompet / rekening baru berhasil ditambahkan');
     }

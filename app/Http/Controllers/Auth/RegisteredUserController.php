@@ -42,9 +42,11 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'has_completed_tutorial' => false,
+            'has_created_wallet' => false,
         ]);
 
         $user->seedDefaultCategories();
+        $user->seedDefaultCashWallet();
 
         event(new Registered($user));
 

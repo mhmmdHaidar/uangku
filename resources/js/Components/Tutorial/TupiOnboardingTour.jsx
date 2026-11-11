@@ -1,4 +1,5 @@
 import { router, usePage } from '@inertiajs/react';
+import { CheckCircle2, Lock, PlusCircle } from 'lucide-react';
 import { useEffect, useLayoutEffect, useState, useCallback, useRef } from 'react';
 
 const STORAGE_KEY = 'uangku_tupi_tour_v1';
@@ -25,11 +26,11 @@ const TOUR_STEPS = [
         badge: 'Panduan Lengkap Uangku',
         title: (firstName) => `Halo ${firstName}, aku Tupi`,
         description:
-            'Aku asisten keuanganmu di Uangku. Yuk ikut Tupi menyusuri setiap halaman dari atas sampai bawah agar kamu menguasai seluruh fitur aplikasi ini dengan mudah.',
+            'Aku asisten keuanganmu di Uangku. Yuk ikut Tupi menyusuri 9 langkah singkat agar kamu langsung siap mengelola seluruh arus kasmu dengan mudah.',
     },
 
     // =========================================================================
-    // HALAMAN 1: DASHBOARD (ATAS -> TENGAH -> BAWAH)
+    // HALAMAN 1: DASHBOARD (TRANSAKSI + RINGKASAN + SPESIAL PENGEMBANG)
     // =========================================================================
     {
         id: 'dashboard-add-tx',
@@ -39,10 +40,10 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="dashboard-add-tx"]',
         pose: '/assets/tupi/tupi-point.png',
         animClass: 'animate-tupi-float',
-        badge: 'Dashboard — Bagian Atas',
+        badge: 'Dashboard — Transaksi',
         title: () => 'Catat Pemasukan & Pengeluaran',
         description:
-            'Di bagian paling atas Dashboard ada tombol Tambah Transaksi Baru. Di dalamnya kamu bisa input nominal Rupiah yang otomatis terbaca dalam huruf, memilih dompet, serta menambah atau menghapus kategori sesuai kebutuhanmu.',
+            'Gunakan tombol Tambah Transaksi Baru untuk mencatat pemasukan atau pengeluaran dalam hitungan detik, memilih dompet, serta mengatur kategori.',
     },
     {
         id: 'dashboard-summary',
@@ -55,20 +56,7 @@ const TOUR_STEPS = [
         badge: 'Dashboard — Ringkasan',
         title: () => 'Pantau Total Saldo & Kondisi Kas',
         description:
-            'Tepat di bawahnya ada Kartu Ringkasan. Kamu bisa langsung melihat Total Seluruh Uang dari semua dompet, indikator kondisi kas bulan ini, serta total Pemasukan dan Pengeluaran bulan berjalan.',
-    },
-    {
-        id: 'dashboard-tx-list',
-        mode: 'spotlight',
-        routeName: 'dashboard',
-        path: '/dashboard',
-        targetSelector: '[data-tour="dashboard-tx-list"]',
-        pose: '/assets/tupi/tupi-magnify.png',
-        animClass: 'animate-tupi-float',
-        badge: 'Dashboard — Bagian Bawah',
-        title: () => 'Filter Cepat & Edit Transaksi',
-        description:
-            'Bergeser ke bawah, ini daftar mutasi terbarumu. Kamu bisa langsung mencari judul catatan, menyaring per jenis, dompet, atau kategori, hingga mengubah dan menghapus catatan yang keliru.',
+            'Kartu Ringkasan menampilkan Total Seluruh Uang dari semua dompet, indikator kondisi kas, serta pemasukan dan pengeluaran bulan berjalan secara real-time.',
     },
 
     // =========================================================================
@@ -91,34 +79,8 @@ const TOUR_STEPS = [
     },
 
     // =========================================================================
-    // HALAMAN 2: RIWAYAT TRANSAKSI (ATAS -> METRIK -> FILTER -> DAFTAR BAWAH)
+    // HALAMAN 2: RIWAYAT TRANSAKSI (FILTER + DAFTAR MUTASI)
     // =========================================================================
-    {
-        id: 'transactions-actions',
-        mode: 'spotlight',
-        routeName: 'transactions.index',
-        path: '/transactions',
-        targetSelector: '[data-tour="transactions-actions"]',
-        pose: '/assets/tupi/tupi-point.png',
-        animClass: 'animate-tupi-float',
-        badge: 'Riwayat — Bagian Atas',
-        title: () => 'Ekspor Data ke Excel / CSV',
-        description:
-            'Sekarang kita masuk ke halaman Riwayat Transaksi Lengkap. Di pojok atas tersedia tombol Ekspor CSV untuk mengunduh laporan catatan keuanganmu ke file spreadsheet kapan pun dibutuhkan.',
-    },
-    {
-        id: 'transactions-summary',
-        mode: 'spotlight',
-        routeName: 'transactions.index',
-        path: '/transactions',
-        targetSelector: '[data-tour="transactions-summary"]',
-        pose: '/assets/tupi/tupi-chart.png',
-        animClass: 'animate-tupi-float',
-        badge: 'Riwayat — Ringkasan Instan',
-        title: () => 'Angka Dihitung Instan Real-Time',
-        description:
-            'Empat kartu ini otomatis menghitung Total Transaksi, Pemasukan, Pengeluaran rata-rata, dan Arus Kas Bersih mengikuti filter yang sedang aktif secara instan tanpa menunggu loading.',
-    },
     {
         id: 'transactions-filter',
         mode: 'spotlight',
@@ -127,10 +89,10 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="transactions-filter"]',
         pose: '/assets/tupi/tupi-magnify.png',
         animClass: 'animate-tupi-float',
-        badge: 'Riwayat — Kontrol Filter',
-        title: () => 'Pencarian, Periode & Mode Tampilan',
+        badge: 'Riwayat — Filter & Ekspor',
+        title: () => 'Cari, Filter & Unduh Laporan',
         description:
-            'Gunakan kotak filter lengkap ini untuk mencari catatan berdasarkan hari, minggu, bulan, rentang tanggal kustom, maupun kategori. Kamu juga bebas beralih antara tampilan Kartu atau Tabel Ringkas.',
+            'Di halaman Riwayat Transaksi, saring catatan berdasarkan hari, minggu, bulan, jenis, maupun dompet, atau ubah tampilan Kartu / Tabel dan ekspor CSV dari atas halaman.',
     },
     {
         id: 'transactions-list',
@@ -140,40 +102,28 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="transactions-list"]',
         pose: '/assets/mascot.png',
         animClass: 'animate-tupi-float',
-        badge: 'Riwayat — Bagian Bawah',
-        title: () => 'Detail Struk & Pengelolaan Mutasi',
+        badge: 'Riwayat — Daftar Mutasi',
+        title: () => 'Detail Struk & Kelola Mutasi',
         description:
-            'Di bagian bawah tersaji seluruh daftar mutasimu lengkap dengan ID transaksi, catatan tambahan, dan tombol aksi untuk melihat detail struk, mengedit, atau menghapus transaksi.',
+            'Seluruh catatan mutasi tersaji di sini. Klik transaksi untuk melihat detail struk lengkap, mengedit nominal/dompet, atau menghapus catatan yang keliru.',
     },
 
     // =========================================================================
-    // HALAMAN 3: DOMPET & REKENING (ATAS -> RINGKASAN ASET -> KARTU DOMPET)
+    // HALAMAN 3: DOMPET & REKENING (WAJIB BUAT DOMPET BARU + KARTU DOMPET)
     // =========================================================================
     {
         id: 'wallets-add',
         mode: 'spotlight',
+        requiresWalletSetup: true,
         routeName: 'wallets.index',
         path: '/wallets',
         targetSelector: '[data-tour="wallets-add"]',
         pose: '/assets/tupi/tupi-point.png',
         animClass: 'animate-tupi-float',
-        badge: 'Dompet — Bagian Atas',
+        badge: 'Dompet — Sumber Dana',
         title: () => 'Tambah Sumber Dana Baru',
         description:
-            'Kita pindah ke halaman Dompet & Rekening. Gunakan tombol Tambah Dompet Baru untuk menambahkan akun Cash, Rekening Bank, E-Wallet, atau akun Investasi beserta saldo awalnya.',
-    },
-    {
-        id: 'wallets-summary',
-        mode: 'spotlight',
-        routeName: 'wallets.index',
-        path: '/wallets',
-        targetSelector: '[data-tour="wallets-summary"]',
-        pose: '/assets/tupi/tupi-wallet.png',
-        animClass: 'animate-tupi-float',
-        badge: 'Dompet — Ringkasan Aset',
-        title: () => 'Pantau Distribusi Kekayaanmu',
-        description:
-            'Empat kartu ringkasan ini memisahkan total danamu ke dalam kategori Semua Saldo, Rekening Bank, Dompet Digital (E-Wallet), serta Kas Fisik & Investasi likuid.',
+            'Di halaman Dompet & Rekening kamu bisa menambahkan akun Rekening Bank, E-Wallet, Cash tambahan, atau Investasi lewat tombol Tambah Dompet Baru kapan saja.',
     },
     {
         id: 'wallets-grid',
@@ -183,28 +133,15 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="wallets-grid"]',
         pose: '/assets/tupi/tupi-wallet.png',
         animClass: 'animate-tupi-float',
-        badge: 'Dompet — Bagian Bawah',
+        badge: 'Dompet — Kartu Digital',
         title: () => 'Kartu Dompet Digital Interaktif',
         description:
-            'Di bawah ini adalah daftar seluruh kartu dompetmu lengkap dengan saldo terkini dan nomor rekening yang dapat disalin. Klik kartu mana saja untuk melihat rincian mutasi khusus dompet tersebut.',
+            'Semua dompetmu tampil sebagai kartu visual lengkap dengan saldo terkini. Klik kartu mana saja untuk melihat grafik dan rincian mutasi khusus dompet tersebut.',
     },
 
     // =========================================================================
-    // HALAMAN 4: LAPORAN & GRAFIK (ATAS -> GRAFIK -> RINCIAN BAWAH)
+    // HALAMAN 4: LAPORAN & GRAFIK (GRAFIK TREN + EVALUASI KATEGORI)
     // =========================================================================
-    {
-        id: 'reports-metrics',
-        mode: 'spotlight',
-        routeName: 'reports.index',
-        path: '/reports',
-        targetSelector: '[data-tour="reports-metrics"]',
-        pose: '/assets/tupi/tupi-point.png',
-        animClass: 'animate-tupi-float',
-        badge: 'Laporan — Bagian Atas',
-        title: () => 'Evaluasi Rasio Tabunganmu',
-        description:
-            'Terakhir di halaman Laporan & Grafik. Di bagian atas kamu bisa mengekspor laporan sekaligus memantau empat indikator utama: Pemasukan, Pengeluaran harian rata-rata, Selisih Bersih, dan Rasio Tabungan.',
-    },
     {
         id: 'reports-chart',
         mode: 'spotlight',
@@ -216,7 +153,7 @@ const TOUR_STEPS = [
         badge: 'Laporan — Grafik Tren',
         title: () => 'Grafik Pemasukan vs Pengeluaran',
         description:
-            'Grafik interaktif ini memperlihatkan pergerakan arus kasmu dari waktu ke waktu. Pilih rentang waktu Mingguan, Bulanan, atau Tahunan untuk melihat pola belanja dengan lebih jelas.',
+            'Pantau pergerakan arus kasmu dari waktu ke waktu lewat grafik interaktif dan indikator Rasio Tabungan dalam rentang Mingguan, Bulanan, hingga Tahunan.',
     },
     {
         id: 'reports-breakdown',
@@ -226,10 +163,10 @@ const TOUR_STEPS = [
         targetSelector: '[data-tour="reports-breakdown"]',
         pose: '/assets/tupi/tupi-magnify.png',
         animClass: 'animate-tupi-float',
-        badge: 'Laporan — Bagian Bawah',
+        badge: 'Laporan — Evaluasi',
         title: () => 'Rincian Kategori & Catatan Evaluasi',
         description:
-            'Di bagian bawah tersaji persentase pengeluaran per kategori, transaksi paling besar pada periode tersebut, dan Catatan Evaluasi Finansial otomatis untuk membantumu menjaga kesehatan kas.',
+            'Lihat persentase pengeluaran tiap kategori, transaksi terbesar pada periode terpilih, dan Catatan Evaluasi Finansial otomatis untuk menjaga kas tetap sehat.',
     },
 
     // =========================================================================
@@ -246,7 +183,7 @@ const TOUR_STEPS = [
         badge: 'Tur Panduan Selesai',
         title: (firstName) => `Semua Halaman Siap Digunakan, ${firstName}`,
         description:
-            'Dari Dashboard, mengenal pengembang aplikasi, Riwayat, Dompet, hingga Laporan Grafik sudah Tupi jelaskan semuanya. Sekarang saatnya mulai mencatat transaksi pertamamu.',
+            'Dari Dashboard, kenalan dengan pengembang, Riwayat, mendaftarkan Dompet, hingga Laporan Grafik sudah Tupi jelaskan. Sekarang saatnya mencatat transaksi pertamamu!',
     },
 ];
 
@@ -323,6 +260,8 @@ export default function TupiOnboardingTour() {
     const [isActive, setIsActive] = useState(initialTour.isActive);
     const [isNavigating, setIsNavigating] = useState(false);
     const [isSettling, setIsSettling] = useState(false);
+    const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
+    const [walletCreatedInTour, setWalletCreatedInTour] = useState(false);
     const [stepIndex, setStepIndex] = useState(initialTour.stepIndex);
     const [targetRect, setTargetRect] = useState(null);
     const [viewport, setViewport] = useState({
@@ -333,6 +272,13 @@ export default function TupiOnboardingTour() {
     const cardRef = useRef(null);
 
     const currentStep = TOUR_STEPS[stepIndex] || TOUR_STEPS[0];
+    const isWalletStep = Boolean(currentStep.requiresWalletSetup);
+    const isWalletGateActive = isWalletStep && user?.has_created_wallet === false;
+
+    const openWalletCreateModal = useCallback(() => {
+        if (typeof window === 'undefined') return;
+        window.dispatchEvent(new CustomEvent('uangku:tour-open-wallet-modal'));
+    }, []);
 
     // Preload all Tupi pose PNGs on mount
     useEffect(() => {
@@ -342,19 +288,34 @@ export default function TupiOnboardingTour() {
         });
     }, []);
 
-    // Listen to manual "Tur Tupi" launch event
+    // Listen to manual "Tur Tupi" launch & wallet modal lifecycle events
     useEffect(() => {
         const handleManualStart = () => {
             saveTourState({ active: true, stepIndex: 0 });
             setIsNavigating(false);
             setIsSettling(false);
+            setIsWalletModalOpen(false);
+            setWalletCreatedInTour(false);
             setTargetRect(null);
             setStepIndex(0);
             setIsActive(true);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
+        const handleWalletModalState = (e) => {
+            setIsWalletModalOpen(Boolean(e.detail?.isOpen));
+        };
+        const handleWalletCreated = () => {
+            setWalletCreatedInTour(true);
+        };
+
         window.addEventListener('uangku:start-tupi-tour', handleManualStart);
-        return () => window.removeEventListener('uangku:start-tupi-tour', handleManualStart);
+        window.addEventListener('uangku:wallet-modal-state', handleWalletModalState);
+        window.addEventListener('uangku:wallet-created-in-tour', handleWalletCreated);
+        return () => {
+            window.removeEventListener('uangku:start-tupi-tour', handleManualStart);
+            window.removeEventListener('uangku:wallet-modal-state', handleWalletModalState);
+            window.removeEventListener('uangku:wallet-created-in-tour', handleWalletCreated);
+        };
     }, []);
 
     // Auto-launch once for newly registered users
@@ -520,9 +481,9 @@ export default function TupiOnboardingTour() {
         };
     }, [isActive, isNavigating, stepIndex, currentStep, measureTarget]);
 
-    // Keep target measurement synced on resize & user scroll once settled
+    // Keep target measurement synced on resize, user scroll & modal close
     useEffect(() => {
-        if (!isActive || isNavigating || isSettling) return;
+        if (!isActive || isNavigating || isSettling || isWalletModalOpen) return;
 
         measureTarget();
         const raf = requestAnimationFrame(measureTarget);
@@ -537,7 +498,7 @@ export default function TupiOnboardingTour() {
             window.removeEventListener('resize', measureTarget);
             window.removeEventListener('scroll', measureTarget, { capture: true });
         };
-    }, [isActive, isNavigating, isSettling, stepIndex, measureTarget]);
+    }, [isActive, isNavigating, isSettling, isWalletModalOpen, stepIndex, measureTarget]);
 
     const markTutorialCompleted = useCallback((redirectPath = null) => {
         saveTourState(null);
@@ -558,6 +519,8 @@ export default function TupiOnboardingTour() {
     const goToStep = useCallback(
         (nextIndex) => {
             if (nextIndex < 0) return;
+            if (nextIndex > stepIndex && isWalletGateActive) return;
+
             if (nextIndex >= TOUR_STEPS.length) {
                 markTutorialCompleted('/dashboard');
                 return;
@@ -574,26 +537,26 @@ export default function TupiOnboardingTour() {
                 setStepIndex(nextIndex);
             }
         },
-        [markTutorialCompleted]
+        [stepIndex, isWalletGateActive, markTutorialCompleted]
     );
 
     // Keyboard shortcuts
     useEffect(() => {
-        if (!isActive || isNavigating) return;
+        if (!isActive || isNavigating || isWalletModalOpen) return;
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
-                markTutorialCompleted();
+                if (!isWalletGateActive) markTutorialCompleted();
             } else if (e.key === 'ArrowRight') {
-                if (stepIndex < TOUR_STEPS.length - 1) goToStep(stepIndex + 1);
+                if (stepIndex < TOUR_STEPS.length - 1 && !isWalletGateActive) goToStep(stepIndex + 1);
             } else if (e.key === 'ArrowLeft') {
                 if (stepIndex > 0) goToStep(stepIndex - 1);
             }
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isActive, isNavigating, stepIndex, goToStep, markTutorialCompleted]);
+    }, [isActive, isNavigating, isWalletModalOpen, isWalletGateActive, stepIndex, goToStep, markTutorialCompleted]);
 
-    if (!isActive || !user) return null;
+    if (!isActive || !user || isWalletModalOpen) return null;
 
     if (isNavigating) {
         return <div className="fixed inset-0 z-[75] bg-[#070D19]/60 dark:bg-black/75 backdrop-blur-[2px] transition-opacity duration-200" />;
@@ -612,6 +575,28 @@ export default function TupiOnboardingTour() {
     const isMobile = viewport.w < 640;
     const headerBottom = viewport.headerBottom || 76;
     const mobilePlaceTop = isMobile && (targetRect ? (targetRect.top > viewport.h * 0.48 || Boolean(currentStep.scrollToBottom)) : false);
+
+    const stepPose = isWalletStep && walletCreatedInTour
+        ? '/assets/tupi/tupi-celebrate.png'
+        : currentStep.pose;
+
+    const stepBadge = isWalletGateActive
+        ? 'Dompet — Langkah Wajib'
+        : isWalletStep && walletCreatedInTour
+            ? 'Dompet Berhasil Ditambahkan'
+            : currentStep.badge;
+
+    const stepTitle = isWalletGateActive
+        ? 'Daftarkan Dompet Pertamamu'
+        : isWalletStep && walletCreatedInTour
+            ? 'Mantap! Dompetmu Sudah Siap'
+            : currentStep.title(firstName);
+
+    const stepDescription = isWalletGateActive
+        ? 'Saat ini akun barumu baru memiliki dompet Uang Tunai (Cash). Daftarkan minimal 1 dompet lagi—bebas pilih Rekening Bank, E-Wallet, atau Investasi—sebelum melanjutkan tur.'
+        : isWalletStep && walletCreatedInTour
+            ? 'Dompet barumu sudah berhasil disimpan! Klik Lanjut di bawah untuk melihat daftar kartu dompet digitalmu.'
+            : currentStep.description;
 
     // Clamp spotlight frame on mobile so borders never slip behind sticky navbar or guide card
     const getSpotlightStyle = () => {
@@ -722,6 +707,15 @@ export default function TupiOnboardingTour() {
                             rel="noopener noreferrer"
                             aria-label="Kunjungi portofolio Haidar"
                             className="fixed z-[77] rounded-2xl cursor-pointer"
+                            style={spotlightStyle}
+                        />
+                    )}
+                    {isWalletGateActive && (
+                        <button
+                            type="button"
+                            onClick={openWalletCreateModal}
+                            aria-label="Tambah Dompet Baru"
+                            className="fixed z-[77] rounded-2xl cursor-pointer focus:outline-none"
                             style={spotlightStyle}
                         />
                     )}
@@ -838,14 +832,16 @@ export default function TupiOnboardingTour() {
                         className={`relative rounded-2xl sm:rounded-3xl bg-white dark:bg-[#1C1C20] shadow-[0_20px_50px_rgba(0,0,0,0.45)] p-3.5 sm:p-5 animate-tupi-spring border ${
                             isSpecial
                                 ? 'border-amber-400/80 dark:border-amber-400/60 ring-1 ring-amber-400/30'
-                                : 'border-[#00105B]/35 dark:border-[#3E3E46]'
+                                : isWalletGateActive
+                                    ? 'border-amber-500/70 dark:border-amber-400/50 ring-1 ring-amber-400/20'
+                                    : 'border-[#00105B]/35 dark:border-[#3E3E46]'
                         }`}
                     >
                         {/* Compact Grid: inline header avatar + full-width copy on mobile, pop-out full-body Tupi on desktop */}
                         <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-1 items-center sm:items-start">
                             <div className="sm:row-span-2 shrink-0 sm:-mt-12 sm:-ml-2 pointer-events-none select-none flex items-center justify-center">
                                 <img
-                                    src={currentStep.pose}
+                                    src={stepPose}
                                     alt="Tupi Panduan Uangku"
                                     className={`h-12 w-12 sm:h-36 sm:w-auto object-contain drop-shadow-[0_6px_12px_rgba(15,23,42,0.28)] sm:drop-shadow-[0_10px_18px_rgba(15,23,42,0.4)] ${currentStep.animClass}`}
                                 />
@@ -855,30 +851,60 @@ export default function TupiOnboardingTour() {
                                 <div className="flex items-center justify-between gap-2 mb-0.5 sm:mb-1">
                                     <span
                                         className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold truncate ${
-                                            isSpecial
+                                            isSpecial || isWalletGateActive
                                                 ? 'bg-amber-50 dark:bg-amber-500/15 border border-amber-300 dark:border-amber-500/35 text-amber-800 dark:text-amber-300'
-                                                : 'bg-[#00105B]/10 dark:bg-[#242429] border border-[#00105B]/20 dark:border-[#3E3E46] text-[#00105B] dark:text-zinc-200'
+                                                : isWalletStep && walletCreatedInTour
+                                                    ? 'bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-300 dark:border-emerald-500/35 text-emerald-700 dark:text-emerald-300'
+                                                    : 'bg-[#00105B]/10 dark:bg-[#242429] border border-[#00105B]/20 dark:border-[#3E3E46] text-[#00105B] dark:text-zinc-200'
                                         }`}
                                     >
-                                        {currentStep.badge}
+                                        {stepBadge}
                                     </span>
-                                    <button
-                                        type="button"
-                                        onClick={() => markTutorialCompleted()}
-                                        className="shrink-0 text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition px-1.5 py-0.5 rounded-lg"
-                                    >
-                                        Lewati
-                                    </button>
+                                    {!isWalletGateActive && (
+                                        <button
+                                            type="button"
+                                            onClick={() => markTutorialCompleted()}
+                                            className="shrink-0 text-[11px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 transition px-1.5 py-0.5 rounded-lg"
+                                        >
+                                            Lewati
+                                        </button>
+                                    )}
                                 </div>
 
                                 <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-snug">
-                                    {currentStep.title(firstName)}
+                                    {stepTitle}
                                 </h3>
                             </div>
 
-                            <p className="col-span-2 sm:col-span-1 text-xs sm:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed">
-                                {currentStep.description}
-                            </p>
+                            <div className="col-span-2 sm:col-span-1 space-y-2">
+                                <p className="text-xs sm:text-[13px] text-slate-600 dark:text-zinc-300 leading-relaxed">
+                                    {stepDescription}
+                                </p>
+
+                                {isWalletGateActive && (
+                                    <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                                        <button
+                                            type="button"
+                                            onClick={openWalletCreateModal}
+                                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs font-bold shadow-sm transition active:scale-95"
+                                        >
+                                            <PlusCircle className="w-3.5 h-3.5" />
+                                            <span>Daftarkan Dompet Sekarang</span>
+                                        </button>
+                                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-700 dark:text-amber-300">
+                                            <Lock className="w-3 h-3 shrink-0" />
+                                            <span>Wajib diisi untuk lanjut</span>
+                                        </span>
+                                    </div>
+                                )}
+
+                                {isWalletStep && !isWalletGateActive && walletCreatedInTour && (
+                                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 border border-emerald-200 dark:border-emerald-500/30 text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                                        <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
+                                        <span>Dompet berhasil ditambahkan! Tekan Lanjut.</span>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         {/* Full-width Progress & Navigation Footer */}
@@ -907,14 +933,18 @@ export default function TupiOnboardingTour() {
                                 </button>
                                 <button
                                     type="button"
+                                    disabled={isWalletGateActive}
                                     onClick={() => goToStep(stepIndex + 1)}
-                                    className={`px-4 py-1.5 rounded-xl active:scale-95 text-white text-xs font-bold shadow-sm transition whitespace-nowrap ${
-                                        isSpecial
-                                            ? 'bg-amber-600 hover:bg-amber-700 shadow-amber-600/25'
-                                            : 'bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 shadow-[#00105B]/25 dark:shadow-black/40'
+                                    className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap ${
+                                        isWalletGateActive
+                                            ? 'bg-slate-200 dark:bg-[#2A2A30] text-slate-400 dark:text-zinc-500 cursor-not-allowed'
+                                            : isSpecial
+                                                ? 'bg-amber-600 hover:bg-amber-700 active:scale-95 text-white shadow-sm shadow-amber-600/25'
+                                                : 'bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white shadow-sm shadow-[#00105B]/25 dark:shadow-black/40'
                                     }`}
                                 >
-                                    Lanjut
+                                    {isWalletGateActive && <Lock className="w-3 h-3 shrink-0" />}
+                                    <span>Lanjut</span>
                                 </button>
                             </div>
                         </div>

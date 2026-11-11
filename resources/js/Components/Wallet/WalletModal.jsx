@@ -6,7 +6,7 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { formatNumberInput, terbilangRupiah } from '@/Utils/format';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { X, CreditCard, Banknote, Smartphone, TrendingUp, WalletIcon } from '@/Components/Icons/PhosphorDuotone';
 
@@ -33,6 +33,8 @@ export default function WalletModal({
     walletToEdit = null,
 }) {
     const isEditing = !!walletToEdit;
+    const { auth } = usePage().props;
+    const showTupiWalletHint = !isEditing && auth?.user?.has_created_wallet === false;
 
     const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
         name: '',
@@ -43,6 +45,17 @@ export default function WalletModal({
     });
 
     const [displayBalance, setDisplayBalance] = useState('');
+
+    // Notify interactive onboarding tour whether wallet modal is open
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        window.dispatchEvent(new CustomEvent('uangku:wallet-modal-state', { detail: { isOpen } }));
+        return () => {
+            if (isOpen) {
+                window.dispatchEvent(new CustomEvent('uangku:wallet-modal-state', { detail: { isOpen: false } }));
+            }
+        };
+    }, [isOpen]);
 
     useEffect(() => {
         if (isOpen) {
@@ -98,6 +111,9 @@ export default function WalletModal({
             post(route('wallets.store'), {
                 preserveScroll: true,
                 onSuccess: () => {
+                    if (typeof window !== 'undefined') {
+                        window.dispatchEvent(new CustomEvent('uangku:wallet-created-in-tour'));
+                    }
                     onClose();
                     reset();
                 },
@@ -129,6 +145,19 @@ export default function WalletModal({
                         <X className="w-5 h-5" />
                     </button>
                 </div>
+
+                {showTupiWalletHint && (
+                    <div className="mt-4 flex items-center gap-3 p-3 rounded-2xl bg-[#00105B]/8 dark:bg-[#242429] border border-[#00105B]/20 dark:border-[#3E3E46]">
+                        <img
+                            src="/assets/tupi/tupi-point.png"
+                            alt="Panduan Tupi"
+                            className="w-10 h-10 object-contain shrink-0"
+                        />
+                        <p className="text-xs text-slate-700 dark:text-zinc-300 leading-relaxed">
+                            <strong className="text-[#00105B] dark:text-white">Arahan Tupi:</strong> Pilih tipe (Rekening Bank, E-Wallet, atau lainnya), beri nama dompet &amp; saldo awal opsional, lalu klik <strong>Tambah Dompet</strong>.
+                        </p>
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="mt-5 space-y-4">
                     {/* 1. Tipe Dompet */}

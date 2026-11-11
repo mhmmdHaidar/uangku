@@ -22,6 +22,7 @@ class User extends Authenticatable
         'no_telp',
         'password',
         'has_completed_tutorial',
+        'has_created_wallet',
     ];
 
     /**
@@ -70,7 +71,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'has_completed_tutorial' => 'boolean',
+            'has_created_wallet' => 'boolean',
         ];
+    }
+
+    public function seedDefaultCashWallet(): void
+    {
+        if ($this->wallets()->count() > 0) {
+            return;
+        }
+
+        $this->wallets()->create([
+            'name' => 'Uang Tunai (Cash)',
+            'type' => 'cash',
+            'account_number' => 'Dompet Fisik',
+            'initial_balance' => 0,
+            'color' => 'amber',
+        ]);
     }
 
     public function transactions(): \Illuminate\Database\Eloquent\Relations\HasMany

@@ -23,6 +23,19 @@ class TutorialTest extends TestCase
         $this->assertDatabaseHas('users', [
             'email' => 'tupi@example.com',
             'has_completed_tutorial' => false,
+            'has_created_wallet' => false,
+        ]);
+
+        $user = User::where('email', 'tupi@example.com')->firstOrFail();
+        $this->assertEquals(1, $user->wallets()->count());
+        $this->assertDatabaseHas('wallets', [
+            'user_id' => $user->id,
+            'name' => 'Uang Tunai (Cash)',
+            'type' => 'cash',
+        ]);
+        $this->assertDatabaseMissing('wallets', [
+            'user_id' => $user->id,
+            'name' => 'Rekening Utama',
         ]);
     }
 

@@ -19,23 +19,8 @@ class TransactionController extends Controller
     {
         $user = $request->user();
 
-        // Ensure user has starter wallets
-        if ($user->wallets()->count() === 0) {
-            $user->wallets()->create([
-                'name' => 'Rekening Utama',
-                'type' => 'bank',
-                'account_number' => 'BCA / Bank Utama',
-                'initial_balance' => 0,
-                'color' => 'teal',
-            ]);
-            $user->wallets()->create([
-                'name' => 'Uang Tunai (Cash)',
-                'type' => 'cash',
-                'account_number' => 'Dompet Fisik',
-                'initial_balance' => 0,
-                'color' => 'amber',
-            ]);
-        }
+        // Ensure user has default starter cash wallet
+        $user->seedDefaultCashWallet();
 
         Wallet::preloadBalances($user->id);
 
@@ -148,23 +133,8 @@ class TransactionController extends Controller
     {
         $user = $request->user();
 
-        // Ensure user has starter wallets
-        if ($user->wallets()->count() === 0) {
-            $user->wallets()->create([
-                'name' => 'Rekening Utama',
-                'type' => 'bank',
-                'account_number' => 'BCA / Bank Utama',
-                'initial_balance' => 0,
-                'color' => 'teal',
-            ]);
-            $user->wallets()->create([
-                'name' => 'Uang Tunai (Cash)',
-                'type' => 'cash',
-                'account_number' => 'Dompet Fisik',
-                'initial_balance' => 0,
-                'color' => 'amber',
-            ]);
-        }
+        // Ensure user has default starter cash wallet
+        $user->seedDefaultCashWallet();
 
         Wallet::preloadBalances($user->id);
 

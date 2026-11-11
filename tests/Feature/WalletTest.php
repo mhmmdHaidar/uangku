@@ -27,16 +27,17 @@ class WalletTest extends TestCase
         $response = $this->actingAs($user)->get('/wallets');
 
         $response->assertStatus(200);
-        // Default starter wallets should be created automatically
-        $this->assertDatabaseHas('wallets', [
-            'user_id' => $user->id,
-            'name' => 'Rekening Utama',
-            'type' => 'bank',
-        ]);
+        // Only starter cash wallet should be created automatically
+        $this->assertEquals(1, $user->wallets()->count());
         $this->assertDatabaseHas('wallets', [
             'user_id' => $user->id,
             'name' => 'Uang Tunai (Cash)',
             'type' => 'cash',
+        ]);
+        $this->assertDatabaseMissing('wallets', [
+            'user_id' => $user->id,
+            'name' => 'Rekening Utama',
+            'type' => 'bank',
         ]);
     }
 
@@ -61,6 +62,7 @@ class WalletTest extends TestCase
             'initial_balance' => 5000000,
             'color' => '#3b82f6',
         ]);
+        $this->assertTrue($user->fresh()->has_created_wallet);
     }
 
     public function test_user_can_update_their_own_wallet(): void

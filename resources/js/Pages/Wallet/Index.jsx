@@ -3,7 +3,7 @@ import WalletModal from '@/Components/Wallet/WalletModal';
 import DeleteWalletModal from '@/Components/Wallet/DeleteWalletModal';
 import { formatRupiah } from '@/Utils/format';
 import { Head, Link, router } from '@inertiajs/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     WalletIcon,
     Plus,
@@ -114,6 +114,15 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
         setEditingWallet(null);
         setIsCreateModalOpen(true);
     };
+
+    useEffect(() => {
+        const handleTourOpenWalletModal = () => {
+            setEditingWallet(null);
+            setIsCreateModalOpen(true);
+        };
+        window.addEventListener('uangku:tour-open-wallet-modal', handleTourOpenWalletModal);
+        return () => window.removeEventListener('uangku:tour-open-wallet-modal', handleTourOpenWalletModal);
+    }, []);
 
     const handleOpenEdit = (wallet) => {
         setEditingWallet(wallet);
