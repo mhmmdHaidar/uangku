@@ -121,7 +121,7 @@ export default function TransactionDetailModal({
                     {/* Date */}
                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32]">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                            <Calendar className="w-3.5 h-3.5 text-blue-500 dark:text-zinc-300" />
+                            <Calendar className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300" />
                             <span className="font-semibold">Tanggal Transaksi</span>
                         </div>
                         <p className="font-bold text-slate-800 dark:text-zinc-200 text-sm">
@@ -143,7 +143,7 @@ export default function TransactionDetailModal({
                     {/* Source Wallet / Rekening */}
                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#161619] border border-slate-200/80 dark:border-[#2C2C32] sm:col-span-2">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1.5">
-                            <WalletTypeIcon className="w-3.5 h-3.5 text-blue-500 dark:text-zinc-300" />
+                            <WalletTypeIcon className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300" />
                             <span className="font-semibold">Dompet / Rekening Terkait</span>
                         </div>
                         <div className="flex items-center justify-between">

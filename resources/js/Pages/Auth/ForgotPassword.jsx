@@ -62,7 +62,7 @@ export default function ForgotPassword({ status }) {
                 <div className="pt-4 border-t border-slate-100 dark:border-white/5 text-center text-xs text-slate-500 dark:text-slate-400">
                     <Link
                         href={route('login')}
-                        className="inline-flex items-center gap-1.5 font-semibold text-blue-600 dark:text-zinc-200 hover:underline"
+                        className="inline-flex items-center gap-1.5 font-semibold text-[#00105B] dark:text-zinc-200 hover:underline"
                     >
                         <ArrowLeft className="w-3.5 h-3.5" />
                         Kembali ke halaman Masuk

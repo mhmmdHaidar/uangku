@@ -10,7 +10,7 @@ export default function Edit({ mustVerifyEmail, status }) {
         <AuthenticatedLayout
             header={
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-[#242429] border border-blue-100 dark:border-[#32323A] flex items-center justify-center text-blue-600 dark:text-zinc-200">
+                    <div className="w-8 h-8 rounded-xl bg-[#00105B]/10 dark:bg-[#242429] border border-[#00105B]/20 dark:border-[#32323A] flex items-center justify-center text-[#00105B] dark:text-zinc-200">
                         <UserCheck className="w-4 h-4" />
                     </div>
                     <div>

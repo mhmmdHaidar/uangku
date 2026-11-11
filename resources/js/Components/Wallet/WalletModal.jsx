@@ -145,11 +145,11 @@ export default function WalletModal({
                                         onClick={() => setData('type', t.key)}
                                         className={`flex flex-col items-start p-2.5 rounded-xl border text-left transition-all ${
                                             isSelected
-                                                ? 'bg-blue-50 dark:bg-[#26262C] border-blue-500 dark:border-zinc-300 text-blue-800 dark:text-white ring-1 ring-blue-500/30 dark:ring-zinc-300/20 shadow-xs'
+                                                ? 'bg-[#00105B]/10 dark:bg-[#26262C] border-[#00105B] dark:border-zinc-300 text-[#00105B] dark:text-white ring-1 ring-[#00105B]/25 dark:ring-zinc-300/20 shadow-xs'
                                                 : 'bg-white dark:bg-[#151518] border-slate-300 dark:border-[#2C2C32] text-slate-700 dark:text-zinc-300 hover:border-slate-400 dark:hover:border-[#3E3E46] shadow-2xs'
                                         }`}
                                     >
-                                        <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? 'text-blue-600 dark:text-white' : 'text-slate-400'}`} />
+                                        <Icon className={`w-4 h-4 mb-1.5 ${isSelected ? 'text-[#00105B] dark:text-white' : 'text-slate-400'}`} />
                                         <span className="text-xs font-bold leading-tight">{t.label}</span>
                                         <span className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{t.desc}</span>
                                     </button>
@@ -213,7 +213,7 @@ export default function WalletModal({
                         </div>
 
                         {data.initial_balance > 0 && (
-                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-blue-700 dark:text-zinc-200 bg-blue-50 dark:bg-[#242429] px-2.5 py-1 rounded-xl border border-blue-200 dark:border-[#32323A]">
+                            <div className="mt-1.5 flex items-center gap-1.5 text-xs text-[#00105B] dark:text-zinc-200 bg-[#00105B]/10 dark:bg-[#242429] px-2.5 py-1 rounded-xl border border-[#00105B]/20 dark:border-[#32323A]">
                                 <span className="font-semibold shrink-0">Terbaca:</span>
                                 <span className="italic font-medium truncate">{terbilangRupiah(data.initial_balance)}</span>
                             </div>

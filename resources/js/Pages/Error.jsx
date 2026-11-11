@@ -49,7 +49,7 @@ export default function Error({ status = 404 }) {
                 <div className="glass-card rounded-3xl p-8 sm:p-10 border border-slate-200 dark:border-[#2C2C32] shadow-xl">
                     {/* Mascot Illustration with Gentle Float */}
                     <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-6 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-blue-500/15 dark:bg-white/[0.06] rounded-full blur-2xl" />
+                        <div className="absolute inset-0 bg-[#00105B]/15 dark:bg-white/[0.06] rounded-full blur-2xl" />
                         <img
                             src="/assets/mascot.png"
                             alt="Si Uangku"
@@ -75,7 +75,7 @@ export default function Error({ status = 404 }) {
                         <Link
                             href={route('dashboard')}
                             prefetch
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-black/40 transition duration-150"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-[#00105B]/25 dark:shadow-black/40 transition duration-150"
                         >
                             <SquaresFourDuotone className="w-4 h-4" />
                             <span>Buka Dashboard</span>
@@ -102,7 +102,7 @@ export default function Error({ status = 404 }) {
                         href="https://my-portfolio-alpha-roan-39.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-blue-600 dark:text-zinc-200 hover:underline hover:text-blue-500 dark:hover:text-white transition inline-flex items-center gap-1"
+                        className="font-bold text-[#00105B] dark:text-zinc-200 hover:underline hover:opacity-80 dark:hover:text-white transition inline-flex items-center gap-1"
                     >
                         <span>Nur Muhammad Haidar</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

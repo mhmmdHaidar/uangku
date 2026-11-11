@@ -98,6 +98,23 @@ const getCategoryVisuals = (category = '', title = '', isIncome = false) => {
     };
 };
 
+const isTodayDate = (dateStr) => {
+    if (!dateStr) return false;
+    const clean = String(dateStr).substring(0, 10);
+    const parts = clean.split('-').map(Number);
+    let txDate;
+    if (parts.length === 3 && parts.every((n) => !Number.isNaN(n))) {
+        txDate = new Date(parts[0], parts[1] - 1, parts[2]);
+    } else {
+        txDate = new Date(dateStr);
+        if (Number.isNaN(txDate.getTime())) return false;
+        txDate.setHours(0, 0, 0, 0);
+    }
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return txDate.getTime() === today.getTime();
+};
+
 export default function TransactionList({
     transactions,
     allTransactions = [],
@@ -105,9 +122,11 @@ export default function TransactionList({
     filters = {},
     categories = [],
     hideWalletFilter = false,
+    onlyToday = false,
     title = null,
     subtitle = null,
     onAddNew,
+    onSelect = null,
     onEdit,
     onDelete,
 }) {
@@ -129,6 +148,10 @@ export default function TransactionList({
     // Instant in-memory real-time filtering (0ms latency, zero load/reload)
     const filteredList = useMemo(() => {
         return rawList.filter((item) => {
+            // Optional Today-only filter (used on Dashboard)
+            if (onlyToday && !isTodayDate(item.transaction_date)) {
+                return false;
+            }
             // Type filter
             if (selectedType && item.type !== selectedType) {
                 return false;
@@ -153,7 +176,7 @@ export default function TransactionList({
             }
             return true;
         });
-    }, [rawList, selectedType, selectedWalletId, selectedCategory, search]);
+    }, [rawList, onlyToday, selectedType, selectedWalletId, selectedCategory, search]);
 
     // Reset pagination to page 1 on any filter change
     useEffect(() => {
@@ -187,15 +210,20 @@ export default function TransactionList({
             {/* Header: Title, Count & Add Button */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-200/80 dark:border-[#2C2C32]">
                 <div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
                         <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white tracking-tight">
                             {title || 'Riwayat Transaksi'}
                         </h3>
+                        {onlyToday && (
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#00105B]/10 text-[#00105B] dark:bg-[#242429] dark:text-zinc-200 border border-[#00105B]/20 dark:border-[#32323A]">
+                                Hari Ini
+                            </span>
+                        )}
                         {route().has('transactions.index') && (
                             <Link
                                 href={route('transactions.index')}
                                 prefetch
-                                className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-zinc-300 dark:hover:text-white transition group"
+                                className="inline-flex items-center gap-1 text-xs font-bold text-[#00105B] hover:text-[#001875] dark:text-zinc-300 dark:hover:text-white transition group"
                             >
                                 <span>Lihat Riwayat Lengkap</span>
                                 <CaretRightDuotone className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -203,7 +231,7 @@ export default function TransactionList({
                         )}
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                        {subtitle || `${totalFiltered} catatan pergerakan arus kas`}
+                        {subtitle || `${totalFiltered} catatan pergerakan arus kas${onlyToday ? ' hari ini' : ''}`}
                     </p>
                 </div>
 
@@ -211,7 +239,7 @@ export default function TransactionList({
                     <button
                         onClick={onAddNew}
                         type="button"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:bg-none dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs font-semibold shadow-md shadow-blue-600/20 dark:shadow-none active:scale-95 transition-all duration-150 focus:outline-none"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white text-white dark:text-zinc-950 text-xs font-semibold shadow-md shadow-[#00105B]/20 dark:shadow-none active:scale-95 transition-all duration-150 focus:outline-none"
                     >
                         <PlusCircleDuotone className="w-3.5 h-3.5" />
                         <span>Catat Transaksi</span>
@@ -229,7 +257,7 @@ export default function TransactionList({
                         placeholder="Cari transaksi langsung..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
+                        className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-2 focus:ring-[#00105B]/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
                     />
                     {search && (
                         <button
@@ -251,7 +279,7 @@ export default function TransactionList({
                             onClick={() => handleTypeChange('')}
                             className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
                                 selectedType === ''
-                                    ? 'bg-white dark:bg-[#2A2A32] text-slate-900 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-[#00105B]/20 dark:border-[#3E3E46]'
                                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                             }`}
                         >
@@ -289,7 +317,7 @@ export default function TransactionList({
                             value={selectedWalletId}
                             onChange={(e) => setSelectedWalletId(e.target.value)}
                             aria-label="Filter berdasarkan dompet"
-                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
+                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
                         >
                             <option value="">Semua Dompet / Rekening</option>
                             {wallets.map((w) => (
@@ -306,7 +334,7 @@ export default function TransactionList({
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
                             aria-label="Filter berdasarkan kategori"
-                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
+                            className="text-xs py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0 font-semibold shadow-xs"
                         >
                             <option value="">Semua Kategori</option>
                             {categories.map((c) => (
@@ -343,7 +371,16 @@ export default function TransactionList({
                         return (
                             <div
                                 key={item.id}
-                                className="px-3.5 sm:px-4 py-3 rounded-2xl flex items-center justify-between bg-white dark:bg-[#1C1C20]/90 hover:bg-slate-50 dark:hover:bg-[#242429] transition-all duration-150 border border-slate-200/90 hover:border-slate-300 dark:border-[#2C2C32] dark:hover:border-[#3E3E46] shadow-xs group"
+                                onClick={onSelect ? () => onSelect(item) : undefined}
+                                onKeyDown={onSelect ? (e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        onSelect(item);
+                                    }
+                                } : undefined}
+                                role={onSelect ? 'button' : undefined}
+                                tabIndex={onSelect ? 0 : undefined}
+                                className={`px-3.5 sm:px-4 py-3 rounded-2xl flex items-center justify-between bg-white dark:bg-[#1C1C20]/90 hover:bg-slate-50 dark:hover:bg-[#242429] transition-all duration-150 border border-slate-200/90 hover:border-slate-300 dark:border-[#2C2C32] dark:hover:border-[#3E3E46] shadow-xs group ${onSelect ? 'cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00105B]/20 dark:focus:ring-zinc-400/20' : ''}`}
                             >
                                 {/* Left Side: Icon & Info */}
                                 <div className="flex items-center gap-3.5 min-w-0 pr-3">
@@ -364,7 +401,7 @@ export default function TransactionList({
 
                                             {/* Refined Frosted Wallet Badge */}
                                             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A] shrink-0">
-                                                <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500 dark:bg-zinc-400'}`} />
+                                                <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
                                                 <span>{walletName}</span>
                                             </span>
 
@@ -386,7 +423,7 @@ export default function TransactionList({
                                                 </>
                                             )}
                                             {item.category && (
-                                                <span className="sm:hidden font-medium text-blue-700 dark:text-zinc-300">
+                                                <span className="sm:hidden font-medium text-[#00105B] dark:text-zinc-300">
                                                     &bull; {item.category}
                                                 </span>
                                             )}
@@ -409,7 +446,10 @@ export default function TransactionList({
                                     <div className="flex items-center gap-1">
                                         <button
                                             type="button"
-                                            onClick={() => onEdit(item)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onEdit(item);
+                                            }}
                                             title="Ubah Transaksi"
                                             className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition"
                                         >
@@ -417,7 +457,10 @@ export default function TransactionList({
                                         </button>
                                         <button
                                             type="button"
-                                            onClick={() => onDelete(item)}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                onDelete(item);
+                                            }}
                                             title="Hapus Transaksi"
                                             className="p-1.5 rounded-xl text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition"
                                         >
@@ -432,7 +475,7 @@ export default function TransactionList({
             ) : (
                 /* Empty State with Mascot */
                 <div className="py-12 px-4 text-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#1E3158] dark:border-[#32323A] mb-3 shadow-md flex items-center justify-center overflow-hidden group">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#00105B] dark:border-[#32323A] mb-3 shadow-md flex items-center justify-center overflow-hidden group">
                         <img
                             src="/assets/mascot-avatar.png"
                             alt="Si Uangku"
@@ -440,12 +483,18 @@ export default function TransactionList({
                         />
                     </div>
                     <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                        {hasActiveFilters ? 'Tidak ada transaksi yang cocok' : 'Belum ada catatan transaksi'}
+                        {hasActiveFilters
+                            ? 'Tidak ada transaksi yang cocok'
+                            : onlyToday
+                                ? 'Belum ada catatan transaksi hari ini'
+                                : 'Belum ada catatan transaksi'}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
                         {hasActiveFilters
                             ? 'Coba atur ulang kata kunci pencarian atau sesuaikan filter Anda.'
-                            : 'Si Uangku siap mencatat seluruh pemasukan dan pengeluaranmu. Yuk mulai catat transaksi pertamamu!'}
+                            : onlyToday
+                                ? 'Belum ada pemasukan atau pengeluaran yang dicatat hari ini. Klik "Lihat Riwayat Lengkap" di atas untuk melihat transaksi sebelumnya.'
+                                : 'Si Uangku siap mencatat seluruh pemasukan dan pengeluaranmu. Yuk mulai catat transaksi pertamamu!'}
                     </p>
                     <div className="mt-4">
                         {hasActiveFilters ? (
@@ -460,10 +509,10 @@ export default function TransactionList({
                             <button
                                 type="button"
                                 onClick={onAddNew}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
                             >
                                 <PlusCircleDuotone className="w-3.5 h-3.5" />
-                                <span>Catat Transaksi Pertama</span>
+                                <span>{onlyToday ? 'Catat Transaksi Hari Ini' : 'Catat Transaksi Pertama'}</span>
                             </button>
                         )}
                     </div>
@@ -504,7 +553,7 @@ export default function TransactionList({
                                     onClick={() => setCurrentPage(pageNum)}
                                     className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${
                                         currentPage === pageNum
-                                            ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
+                                            ? 'bg-[#00105B] text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
                                             : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent'
                                     }`}
                                 >

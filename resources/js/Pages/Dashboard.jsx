@@ -2,6 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import SummaryCards from '@/Components/Dashboard/SummaryCards';
 import TransactionList from '@/Components/Dashboard/TransactionList';
 import TransactionModal from '@/Components/Dashboard/TransactionModal';
+import TransactionDetailModal from '@/Components/Transaction/TransactionDetailModal';
 import DeleteConfirmModal from '@/Components/Dashboard/DeleteConfirmModal';
 import { PlusCircleDuotone } from '@/Components/Icons/PhosphorDuotone';
 import { formatToday } from '@/Utils/format';
@@ -19,6 +20,7 @@ export default function Dashboard({
 }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingTransaction, setEditingTransaction] = useState(null);
+    const [detailTransaction, setDetailTransaction] = useState(null);
 
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const [deletingTransaction, setDeletingTransaction] = useState(null);
@@ -61,8 +63,8 @@ export default function Dashboard({
                 {/* Top Header: Date, Welcome Greeting & Add Transaction Button */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300">
-                            <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-zinc-300 animate-pulse" />
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#00105B] dark:text-zinc-300">
+                            <span className="w-2 h-2 rounded-full bg-[#00105B] dark:bg-zinc-300 animate-pulse" />
                             <span>{formatToday()}</span>
                         </div>
                         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
@@ -78,7 +80,7 @@ export default function Dashboard({
                             type="button"
                             data-tour="dashboard-add-tx"
                             onClick={handleOpenCreate}
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-black/40 transition-all duration-200 focus:outline-none"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-[#00105B]/25 dark:shadow-black/40 transition-all duration-200 focus:outline-none"
                         >
                             <PlusCircleDuotone className="w-4 h-4" />
                             <span>Tambah Transaksi Baru</span>
@@ -91,7 +93,7 @@ export default function Dashboard({
                     <SummaryCards metrics={metrics} />
                 </div>
 
-                {/* Transaction History & Filters */}
+                {/* Transaction History (Today Only, Clickable for Detail) & Filters */}
                 <div data-tour="dashboard-tx-list">
                     <TransactionList
                         transactions={transactions}
@@ -99,7 +101,9 @@ export default function Dashboard({
                         wallets={wallets}
                         filters={filters}
                         categories={categories}
+                        onlyToday={true}
                         onAddNew={handleOpenCreate}
+                        onSelect={setDetailTransaction}
                         onEdit={handleOpenEdit}
                         onDelete={handleOpenDelete}
                     />
@@ -113,6 +117,15 @@ export default function Dashboard({
                 transactionToEdit={editingTransaction}
                 wallets={wallets}
                 categories={categories}
+            />
+
+            {/* Detailed Transaction View Modal */}
+            <TransactionDetailModal
+                isOpen={Boolean(detailTransaction)}
+                onClose={() => setDetailTransaction(null)}
+                transaction={detailTransaction}
+                onEdit={handleOpenEdit}
+                onDelete={handleOpenDelete}
             />
 
             {/* Delete Confirmation Modal */}

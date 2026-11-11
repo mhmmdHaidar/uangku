@@ -17,7 +17,7 @@ export default function GoldCoinLoader({
             <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#1C1C20]/95 border border-slate-200 dark:border-[#2C2C32] shadow-2xl px-8 py-7 min-w-[240px] max-w-[90vw] text-center">
                 {/* Pulsing Halo Ring + 3D Spinning Gold Rp Coin */}
                 <div
-                    className="relative w-24 h-24 rounded-full border-2 border-blue-500/40 dark:border-zinc-400/40 bg-blue-500/5 dark:bg-white/[0.04] flex items-center justify-center animate-tupi-ring"
+                    className="relative w-24 h-24 rounded-full border-2 border-[#00105B]/35 dark:border-zinc-400/40 bg-[#00105B]/5 dark:bg-white/[0.04] flex items-center justify-center animate-tupi-ring"
                     style={{ perspective: '700px' }}
                 >
                     <svg

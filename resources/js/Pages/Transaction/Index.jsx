@@ -397,7 +397,7 @@ export default function TransactionIndex({
                 {/* Header: Title, Subtitle, & Primary Actions with Solar Bold Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300">
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#00105B] dark:text-zinc-300">
                             <ReceiptTextBold className="w-4 h-4" />
                             <span>Audit &amp; Catatan Keuangan</span>
                         </div>
@@ -413,9 +413,9 @@ export default function TransactionIndex({
                         {/* Export CSV Button */}
                         <a
                             href={route('transactions.export', currentExportQuery)}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1C1C20] border border-slate-300 dark:border-[#2C2C32] hover:border-blue-500 dark:hover:border-[#3E3E46] text-slate-700 dark:text-zinc-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#1C1C20] border border-slate-300 dark:border-[#2C2C32] hover:border-[#00105B] dark:hover:border-[#3E3E46] text-slate-700 dark:text-zinc-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
                         >
-                            <ExportBold className="w-4 h-4 text-blue-600 dark:text-zinc-300" />
+                            <ExportBold className="w-4 h-4 text-[#00105B] dark:text-zinc-300" />
                             <span>Ekspor CSV</span>
                         </a>
 
@@ -426,7 +426,7 @@ export default function TransactionIndex({
                                 setEditingTransaction(null);
                                 setIsCreateOpen(true);
                             }}
-                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 dark:shadow-none transition-all duration-200 focus:outline-none"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white active:scale-95 text-white dark:text-zinc-950 text-xs sm:text-sm font-bold shadow-md shadow-[#00105B]/25 dark:shadow-none transition-all duration-200 focus:outline-none"
                         >
                             <PlusBold className="w-4 h-4" />
                             <span>Catat Transaksi Baru</span>
@@ -503,19 +503,17 @@ export default function TransactionIndex({
                         </div>
                         <div className="my-3">
                             <h2
-                                className={`text-2xl sm:text-3xl font-extrabold tracking-tight tabular-nums ${
-                                    liveSummary.net_cashflow >= 0
+                                className={`text-2xl sm:text-3xl font-extrabold tracking-tight tabular-nums ${liveSummary.net_cashflow >= 0
                                         ? 'text-emerald-600 dark:text-emerald-400'
                                         : 'text-rose-600 dark:text-rose-400'
-                                }`}
+                                    }`}
                             >
                                 {liveSummary.net_cashflow >= 0 ? '+' : ''}{formatRupiah(liveSummary.net_cashflow)}
                             </h2>
                             <div className="mt-1 flex items-center gap-1.5">
                                 <span
-                                    className={`w-2 h-2 rounded-full ${
-                                        liveSummary.net_cashflow >= 0 ? 'bg-emerald-500' : 'bg-rose-500'
-                                    }`}
+                                    className={`w-2 h-2 rounded-full ${liveSummary.net_cashflow >= 0 ? 'bg-emerald-500' : 'bg-rose-500'
+                                        }`}
                                 />
                                 <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">
                                     {liveSummary.net_cashflow >= 0 ? 'Surplus Finansial' : 'Defisit Pengeluaran'}
@@ -536,7 +534,7 @@ export default function TransactionIndex({
                     <div>
                         <div className="flex items-center justify-between mb-2.5">
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <CalendarBold className="w-3.5 h-3.5 text-blue-600 dark:text-zinc-300" />
+                                <CalendarBold className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300" />
                                 Filter Periode Waktu
                             </span>
                             {hasActiveFilters && (
@@ -558,11 +556,10 @@ export default function TransactionIndex({
                                     key={opt.key}
                                     type="button"
                                     onClick={() => setSelectedPeriod(opt.key)}
-                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all duration-150 ${
-                                        selectedPeriod === opt.key
-                                            ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm'
+                                    className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all duration-150 ${selectedPeriod === opt.key
+                                            ? 'bg-[#00105B] text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm'
                                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#222227] dark:text-zinc-300 dark:hover:bg-[#2A2A32] border border-slate-200 dark:border-[#2C2C32]'
-                                    }`}
+                                        }`}
                                 >
                                     {opt.label}
                                 </button>
@@ -578,7 +575,7 @@ export default function TransactionIndex({
                                         type="date"
                                         value={startDate}
                                         onChange={(e) => setStartDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400"
                                     />
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -587,7 +584,7 @@ export default function TransactionIndex({
                                         type="date"
                                         value={endDate}
                                         onChange={(e) => setEndDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 font-semibold focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400"
                                     />
                                 </div>
                             </div>
@@ -604,7 +601,7 @@ export default function TransactionIndex({
                                 placeholder="Cari judul, catatan, atau kategori..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-2 focus:ring-blue-600/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
+                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-2 focus:ring-[#00105B]/20 dark:focus:ring-zinc-400/20 shadow-xs transition"
                             />
                             {search && (
                                 <button
@@ -624,7 +621,7 @@ export default function TransactionIndex({
                                 value={selectedType}
                                 onChange={(e) => setSelectedType(e.target.value)}
                                 aria-label="Filter Jenis Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0"
                             >
                                 <option value="">Semua Jenis (Masuk &amp; Keluar)</option>
                                 <option value="income">Pemasukan (+)</option>
@@ -637,7 +634,7 @@ export default function TransactionIndex({
                                     value={selectedWalletId}
                                     onChange={(e) => setSelectedWalletId(e.target.value)}
                                     aria-label="Filter Dompet / Rekening"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0"
                                 >
                                     <option value="">Semua Dompet / Rekening</option>
                                     {wallets.map((w) => (
@@ -654,7 +651,7 @@ export default function TransactionIndex({
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
                                     aria-label="Filter Kategori"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0"
                                 >
                                     <option value="">Semua Kategori</option>
                                     {categories.map((c) => (
@@ -670,7 +667,7 @@ export default function TransactionIndex({
                                 value={selectedSort}
                                 onChange={(e) => setSelectedSort(e.target.value)}
                                 aria-label="Urutkan Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-blue-600 dark:focus:border-zinc-400 focus:ring-1 focus:ring-blue-600 dark:focus:ring-zinc-400 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#151518] text-slate-800 dark:text-zinc-200 font-semibold shadow-xs focus:border-[#00105B] dark:focus:border-zinc-400 focus:ring-1 focus:ring-[#00105B] dark:focus:ring-zinc-400 shrink-0"
                             >
                                 <option value="date_desc">Tanggal: Terbaru</option>
                                 <option value="date_asc">Tanggal: Terlama</option>
@@ -684,11 +681,10 @@ export default function TransactionIndex({
                                     type="button"
                                     onClick={() => setViewMode('cards')}
                                     title="Tampilan Kartu Detail"
-                                    className={`p-1.5 rounded-lg transition ${
-                                        viewMode === 'cards'
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-600 dark:text-white shadow-sm'
+                                    className={`p-1.5 rounded-lg transition ${viewMode === 'cards'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
-                                    }`}
+                                        }`}
                                 >
                                     <LayoutList className="w-4 h-4" />
                                 </button>
@@ -696,11 +692,10 @@ export default function TransactionIndex({
                                     type="button"
                                     onClick={() => setViewMode('table')}
                                     title="Tampilan Tabel Ringkas"
-                                    className={`p-1.5 rounded-lg transition ${
-                                        viewMode === 'table'
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-600 dark:text-white shadow-sm'
+                                    className={`p-1.5 rounded-lg transition ${viewMode === 'table'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
-                                    }`}
+                                        }`}
                                 >
                                     <TableIcon className="w-4 h-4" />
                                 </button>
@@ -745,9 +740,8 @@ export default function TransactionIndex({
                                                 <div className="relative shrink-0 mt-0.5">
                                                     <CategoryBadge className={`w-11 h-11 ${visuals.glow}`} />
                                                     <div
-                                                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${
-                                                            isIncome ? 'bg-emerald-500' : 'bg-rose-500'
-                                                        }`}
+                                                        className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-sm ${isIncome ? 'bg-emerald-500' : 'bg-rose-500'
+                                                            }`}
                                                     >
                                                         {isIncome ? '+' : '–'}
                                                     </div>
@@ -768,7 +762,7 @@ export default function TransactionIndex({
                                                         )}
 
                                                         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-slate-100 text-slate-700 dark:bg-[#242429] dark:text-zinc-200 border border-slate-200 dark:border-[#32323A]">
-                                                            <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-blue-500 dark:bg-zinc-400'}`} />
+                                                            <span className={`w-1.5 h-1.5 rounded-full ${isIncome ? 'bg-emerald-500' : 'bg-[#00105B] dark:bg-zinc-400'}`} />
                                                             <span>{walletName}</span>
                                                             {wallet?.account_number && (
                                                                 <span className="text-slate-400 font-mono">
@@ -804,11 +798,10 @@ export default function TransactionIndex({
                                             <div className="flex items-center justify-between md:justify-end gap-4 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100 dark:border-[#2C2C32]">
                                                 <div className="text-left md:text-right">
                                                     <p
-                                                        className={`text-base sm:text-lg font-extrabold tabular-nums tracking-tight ${
-                                                            isIncome
+                                                        className={`text-base sm:text-lg font-extrabold tabular-nums tracking-tight ${isIncome
                                                                 ? 'text-emerald-600 dark:text-emerald-400'
                                                                 : 'text-slate-900 dark:text-white'
-                                                        }`}
+                                                            }`}
                                                     >
                                                         {isIncome ? '+' : '–'} {formatRupiah(item.amount)}
                                                     </p>
@@ -823,7 +816,7 @@ export default function TransactionIndex({
                                                         type="button"
                                                         onClick={() => setDetailTransaction(item)}
                                                         title="Lihat Detail Transaksi"
-                                                        className="p-2 rounded-xl text-slate-500 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent hover:border-slate-300 dark:hover:border-[#32323A] transition"
+                                                        className="p-2 rounded-xl text-slate-500 hover:text-[#00105B] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent hover:border-slate-300 dark:hover:border-[#32323A] transition"
                                                     >
                                                         <EyeBold className="w-4 h-4" />
                                                     </button>
@@ -911,11 +904,10 @@ export default function TransactionIndex({
                                                     </td>
                                                     <td className="py-3.5 px-4 whitespace-nowrap">
                                                         <span
-                                                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                                                                isIncome
+                                                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${isIncome
                                                                     ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'
                                                                     : 'bg-rose-50 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300'
-                                                            }`}
+                                                                }`}
                                                         >
                                                             {isIncome ? 'Pemasukan' : 'Pengeluaran'}
                                                         </span>
@@ -930,7 +922,7 @@ export default function TransactionIndex({
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setDetailTransaction(item)}
-                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429]"
+                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-[#00105B] dark:hover:text-white hover:bg-slate-100 dark:hover:bg-[#242429]"
                                                                 title="Detail"
                                                             >
                                                                 <EyeBold className="w-3.5 h-3.5" />
@@ -969,7 +961,7 @@ export default function TransactionIndex({
                     ) : (
                         /* Empty State with Mascot */
                         <div className="py-14 px-4 text-center">
-                            <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#0A1120] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#1E3158] dark:border-[#32323A] mb-3.5 shadow-md flex items-center justify-center overflow-hidden group">
+                            <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#26262C] dark:via-[#1E1E24] dark:to-[#161619] p-1.5 border border-[#00105B] dark:border-[#32323A] mb-3.5 shadow-md flex items-center justify-center overflow-hidden group">
                                 <img
                                     src="/assets/mascot-avatar.png"
                                     alt="Si Uangku"
@@ -1000,7 +992,7 @@ export default function TransactionIndex({
                                         setEditingTransaction(null);
                                         setIsCreateOpen(true);
                                     }}
-                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white dark:text-zinc-950 bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white transition shadow-sm dark:shadow-none"
                                 >
                                     <PlusBold className="w-4 h-4" />
                                     <span>Catat Transaksi Baru</span>
@@ -1040,11 +1032,10 @@ export default function TransactionIndex({
                                             key={pageNum}
                                             type="button"
                                             onClick={() => setCurrentPage(pageNum)}
-                                            className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${
-                                                currentPage === pageNum
-                                                    ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
+                                            className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${currentPage === pageNum
+                                                    ? 'bg-[#00105B] text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-xs'
                                                     : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429] border border-transparent'
-                                            }`}
+                                                }`}
                                         >
                                             {pageNum}
                                         </button>

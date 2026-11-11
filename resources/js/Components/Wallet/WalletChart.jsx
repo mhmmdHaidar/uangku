@@ -115,7 +115,7 @@ export default function WalletChart({
             {/* Top Toolbar: Title, Period, Metric Summary, and Controls */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-white/5">
                 <div>
-                    <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-300 mb-0.5">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[#00105B] dark:text-zinc-300 mb-0.5">
                         <TrendingUp className="w-3.5 h-3.5" />
                         <span>Tren Arus Kas {walletName ? `• ${walletName}` : ''}</span>
                     </div>
@@ -191,7 +191,7 @@ export default function WalletChart({
                             title="Tampilan Grafik Batang"
                             className={`p-1.5 rounded-lg transition ${
                                 chartMode === 'bar'
-                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
                                     : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >
@@ -203,7 +203,7 @@ export default function WalletChart({
                             title="Tampilan Grafik Garis / Area"
                             className={`p-1.5 rounded-lg transition ${
                                 chartMode === 'area'
-                                    ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
+                                    ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-xs border border-slate-300/80 dark:border-[#3E3E46]'
                                     : 'text-slate-500 hover:text-slate-800 dark:text-zinc-400 dark:hover:text-zinc-200'
                             }`}
                         >

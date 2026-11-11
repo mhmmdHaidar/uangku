@@ -109,7 +109,7 @@ export default function PageNavigationLoader() {
         >
             <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#1C1C20]/95 border border-slate-200 dark:border-[#2C2C32] shadow-2xl px-8 py-6 min-w-[240px] max-w-[90vw] text-center">
                 {/* Ambient subtle highlight */}
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-blue-500/15 dark:bg-white/[0.06] rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-[#00105B]/15 dark:bg-white/[0.06] rounded-full blur-2xl pointer-events-none" />
 
                 {/* Tupi Bouncing Mascot + Shadow Ellipse */}
                 <div className="relative flex flex-col items-center pt-3 pb-1 pointer-events-none select-none">
@@ -128,9 +128,9 @@ export default function PageNavigationLoader() {
 
                 {/* Three Animated Progress Dots */}
                 <div className="mt-2.5 flex items-center justify-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-zinc-200 animate-tupi-dot-1" />
-                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-zinc-200 animate-tupi-dot-2" />
-                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-zinc-200 animate-tupi-dot-3" />
+                    <span className="w-2 h-2 rounded-full bg-[#00105B] dark:bg-zinc-200 animate-tupi-dot-1" />
+                    <span className="w-2 h-2 rounded-full bg-[#00105B] dark:bg-zinc-200 animate-tupi-dot-2" />
+                    <span className="w-2 h-2 rounded-full bg-[#00105B] dark:bg-zinc-200 animate-tupi-dot-3" />
                 </div>
             </div>
         </div>,

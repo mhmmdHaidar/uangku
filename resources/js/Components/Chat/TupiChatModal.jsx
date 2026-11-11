@@ -42,7 +42,7 @@ function FormattedMessage({ text, isUser }) {
                     const content = trimmed.replace(/^[-*]\s+/, '');
                     return (
                         <div key={i} className="flex items-start gap-2 pl-1">
-                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-zinc-300 shrink-0" />
+                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#00105B] dark:bg-zinc-300 shrink-0" />
                             <span>{renderBoldSegments(content)}</span>
                         </div>
                     );
@@ -53,7 +53,7 @@ function FormattedMessage({ text, isUser }) {
                 if (numMatch) {
                     return (
                         <div key={i} className="flex items-start gap-2 pl-0.5">
-                            <span className="font-bold text-blue-600 dark:text-zinc-200 shrink-0">
+                            <span className="font-bold text-[#00105B] dark:text-zinc-200 shrink-0">
                                 {numMatch[1]}
                             </span>
                             <span>{renderBoldSegments(numMatch[2])}</span>
@@ -207,7 +207,7 @@ export default function TupiChatModal({ isOpen, onClose }) {
                             <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate">
                                 Tanya Tupi
                             </h2>
-                            <p className="text-[11px] font-medium text-blue-600 dark:text-zinc-400 truncate">
+                            <p className="text-[11px] font-medium text-[#00105B] dark:text-zinc-400 truncate">
                                 Layanan Bantuan Uangku
                             </p>
                         </div>
@@ -255,7 +255,7 @@ export default function TupiChatModal({ isOpen, onClose }) {
                                 <div
                                     className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-xs sm:text-[13px] shadow-2xs ${
                                         isUser
-                                            ? 'bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 rounded-br-md font-medium'
+                                            ? 'bg-[#00105B] text-white dark:bg-zinc-100 dark:text-zinc-950 rounded-br-md font-medium'
                                             : 'bg-white dark:bg-[#1C1C20] text-slate-700 dark:text-zinc-200 border border-slate-200 dark:border-[#2C2C32] rounded-bl-md'
                                     }`}
                                 >
@@ -277,7 +277,7 @@ export default function TupiChatModal({ isOpen, onClose }) {
                                         key={q}
                                         type="button"
                                         onClick={() => sendMessage(q)}
-                                        className="text-left px-3 py-1.5 rounded-xl bg-white dark:bg-[#1C1C20] hover:bg-blue-50 dark:hover:bg-[#26262C] border border-slate-200 dark:border-[#2C2C32] hover:border-blue-400 dark:hover:border-[#3E3E46] text-[11px] font-medium text-slate-700 dark:text-zinc-300 transition shadow-2xs"
+                                        className="text-left px-3 py-1.5 rounded-xl bg-white dark:bg-[#1C1C20] hover:bg-[#00105B]/10 dark:hover:bg-[#26262C] border border-slate-200 dark:border-[#2C2C32] hover:border-[#00105B]/40 dark:hover:border-[#3E3E46] text-[11px] font-medium text-slate-700 dark:text-zinc-300 transition shadow-2xs"
                                     >
                                         {q}
                                     </button>
@@ -295,9 +295,9 @@ export default function TupiChatModal({ isOpen, onClose }) {
                                 className="w-7 h-7 rounded-lg object-cover shrink-0 mb-0.5 border border-slate-200 dark:border-[#2C2C32]"
                             />
                             <div className="px-4 py-3 rounded-2xl rounded-bl-md bg-white dark:bg-[#1C1C20] border border-slate-200 dark:border-[#2C2C32] flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '0ms' }} />
-                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '150ms' }} />
-                                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '300ms' }} />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#00105B] dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '0ms' }} />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#00105B] dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '150ms' }} />
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#00105B] dark:bg-zinc-300 animate-bounce" style={{ animationDelay: '300ms' }} />
                             </div>
                         </div>
                     )}
@@ -323,12 +323,12 @@ export default function TupiChatModal({ isOpen, onClose }) {
                         }}
                         placeholder="Ketik pertanyaanmu tentang Uangku..."
                         disabled={isSending}
-                        className="flex-1 max-h-28 px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#121214] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 resize-none disabled:opacity-60"
+                        className="flex-1 max-h-28 px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#121214] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#00105B] focus:ring-2 focus:ring-[#00105B]/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 resize-none disabled:opacity-60"
                     />
                     <button
                         type="submit"
                         disabled={isSending || !input.trim()}
-                        className="px-4 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-sm shadow-blue-600/25 dark:shadow-black/40 transition disabled:opacity-50 shrink-0"
+                        className="px-4 py-2.5 rounded-2xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-sm shadow-[#00105B]/25 dark:shadow-black/40 transition disabled:opacity-50 shrink-0"
                     >
                         {isSending ? '...' : 'Kirim'}
                     </button>

@@ -67,7 +67,7 @@ export default function AuthenticatedLayout({ header, children }) {
     }, [flash]);
 
     return (
-        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#121214] transition-colors duration-200 relative selection:bg-blue-500/25 selection:text-blue-800 dark:selection:bg-zinc-600/40 dark:selection:text-zinc-100">
+        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#121214] transition-colors duration-200 relative selection:bg-[#00105B]/20 selection:text-[#00105B] dark:selection:bg-zinc-600/40 dark:selection:text-zinc-100">
             {/* Zero-lag hardware-accelerated ambient background */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 ambient-bg-glow" />
 
@@ -107,7 +107,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('dashboard')
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -120,7 +120,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('transactions.*')
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -133,7 +133,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('wallets.*')
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -146,7 +146,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('reports.index')
-                                            ? 'bg-white dark:bg-[#2A2A32] text-blue-700 dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
+                                            ? 'bg-white dark:bg-[#2A2A32] text-[#00105B] dark:text-white shadow-sm border border-slate-300/80 dark:border-[#3E3E46]'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -170,7 +170,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                             className="inline-flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20] hover:bg-slate-50 dark:hover:bg-[#242429] text-xs sm:text-sm font-semibold text-slate-700 dark:text-zinc-200 focus:outline-none transition duration-150 shadow-xs"
                                         >
                                             <div className="relative">
-                                                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                                                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-bold flex items-center justify-center text-xs shadow-sm">
                                                     {user.name.charAt(0).toUpperCase()}
                                                 </div>
                                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
@@ -210,7 +210,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <button
                                             type="button"
                                             onClick={() => setShowingTupiChat(true)}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-blue-700 dark:text-zinc-100 font-semibold hover:bg-blue-50 dark:hover:bg-[#242429] transition"
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-[#00105B] dark:text-zinc-100 font-semibold hover:bg-[#00105B]/10 dark:hover:bg-[#242429] transition"
                                         >
                                             <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
                                             <span>Tanya Tupi</span>
@@ -220,7 +220,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                             onClick={() => setShowingFeedbackModal(true)}
                                             className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-zinc-300 font-medium hover:bg-slate-100 dark:hover:bg-[#242429] transition"
                                         >
-                                            <MessageSquarePlus className="w-4 h-4 text-blue-600 dark:text-zinc-200" />
+                                            <MessageSquarePlus className="w-4 h-4 text-[#00105B] dark:text-zinc-200" />
                                             <span>Saran &amp; Masukan</span>
                                         </button>
                                         <Dropdown.Link
@@ -244,9 +244,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                 type="button"
                                 onClick={() => setShowingProfileDrawer(true)}
                                 aria-label="Buka profil pengguna"
-                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#2C2C32] hover:border-blue-500 dark:hover:border-zinc-400 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
+                                className="relative p-0.5 rounded-full border border-slate-300 dark:border-[#2C2C32] hover:border-[#00105B] dark:hover:border-zinc-400 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
                             >
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#161619] rounded-full" />
@@ -282,7 +282,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         href="https://my-portfolio-alpha-roan-39.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-blue-600 dark:text-zinc-200 hover:text-blue-500 dark:hover:text-white hover:underline transition inline-flex items-center gap-1"
+                        className="font-bold text-[#00105B] dark:text-zinc-200 hover:opacity-80 dark:hover:text-white hover:underline transition inline-flex items-center gap-1"
                     >
                         <span>Nur Muhammad Haidar</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -300,11 +300,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('dashboard')
-                                ? 'text-blue-600 dark:text-white font-bold'
+                                ? 'text-[#00105B] dark:text-white font-bold'
                                 : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-[#00105B]/10 dark:bg-[#2A2A32]' : ''}`}>
                             <SquaresFourDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dashboard</span>
@@ -315,11 +315,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('transactions.*')
-                                ? 'text-blue-600 dark:text-white font-bold'
+                                ? 'text-[#00105B] dark:text-white font-bold'
                                 : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-[#00105B]/10 dark:bg-[#2A2A32]' : ''}`}>
                             <ReceiptDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Riwayat</span>
@@ -330,11 +330,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('wallets.*')
-                                ? 'text-blue-600 dark:text-white font-bold'
+                                ? 'text-[#00105B] dark:text-white font-bold'
                                 : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-[#00105B]/10 dark:bg-[#2A2A32]' : ''}`}>
                             <WalletDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dompet</span>
@@ -345,11 +345,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('reports.index')
-                                ? 'text-blue-600 dark:text-white font-bold'
+                                ? 'text-[#00105B] dark:text-white font-bold'
                                 : 'text-slate-500 dark:text-zinc-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-blue-50 dark:bg-[#2A2A32]' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-[#00105B]/10 dark:bg-[#2A2A32]' : ''}`}>
                             <ChartBarDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Laporan</span>
@@ -379,7 +379,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     {/* Drawer Header */}
                     <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#161619]">
                         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                            <UserDuotone className="w-4 h-4 text-blue-600 dark:text-zinc-200" />
+                            <UserDuotone className="w-4 h-4 text-[#00105B] dark:text-zinc-200" />
                             <span>Profil Pengguna</span>
                         </div>
                         <button
@@ -396,10 +396,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     <div className="p-5 border-b border-slate-200/80 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20]">
                         <div className="flex items-center gap-3.5">
                             <div className="relative shrink-0">
-                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-blue-500/20 dark:ring-white/10">
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-[#00105B]/20 dark:ring-white/10">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
+                                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
                             </div>
 
                             <div className="min-w-0 flex-1">
@@ -409,8 +409,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <p className="text-xs text-slate-500 dark:text-zinc-400 font-mono truncate">
                                     {user.email}
                                 </p>
-                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-[#242429] dark:text-zinc-200 border border-blue-200 dark:border-[#3E3E46]">
-                                    <ShieldCheckDuotone className="w-3 h-3 text-blue-600 dark:text-zinc-200" />
+                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#00105B]/10 text-[#00105B] dark:bg-[#242429] dark:text-zinc-200 border border-[#00105B]/20 dark:border-[#3E3E46]">
+                                    <ShieldCheckDuotone className="w-3 h-3 text-[#00105B] dark:text-zinc-200" />
                                     <span>Akun Terverifikasi</span>
                                 </div>
                             </div>
@@ -429,7 +429,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-slate-200/80 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-[#2A2A30] text-blue-600 dark:text-zinc-200 flex items-center justify-center border border-blue-500/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-[#00105B]/10 dark:bg-[#2A2A30] text-[#00105B] dark:text-zinc-200 flex items-center justify-center border border-[#00105B]/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
                                     <UserDuotone className="w-5 h-5" />
                                 </div>
                                 <div>
@@ -437,7 +437,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-[11px] text-slate-400 font-normal">Profil, sandi &amp; info akun</p>
                                 </div>
                             </div>
-                            <span className="text-slate-400 group-hover:text-blue-500 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-slate-400 group-hover:text-[#00105B] dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </Link>
 
                         <button
@@ -466,10 +466,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                 setShowingProfileDrawer(false);
                                 setShowingTupiChat(true);
                             }}
-                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-blue-200/80 dark:border-[#2C2C32] transition group"
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-[#00105B]/5 hover:bg-[#00105B]/10 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-[#00105B]/20 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-[#2A2A30] flex items-center justify-center border border-blue-300/60 dark:border-[#3E3E46] overflow-hidden group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-[#00105B]/10 dark:bg-[#2A2A30] flex items-center justify-center border border-[#00105B]/20 dark:border-[#3E3E46] overflow-hidden group-hover:scale-105 transition">
                                     <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-8 h-8 object-contain" />
                                 </div>
                                 <div className="text-left">
@@ -477,7 +477,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Layanan tanya jawab seputar Uangku</p>
                                 </div>
                             </div>
-                            <span className="text-blue-600 dark:text-zinc-300 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-[#00105B] dark:text-zinc-300 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
 
                         <button
@@ -489,7 +489,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-slate-200/80 dark:border-[#2C2C32] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-[#2A2A30] text-blue-600 dark:text-zinc-200 flex items-center justify-center border border-blue-500/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-[#00105B]/10 dark:bg-[#2A2A30] text-[#00105B] dark:text-zinc-200 flex items-center justify-center border border-[#00105B]/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
                                     <MessageSquarePlus className="w-5 h-5" />
                                 </div>
                                 <div className="text-left">
@@ -497,7 +497,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Kirim masukan &amp; hubungi pengembang</p>
                                 </div>
                             </div>
-                            <span className="text-slate-400 group-hover:text-blue-500 dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-slate-400 group-hover:text-[#00105B] dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
                     </div>
                 </div>
@@ -515,7 +515,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href="https://my-portfolio-alpha-roan-39.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-bold text-blue-600 dark:text-zinc-200 dark:hover:text-white hover:underline inline-flex items-center gap-1"
+                                className="font-bold text-[#00105B] dark:text-zinc-200 dark:hover:text-white hover:underline inline-flex items-center gap-1"
                             >
                                 <span>Nur Muhammad Haidar</span>
                                 <span className="text-[10px]">&nearr;</span>

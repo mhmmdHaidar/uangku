@@ -74,7 +74,7 @@ export default function Report({
                 {/* Header: Title, Description, and CSV Export Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-zinc-300 mb-1">
+                        <div className="flex items-center gap-2 text-xs font-semibold text-[#00105B] dark:text-zinc-300 mb-1">
                             <BarChart3 className="w-3.5 h-3.5" />
                             <span>Analisis Finansial Terpadu</span>
                         </div>
@@ -136,8 +136,8 @@ export default function Report({
                     </div>
 
                     {/* 3. Net Balance */}
-                    <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/30 dark:hover:border-zinc-500/50">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 dark:bg-white/[0.04] rounded-full blur-2xl pointer-events-none" />
+                    <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-[#00105B]/30 dark:hover:border-zinc-500/50">
+                        <div className="absolute top-0 right-0 w-28 h-28 bg-[#00105B]/10 dark:bg-white/[0.04] rounded-full blur-2xl pointer-events-none" />
                         <div className="relative z-10 flex items-center justify-between gap-2 text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 text-[11px]">Selisih Bersih (Kas)</span>
                             <WalletBadge className="w-10 h-10" />
@@ -219,7 +219,7 @@ export default function Report({
 
                         {/* Financial Health Summary Tip */}
                         <div className="glass-card rounded-2xl p-5 space-y-2.5">
-                            <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-zinc-200 uppercase tracking-wider">
+                            <div className="flex items-center gap-2 text-xs font-semibold text-[#00105B] dark:text-zinc-200 uppercase tracking-wider">
                                 <TrendingUp className="w-4 h-4" />
                                 Catatan Evaluasi Finansial
                             </div>

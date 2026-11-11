@@ -257,14 +257,14 @@ export default function SaranModal({ isOpen, onClose }) {
                 {/* Header */}
                 <div className="shrink-0 px-5 py-4 bg-slate-50/90 dark:bg-[#161619] border-b border-slate-200 dark:border-[#2C2C32] flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-[#112143] dark:from-[#2E2E36] dark:to-[#1C1C20] dark:border dark:border-[#3E3E46] text-white flex items-center justify-center shrink-0 shadow-sm">
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#001875] to-[#00105B] dark:from-[#2E2E36] dark:to-[#1C1C20] dark:border dark:border-[#3E3E46] text-white flex items-center justify-center shrink-0 shadow-sm">
                             <MessageSquarePlus className="w-5 h-5" />
                         </div>
                         <div className="min-w-0">
                             <h2 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white leading-tight truncate">
                                 Saran &amp; Masukan
                             </h2>
-                            <p className="text-[11px] font-medium text-blue-600 dark:text-zinc-400 truncate">
+                            <p className="text-[11px] font-medium text-[#00105B] dark:text-zinc-400 truncate">
                                 Hubungi Pengembang &bull; Nur Muhammad Haidar
                             </p>
                         </div>
@@ -310,9 +310,9 @@ export default function SaranModal({ isOpen, onClose }) {
                         {/* Email */}
                         <a
                             href={mailHref}
-                            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2.5 p-2.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-blue-200/80 dark:border-[#32323A] text-blue-800 dark:text-zinc-200 transition group text-center sm:text-left"
+                            className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1.5 sm:gap-2.5 p-2.5 rounded-2xl bg-[#00105B]/5 hover:bg-[#00105B]/10 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border border-[#00105B]/20 dark:border-[#32323A] text-[#00105B] dark:text-zinc-200 transition group text-center sm:text-left"
                         >
-                            <span className="w-7 h-7 rounded-xl bg-blue-600 dark:bg-zinc-200 text-white dark:text-zinc-950 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition">
+                            <span className="w-7 h-7 rounded-xl bg-[#00105B] dark:bg-zinc-200 text-white dark:text-zinc-950 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition">
                                 <Mail className="w-3.5 h-3.5" />
                             </span>
                             <div className="min-w-0">
@@ -377,7 +377,7 @@ export default function SaranModal({ isOpen, onClose }) {
                             <div key={item.id} className="space-y-2.5">
                                 {/* User Sent Saran Bubble */}
                                 <div className="flex flex-col items-end">
-                                    <div className="max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-br-md bg-blue-600 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-2xs text-xs leading-relaxed">
+                                    <div className="max-w-[85%] px-3.5 py-2.5 rounded-2xl rounded-br-md bg-[#00105B] text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-2xs text-xs leading-relaxed">
                                         <p className="whitespace-pre-wrap font-medium">{item.isi_saran}</p>
                                     </div>
                                     <span className="mt-1 text-[10px] text-slate-400 dark:text-zinc-500 pr-1">
@@ -393,10 +393,10 @@ export default function SaranModal({ isOpen, onClose }) {
                                             alt="Pengembang Uangku"
                                             className="w-7 h-7 rounded-lg object-contain bg-amber-50 dark:bg-amber-500/10 p-0.5 shrink-0 mb-0.5 border border-amber-200/80 dark:border-amber-500/30"
                                         />
-                                        <div className="max-w-[88%] px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-white dark:bg-[#1C1C20] text-slate-700 dark:text-zinc-200 border border-blue-200/80 dark:border-[#32323A] shadow-2xs text-xs leading-relaxed">
+                                        <div className="max-w-[88%] px-3.5 py-2.5 rounded-2xl rounded-bl-md bg-white dark:bg-[#1C1C20] text-slate-700 dark:text-zinc-200 border border-[#00105B]/20 dark:border-[#32323A] shadow-2xs text-xs leading-relaxed">
                                             <div className="flex items-center gap-1.5 mb-1">
                                                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                                                <span className="text-[11px] font-bold text-blue-700 dark:text-zinc-100">
+                                                <span className="text-[11px] font-bold text-[#00105B] dark:text-zinc-100">
                                                     Balasan Otomatis Pengembang
                                                 </span>
                                             </div>
@@ -424,9 +424,9 @@ export default function SaranModal({ isOpen, onClose }) {
 
                     {/* WhatsApp Phone Step */}
                     {savedPhone && !isEditingPhone ? (
-                        <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-blue-50/70 dark:bg-[#222227] border border-blue-200/80 dark:border-[#32323A] text-xs">
+                        <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-[#00105B]/5 dark:bg-[#222227] border border-[#00105B]/20 dark:border-[#32323A] text-xs">
                             <div className="flex items-center gap-2 min-w-0">
-                                <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-zinc-300 shrink-0" />
+                                <Phone className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300 shrink-0" />
                                 <span className="text-slate-600 dark:text-zinc-300 truncate">
                                     No. WhatsApp: <strong className="text-slate-900 dark:text-white font-mono">{formatLocalPhoneDisplay(savedPhone)}</strong>
                                 </span>
@@ -437,7 +437,7 @@ export default function SaranModal({ isOpen, onClose }) {
                                     setIsEditingPhone(true);
                                     setFieldErrors({});
                                 }}
-                                className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 dark:text-zinc-200 hover:underline shrink-0"
+                                className="inline-flex items-center gap-1 text-[11px] font-bold text-[#00105B] dark:text-zinc-200 hover:underline shrink-0"
                             >
                                 <Edit3 className="w-3 h-3" />
                                 <span>Ubah</span>
@@ -447,7 +447,7 @@ export default function SaranModal({ isOpen, onClose }) {
                         <div className="p-3 rounded-2xl bg-slate-50 dark:bg-[#121214] border border-slate-200 dark:border-[#2C2C32] space-y-2">
                             <div className="flex items-center justify-between gap-2">
                                 <label htmlFor="saran_no_telp" className="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-300 flex items-center gap-1.5">
-                                    <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-zinc-300" />
+                                    <Phone className="w-3.5 h-3.5 text-[#00105B] dark:text-zinc-300" />
                                     <span>Nomor WhatsApp Aktif *</span>
                                 </label>
                                 {hasValidPhone && (
@@ -467,7 +467,7 @@ export default function SaranModal({ isOpen, onClose }) {
                                     onChange={(e) => setPhoneInput(e.target.value)}
                                     placeholder="Contoh: 083877392831"
                                     disabled={isSubmitting}
-                                    className="flex-1 px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 font-mono"
+                                    className="flex-1 px-3 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#00105B] focus:ring-2 focus:ring-[#00105B]/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 font-mono"
                                 />
                                 {savedPhone && (
                                     <button
@@ -495,7 +495,7 @@ export default function SaranModal({ isOpen, onClose }) {
                                     type="checkbox"
                                     checked={whatsappConfirmed}
                                     onChange={(e) => setWhatsappConfirmed(e.target.checked)}
-                                    className="mt-0.5 rounded border-slate-300 text-blue-600 dark:text-zinc-200 focus:ring-blue-500 dark:focus:ring-zinc-400 dark:border-[#32323A] dark:bg-[#1C1C20]"
+                                    className="mt-0.5 rounded border-slate-300 text-[#00105B] dark:text-zinc-200 focus:ring-[#00105B] dark:focus:ring-zinc-400 dark:border-[#32323A] dark:bg-[#1C1C20]"
                                 />
                                 <span className="text-[11px] text-slate-600 dark:text-zinc-300 leading-snug">
                                     Saya memastikan nomor di atas aktif dan terdaftar di <strong>WhatsApp</strong> agar pengembang bisa menindaklanjuti saran saya.
@@ -521,12 +521,12 @@ export default function SaranModal({ isOpen, onClose }) {
                                 placeholder="Tulis saran, kritik, atau ide fitur baru untuk Uangku..."
                                 disabled={isSubmitting}
                                 maxLength={2000}
-                                className="flex-1 max-h-28 px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#121214] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 resize-none disabled:opacity-60"
+                                className="flex-1 max-h-28 px-3.5 py-2.5 text-xs sm:text-sm rounded-2xl border border-slate-300 dark:border-[#2C2C32] bg-slate-50 dark:bg-[#121214] text-slate-800 dark:text-zinc-100 placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#00105B] focus:ring-2 focus:ring-[#00105B]/20 dark:focus:border-zinc-400 dark:focus:ring-zinc-400/20 resize-none disabled:opacity-60"
                             />
                             <button
                                 type="submit"
                                 disabled={isSubmitting || !isiSaran.trim()}
-                                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-sm shadow-blue-600/25 dark:shadow-black/40 transition disabled:opacity-50 shrink-0"
+                                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-[#00105B] hover:bg-[#000B42] dark:bg-zinc-100 dark:hover:bg-white dark:text-zinc-950 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-sm shadow-[#00105B]/25 dark:shadow-black/40 transition disabled:opacity-50 shrink-0"
                             >
                                 <Send className="w-3.5 h-3.5" />
                                 <span>{isSubmitting ? 'Mengirim...' : 'Kirim'}</span>
