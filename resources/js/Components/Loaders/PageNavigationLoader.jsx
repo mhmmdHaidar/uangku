@@ -108,8 +108,8 @@ export default function PageNavigationLoader() {
             aria-label={label}
         >
             <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#0E1A33]/95 border border-slate-200 dark:border-[#1E3158] shadow-2xl px-8 py-6 min-w-[240px] max-w-[90vw] text-center">
-                {/* Ambient subtle emerald glow */}
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
+                {/* Ambient subtle cobalt glow */}
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-32 bg-blue-500/15 rounded-full blur-2xl pointer-events-none" />
 
                 {/* Tupi Bouncing Mascot + Shadow Ellipse */}
                 <div className="relative flex flex-col items-center pt-3 pb-1 pointer-events-none select-none">
@@ -128,9 +128,9 @@ export default function PageNavigationLoader() {
 
                 {/* Three Animated Progress Dots */}
                 <div className="mt-2.5 flex items-center justify-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-tupi-dot-1" />
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-tupi-dot-2" />
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-tupi-dot-3" />
+                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-tupi-dot-1" />
+                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-tupi-dot-2" />
+                    <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-tupi-dot-3" />
                 </div>
             </div>
         </div>,

@@ -37,7 +37,7 @@ export default function Welcome({ auth }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0A1120] text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-emerald-500/25 selection:text-emerald-800 relative font-sans overflow-x-hidden">
+        <div className="min-h-screen bg-[#0A1120] text-slate-800 dark:text-slate-100 transition-colors duration-200 selection:bg-blue-500/25 selection:text-blue-800 relative font-sans overflow-x-hidden">
             <Head title="Uangku — Kelola Keuanganmu Lebih Mudah" />
 
             {/* ======================================================== */}
@@ -46,8 +46,8 @@ export default function Welcome({ auth }) {
             <div className="bg-white dark:bg-[#0E1A33] rounded-b-[40px] sm:rounded-b-[56px] lg:rounded-b-[64px] shadow-[0_12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_16px_50px_rgba(0,0,0,0.5)] border-b border-slate-200/90 dark:border-[#1E3158]/80 relative z-20 pb-16 sm:pb-24 lg:pb-32">
 
                 {/* Ambient glow inside white island */}
-                <div className="absolute top-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-amber-500/8 via-emerald-500/6 to-transparent rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute top-1/3 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-emerald-500/8 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-br from-amber-500/8 via-blue-500/6 to-transparent rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-1/3 left-10 w-[350px] h-[350px] bg-gradient-to-tr from-blue-500/8 to-transparent rounded-full blur-3xl pointer-events-none" />
 
                 {/* --- NAVIGATION BAR (Safe-Area aware for Notch / Dynamic Island / Punch-Hole) --- */}
                 <div className="pt-safe px-safe relative z-30">
@@ -60,10 +60,10 @@ export default function Welcome({ auth }) {
 
                         {/* Center: Navigation Links (Desktop) */}
                         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                            <a href="#fitur" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                            <a href="#fitur" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                 Fitur
                             </a>
-                            <a href="#cara-kerja" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                            <a href="#cara-kerja" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                                 Cara Kerja
                             </a>
 
@@ -87,7 +87,7 @@ export default function Welcome({ auth }) {
                                     <Link
                                         href={route('login')}
                                         prefetch
-                                        className="px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition"
+                                        className="px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition"
                                     >
                                         Masuk
                                     </Link>
@@ -150,7 +150,7 @@ export default function Welcome({ auth }) {
                                         <Link
                                             href={route('register')}
                                             prefetch
-                                            className="w-full text-center py-2.5 rounded-full bg-emerald-600 text-white text-sm font-bold shadow-sm"
+                                            className="w-full text-center py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-sm"
                                         >
                                             Coba Gratis Sekarang
                                         </Link>
@@ -176,7 +176,7 @@ export default function Welcome({ auth }) {
                         {/* LEFT COLUMN: Headings & CTA (7 cols on desktop) */}
                         <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
                             {/* Brand Pill with Mascot Pip */}
-                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-500/30 text-xs font-semibold shadow-2xs">
+                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200/90 dark:border-blue-500/30 text-xs font-semibold shadow-2xs">
                                 <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                                 <span>Aplikasi Manajemen Keuangan Pribadi Modern</span>
                             </div>
@@ -184,7 +184,7 @@ export default function Welcome({ auth }) {
                             {/* Main Reference Headline */}
                             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.12]">
                                 Kelola Keuanganmu Lebih Mudah Bersama{' '}
-                                <span className="text-emerald-600 dark:text-emerald-400">
+                                <span className="text-blue-600 dark:text-blue-400">
                                     Uangku
                                 </span>
                             </h1>
@@ -199,7 +199,7 @@ export default function Welcome({ auth }) {
                                 <Link
                                     href={auth?.user ? route('dashboard') : route('register')}
                                     prefetch
-                                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-lg shadow-emerald-600/30 transition-all duration-200"
+                                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-lg shadow-blue-600/30 transition-all duration-200"
                                 >
                                     <span>Coba Gratis Sekarang</span>
                                     <ArrowRight className="w-4 h-4" />
@@ -216,15 +216,15 @@ export default function Welcome({ auth }) {
                             {/* Trust Signals */}
                             <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-5 text-xs text-slate-500 dark:text-slate-400 font-medium">
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
                                     <span>100% Gratis &amp; Mandiri</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
                                     <span>Privasi Multi-Tenant Terisolasi</span>
                                 </div>
                                 <div className="flex items-center gap-1.5">
-                                    <Check className="w-4 h-4 text-emerald-500 stroke-[3]" />
+                                    <Check className="w-4 h-4 text-blue-600 dark:text-blue-400 stroke-[3]" />
                                     <span>Tanpa Iklan atau Tracking</span>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ export default function Welcome({ auth }) {
                         {/* RIGHT COLUMN: Mascot Hero Visual with Interactive Floating Cards (5 cols) */}
                         <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-0">
                             {/* Radial Ambient Glow Behind Mascot */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/20 via-emerald-400/20 to-teal-400/10 rounded-full blur-3xl pointer-events-none transform scale-90" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/20 via-blue-400/15 to-indigo-400/10 rounded-full blur-3xl pointer-events-none transform scale-90" />
 
                             <div className="relative z-10 w-full max-w-sm sm:max-w-md mx-auto flex items-center justify-center">
                                 {/* Mascot Illustration (Tupai Si Uangku dengan Koin Rp & Grafik) */}
@@ -295,7 +295,7 @@ export default function Welcome({ auth }) {
                             </div>
 
                             <div className="flex items-center gap-2 text-xs font-semibold">
-                                <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/30">
+                                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-500/15 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30">
                                     Live App Preview
                                 </span>
                             </div>
@@ -306,14 +306,14 @@ export default function Welcome({ auth }) {
                             {/* Mockup Header */}
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                                    <div className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
                                         • Senin, 9 November 2026
                                     </div>
                                     <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">
                                         Selamat Datang, Haidar!
                                     </h3>
                                 </div>
-                                <div className="px-3 py-1.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-sm flex items-center gap-1.5">
+                                <div className="px-3 py-1.5 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-sm flex items-center gap-1.5">
                                     <span>+ Catat Transaksi</span>
                                 </div>
                             </div>
@@ -326,7 +326,7 @@ export default function Welcome({ auth }) {
                                         <p className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tabular-nums">
                                             Rp 206.806.403
                                         </p>
-                                        <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-50 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300">
+                                        <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-50 text-blue-800 dark:bg-blue-500/15 dark:text-blue-300">
                                             Kas Sehat • 5 Dompet
                                         </div>
                                     </div>
@@ -381,7 +381,7 @@ export default function Welcome({ auth }) {
             {/* ======================================================== */}
             <section id="fitur" className="relative z-20 py-24 sm:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center max-w-2xl mx-auto mb-16">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#112143] border border-[#1E3A6E] text-emerald-400 text-xs font-semibold mb-3">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#112143] border border-[#1E3A6E] text-blue-400 text-xs font-semibold mb-3">
                         <Zap className="w-3.5 h-3.5 text-amber-400" />
                         <span>Dirancang untuk Kebutuhan Riil</span>
                     </div>
@@ -395,7 +395,7 @@ export default function Welcome({ auth }) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Feature 1: Multi-Dompet */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-emerald-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-amber-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
                         <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <Wallet className="w-6 h-6" />
                         </div>
@@ -408,8 +408,8 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 2: Grafik & Analisis */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-emerald-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-sky-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div className="w-12 h-12 rounded-2xl bg-sky-500/15 border border-sky-500/30 text-sky-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <BarChart3 className="w-6 h-6" />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">
@@ -421,7 +421,7 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 3: Pencatatan Cepat */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-emerald-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-blue-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
                         <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <Zap className="w-6 h-6" />
                         </div>
@@ -434,8 +434,8 @@ export default function Welcome({ auth }) {
                     </div>
 
                     {/* Feature 4: Keamanan Mandiri */}
-                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-emerald-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
-                        <div className="w-12 h-12 rounded-2xl bg-teal-500/15 border border-teal-500/30 text-teal-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
+                    <div className="p-6 rounded-3xl bg-[#0E1A33]/90 border border-[#1E3158]/80 hover:border-indigo-500/40 shadow-xl transition-all duration-300 hover:-translate-y-1 group">
+                        <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center mb-5 group-hover:scale-105 transition-transform">
                             <ShieldCheck className="w-6 h-6" />
                         </div>
                         <h3 className="text-lg font-bold text-white mb-2">
@@ -465,7 +465,7 @@ export default function Welcome({ auth }) {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                         {/* Step 1 */}
                         <div className="relative p-7 rounded-3xl bg-[#0E1A33] border border-[#1E3158]/80 text-center space-y-4">
-                            <div className="w-12 h-12 mx-auto rounded-2xl bg-emerald-500 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                            <div className="w-12 h-12 mx-auto rounded-2xl bg-blue-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-blue-600/30">
                                 1
                             </div>
                             <h3 className="text-lg font-bold text-white">
@@ -491,7 +491,7 @@ export default function Welcome({ auth }) {
 
                         {/* Step 3 */}
                         <div className="relative p-7 rounded-3xl bg-[#0E1A33] border border-[#1E3158]/80 text-center space-y-4">
-                            <div className="w-12 h-12 mx-auto rounded-2xl bg-teal-500 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-teal-500/30">
+                            <div className="w-12 h-12 mx-auto rounded-2xl bg-sky-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-sky-600/30">
                                 3
                             </div>
                             <h3 className="text-lg font-bold text-white">
@@ -511,10 +511,10 @@ export default function Welcome({ auth }) {
             <section className="relative z-20 py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-[#112143] via-[#0E1A33] to-[#080E1C] p-8 sm:p-14 border border-[#1E3A6E] shadow-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-8">
                     {/* Ambient glow */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
 
                     <div className="relative z-10 max-w-xl text-center sm:text-left space-y-3">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 text-xs font-semibold">
                             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                             <span>Mulai Gratis Hari Ini</span>
                         </div>
@@ -529,7 +529,7 @@ export default function Welcome({ auth }) {
                     <div className="relative z-10 shrink-0">
                         <Link
                             href={auth?.user ? route('dashboard') : route('register')}
-                            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-xl shadow-emerald-600/30 transition-all duration-200"
+                            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-sm sm:text-base shadow-xl shadow-blue-600/30 transition-all duration-200"
                         >
                             <span>{auth?.user ? 'Buka Dashboard' : 'Daftar Akun Gratis'}</span>
                             <ArrowRight className="w-4 h-4" />
@@ -559,7 +559,7 @@ export default function Welcome({ auth }) {
                                 href="https://my-portfolio-alpha-roan-39.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-bold text-emerald-400 hover:text-emerald-300 hover:underline transition inline-flex items-center gap-1"
+                                className="font-bold text-blue-400 hover:text-blue-300 hover:underline transition inline-flex items-center gap-1"
                             >
                                 <span>Nur Muhammad Haidar</span>
                                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

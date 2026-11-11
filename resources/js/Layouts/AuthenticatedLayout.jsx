@@ -64,7 +64,7 @@ export default function AuthenticatedLayout({ header, children }) {
     }, [flash]);
 
     return (
-        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200 relative selection:bg-emerald-500/25 selection:text-emerald-800 dark:selection:text-emerald-200">
+        <div className="min-h-screen bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200 relative selection:bg-blue-500/25 selection:text-blue-800 dark:selection:text-blue-200">
             {/* Zero-lag hardware-accelerated ambient background */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 ambient-bg-glow" />
 
@@ -104,7 +104,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('dashboard')
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm border border-slate-300/80 dark:border-emerald-500/40'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -117,7 +117,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('transactions.*')
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm border border-slate-300/80 dark:border-emerald-500/40'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -130,7 +130,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('wallets.*')
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm border border-slate-300/80 dark:border-emerald-500/40'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -143,7 +143,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     prefetch
                                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition duration-150 ${
                                         route().current('reports.index')
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm border border-slate-300/80 dark:border-emerald-500/40'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-700 dark:text-blue-400 shadow-sm border border-slate-300/80 dark:border-blue-500/40'
                                             : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-white/60 dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -167,7 +167,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                             className="inline-flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] hover:bg-slate-50 dark:hover:bg-[#112143] text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 focus:outline-none transition duration-150 shadow-xs"
                                         >
                                             <div className="relative">
-                                                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 via-emerald-600 to-teal-700 text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                                                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-bold flex items-center justify-center text-xs shadow-sm">
                                                     {user.name.charAt(0).toUpperCase()}
                                                 </div>
                                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
@@ -207,7 +207,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <button
                                             type="button"
                                             onClick={() => setShowingTupiChat(true)}
-                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-950/20 transition"
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-blue-700 dark:text-blue-400 font-semibold hover:bg-blue-50 dark:hover:bg-blue-950/30 transition"
                                         >
                                             <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
                                             <span>Tanya Tupi</span>
@@ -233,9 +233,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                 type="button"
                                 onClick={() => setShowingProfileDrawer(true)}
                                 aria-label="Buka profil pengguna"
-                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#1E3158] hover:border-emerald-500 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
+                                className="relative p-1 rounded-xl border border-slate-300 dark:border-[#1E3158] hover:border-blue-500 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
                             >
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 via-emerald-600 to-teal-700 text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
@@ -271,7 +271,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         href="https://my-portfolio-alpha-roan-39.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 hover:underline transition inline-flex items-center gap-1"
+                        className="font-bold text-blue-600 dark:text-blue-400 hover:text-blue-500 hover:underline transition inline-flex items-center gap-1"
                     >
                         <span>Nur Muhammad Haidar</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -289,11 +289,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('dashboard')
-                                ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+                                ? 'text-blue-600 dark:text-blue-400 font-bold'
                                 : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-emerald-50 dark:bg-emerald-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('dashboard') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
                             <SquaresFourDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dashboard</span>
@@ -304,11 +304,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('transactions.*')
-                                ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+                                ? 'text-blue-600 dark:text-blue-400 font-bold'
                                 : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-emerald-50 dark:bg-emerald-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('transactions.*') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
                             <ReceiptDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Riwayat</span>
@@ -319,11 +319,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('wallets.*')
-                                ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+                                ? 'text-blue-600 dark:text-blue-400 font-bold'
                                 : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-emerald-50 dark:bg-emerald-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('wallets.*') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
                             <WalletDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Dompet</span>
@@ -334,11 +334,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         prefetch
                         className={`flex flex-col items-center justify-center py-1 px-1 rounded-2xl transition duration-150 ${
                             route().current('reports.index')
-                                ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+                                ? 'text-blue-600 dark:text-blue-400 font-bold'
                                 : 'text-slate-500 dark:text-slate-400 font-medium hover:text-slate-900 dark:hover:text-white'
                         }`}
                     >
-                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-emerald-50 dark:bg-emerald-500/15' : ''}`}>
+                        <div className={`p-1 rounded-xl transition ${route().current('reports.index') ? 'bg-blue-50 dark:bg-blue-500/15' : ''}`}>
                             <ChartBarDuotone className="w-5 h-5" />
                         </div>
                         <span className="text-[10px] tracking-tight mt-0.5">Laporan</span>
@@ -368,7 +368,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     {/* Drawer Header */}
                     <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/80 dark:border-[#1E3158] bg-slate-50 dark:bg-[#0A1224]">
                         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                            <UserDuotone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            <UserDuotone className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                             <span>Profil Pengguna</span>
                         </div>
                         <button
@@ -385,7 +385,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     <div className="p-5 border-b border-slate-200/80 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33]">
                         <div className="flex items-center gap-3.5">
                             <div className="relative shrink-0">
-                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 via-emerald-600 to-teal-700 text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-emerald-500/20">
+                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-[#112143] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-blue-500/20">
                                     {user.name.charAt(0).toUpperCase()}
                                 </div>
                                 <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#0E1A33] rounded-full" />
@@ -398,8 +398,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                 <p className="text-xs text-slate-500 dark:text-slate-400 font-mono truncate">
                                     {user.email}
                                 </p>
-                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
-                                    <ShieldCheckDuotone className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                                <div className="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30">
+                                    <ShieldCheckDuotone className="w-3 h-3 text-blue-600 dark:text-blue-400" />
                                     <span>Akun Terverifikasi</span>
                                 </div>
                             </div>
@@ -418,7 +418,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#122143]/60 dark:hover:bg-[#122143] border border-slate-200/80 dark:border-[#1E3158] transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition">
                                     <UserDuotone className="w-5 h-5" />
                                 </div>
                                 <div>
@@ -426,7 +426,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-[11px] text-slate-400 font-normal">Profil, sandi &amp; info akun</p>
                                 </div>
                             </div>
-                            <span className="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-slate-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition">&rarr;</span>
                         </Link>
 
                         <button
@@ -455,10 +455,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                 setShowingProfileDrawer(false);
                                 setShowingTupiChat(true);
                             }}
-                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-emerald-50/70 hover:bg-emerald-100/80 dark:bg-emerald-500/10 dark:hover:bg-emerald-500/20 border border-emerald-200/80 dark:border-emerald-500/25 transition group"
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-blue-50/70 hover:bg-blue-100/80 dark:bg-blue-500/10 dark:hover:bg-blue-500/20 border border-blue-200/80 dark:border-blue-500/25 transition group"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 flex items-center justify-center border border-emerald-300/60 dark:border-emerald-500/30 overflow-hidden group-hover:scale-105 transition">
+                                <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center border border-blue-300/60 dark:border-blue-500/30 overflow-hidden group-hover:scale-105 transition">
                                     <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-8 h-8 object-contain" />
                                 </div>
                                 <div className="text-left">
@@ -466,7 +466,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Layanan tanya jawab seputar Uangku</p>
                                 </div>
                             </div>
-                            <span className="text-emerald-600 dark:text-emerald-400 group-hover:translate-x-0.5 transition">&rarr;</span>
+                            <span className="text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
                     </div>
                 </div>
@@ -484,7 +484,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href="https://my-portfolio-alpha-roan-39.vercel.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+                                className="font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
                             >
                                 <span>Nur Muhammad Haidar</span>
                                 <span className="text-[10px]">&nearr;</span>

@@ -67,7 +67,7 @@ export default function Login({ status, canResetPassword }) {
                         {canResetPassword && (
                             <Link
                                 href={route('password.request')}
-                                className="text-xs font-medium text-emerald-600 dark:text-emerald-400 hover:underline"
+                                className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
                             >
                                 Lupa sandi?
                             </Link>
@@ -97,7 +97,7 @@ export default function Login({ status, canResetPassword }) {
                             onChange={(e) =>
                                 setData('remember', e.target.checked)
                             }
-                            className="rounded-md text-emerald-600 focus:ring-emerald-500 border-slate-300 dark:border-slate-700 dark:bg-slate-900"
+                            className="rounded-md text-blue-600 focus:ring-blue-500 border-slate-300 dark:border-slate-700 dark:bg-slate-900"
                         />
                         <span className="ms-2 text-xs text-slate-600 dark:text-slate-400">
                             Ingat saya di perangkat ini
@@ -116,7 +116,7 @@ export default function Login({ status, canResetPassword }) {
                     Belum memiliki akun?{' '}
                     <Link
                         href={route('register')}
-                        className="font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                        className="font-semibold text-blue-600 dark:text-blue-400 hover:underline"
                     >
                         Daftar sekarang
                     </Link>

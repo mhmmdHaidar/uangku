@@ -15,9 +15,9 @@ export default function GoldCoinLoader({
             aria-label={message}
         >
             <div className="relative flex flex-col items-center rounded-3xl bg-white/95 dark:bg-[#0E1A33]/95 border border-slate-200 dark:border-[#1E3158] shadow-2xl px-8 py-7 min-w-[240px] max-w-[90vw] text-center">
-                {/* Pulsing Emerald Halo Ring + 3D Spinning Gold Rp Coin */}
+                {/* Pulsing Cobalt Halo Ring + 3D Spinning Gold Rp Coin */}
                 <div
-                    className="relative w-24 h-24 rounded-full border-2 border-emerald-500/40 bg-emerald-500/5 flex items-center justify-center animate-tupi-ring"
+                    className="relative w-24 h-24 rounded-full border-2 border-blue-500/40 bg-blue-500/5 flex items-center justify-center animate-tupi-ring"
                     style={{ perspective: '700px' }}
                 >
                     <svg

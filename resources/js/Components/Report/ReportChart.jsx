@@ -151,7 +151,7 @@ export default function ReportChart({
                             title="Diagram Batang"
                             className={`p-1.5 rounded-lg transition-all ${
                                 chartMode === 'bar'
-                                    ? 'bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs border border-slate-300/80 dark:border-transparent'
+                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
                                     : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                             }`}
                         >
@@ -163,7 +163,7 @@ export default function ReportChart({
                             title="Grafik Garis Area"
                             className={`p-1.5 rounded-lg transition-all ${
                                 chartMode === 'area'
-                                    ? 'bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs border border-slate-300/80 dark:border-transparent'
+                                    ? 'bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 shadow-xs border border-slate-300/80 dark:border-transparent'
                                     : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
                             }`}
                         >

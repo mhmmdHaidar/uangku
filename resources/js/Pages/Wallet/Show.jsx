@@ -225,7 +225,7 @@ export default function WalletShow({
                         <button
                             type="button"
                             onClick={handleOpenCreateTx}
-                            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/25 transition-all duration-200 focus:outline-none shrink-0"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/25 transition-all duration-200 focus:outline-none shrink-0"
                         >
                             <PlusCircle className="w-4 h-4" />
                             <span>Catat Transaksi di Dompet Ini</span>

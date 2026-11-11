@@ -17,8 +17,8 @@
         .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; background: rgba(244,63,94,0.15); color: #FDA4AF; border: 1px solid rgba(244,63,94,0.3); margin-bottom: 0.75rem; }
         h1 { font-size: 1.5rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem; }
         p { font-size: 0.875rem; color: #94A3B8; line-height: 1.5; margin-bottom: 1.5rem; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #059669; color: #FFFFFF; font-weight: 700; font-size: 0.875rem; padding: 0.75rem 1.5rem; border-radius: 1rem; text-decoration: none; transition: background 0.15s; }
-        .btn:hover { background: #047857; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: #2563EB; color: #FFFFFF; font-weight: 700; font-size: 0.875rem; padding: 0.75rem 1.5rem; border-radius: 1rem; text-decoration: none; transition: background 0.15s; }
+        .btn:hover { background: #1D4ED8; }
     </style>
 </head>
 <body>

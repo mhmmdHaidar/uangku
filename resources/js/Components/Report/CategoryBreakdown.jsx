@@ -17,7 +17,7 @@ export default function CategoryBreakdown({
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
                 <div>
                     <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
-                        <PieChart className="w-5 h-5 text-emerald-500" />
+                        <PieChart className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                         Analisis Alokasi Kategori
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">

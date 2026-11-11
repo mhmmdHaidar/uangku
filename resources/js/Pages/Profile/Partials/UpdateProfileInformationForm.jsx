@@ -77,7 +77,7 @@ export default function UpdateProfileInformation({
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="text-emerald-600 dark:text-emerald-400 hover:underline"
+                                className="text-blue-600 dark:text-blue-400 hover:underline"
                             >
                                 Kirim ulang link verifikasi email.
                             </Link>

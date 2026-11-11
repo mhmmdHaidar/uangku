@@ -14,7 +14,7 @@
     <meta name="author" content="Uangku">
 
     <!-- Theme Color for Mobile Status Bars (Light Mode default) -->
-    <meta name="theme-color" content="#10B981">
+    <meta name="theme-color" content="#2563EB">
 
     <!-- OpenGraph Meta Tags for Rich Social Sharing (WhatsApp, Telegram, Facebook, LinkedIn) -->
     <meta property="og:type" content="website">

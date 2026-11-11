@@ -151,7 +151,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                 {/* Header: Title and Add Wallet Button */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-1">
+                        <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1">
                             <Layers className="w-3.5 h-3.5" />
                             <span>Portofolio &amp; Sumber Kas Terintegrasi</span>
                         </div>
@@ -167,7 +167,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                         type="button"
                         data-tour="wallets-add"
                         onClick={handleOpenCreate}
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold shadow-lg shadow-emerald-600/20 transition-all duration-200 focus:outline-none"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 active:scale-[0.98] text-white text-xs sm:text-sm font-semibold shadow-lg shadow-blue-600/20 transition-all duration-200 focus:outline-none"
                     >
                         <Plus className="w-4 h-4" />
                         <span>Tambah Dompet Baru</span>
@@ -177,8 +177,8 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                 {/* Top Summary: 4 Refined Metric Cards */}
                 <div data-tour="wallets-summary" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* 1. Total Semua Uang */}
-                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-emerald-500/30">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+                    <div className="glass-card rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group hover:border-indigo-500/30">
+                        <div className="absolute top-0 right-0 w-28 h-28 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
                         <div className="flex items-center justify-between text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">
                                 Total Semua Saldo
@@ -367,7 +367,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                                                 <span className="text-[11px] text-white/50 font-normal">
                                                     Awal: {formatRupiah(wallet.initial_balance)}
                                                 </span>
-                                                <div className="flex items-center gap-1.5 text-emerald-400 group-hover:text-emerald-300 font-semibold transition-colors">
+                                                <div className="flex items-center gap-1.5 text-sky-400 group-hover:text-sky-300 font-semibold transition-colors">
                                                     <span>Lihat Rincian</span>
                                                     <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                                                 </div>
@@ -395,7 +395,7 @@ export default function WalletIndex({ auth, wallets = [], summary = {} }) {
                             <button
                                 type="button"
                                 onClick={handleOpenCreate}
-                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 shadow-md shadow-emerald-600/25 transition active:scale-95"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md shadow-blue-600/25 transition active:scale-95"
                             >
                                 <Plus className="w-4 h-4" />
                                 Tambah Dompet Pertama

@@ -74,7 +74,7 @@ export default function Report({
                 {/* Header: Title, Description, and CSV Export Action */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 dark:text-emerald-400 mb-1">
+                        <div className="flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-blue-400 mb-1">
                             <BarChart3 className="w-3.5 h-3.5" />
                             <span>Analisis Finansial Terpadu</span>
                         </div>
@@ -219,7 +219,7 @@ export default function Report({
 
                         {/* Financial Health Summary Tip */}
                         <div className="glass-card rounded-2xl p-5 space-y-2.5">
-                            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+                            <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
                                 <TrendingUp className="w-4 h-4" />
                                 Catatan Evaluasi Finansial
                             </div>

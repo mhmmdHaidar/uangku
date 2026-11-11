@@ -7,7 +7,7 @@ export default function GuestLayout({ children }) {
         <div className="min-h-screen relative flex flex-col justify-center items-center px-4 py-12 pt-safe pb-safe px-safe bg-[#F1F5F9] dark:bg-[#0A1120] transition-colors duration-200">
             {/* Ambient background glows matching Uangku palette */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-60 dark:opacity-40">
-                <div className="absolute top-10 left-1/4 w-80 h-80 bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-3xl" />
+                <div className="absolute top-10 left-1/4 w-80 h-80 bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-3xl" />
                 <div className="absolute bottom-10 right-1/4 w-80 h-80 bg-amber-500/10 dark:bg-amber-500/15 rounded-full blur-3xl" />
             </div>
 
@@ -35,7 +35,7 @@ export default function GuestLayout({ children }) {
                             href="https://my-portfolio-alpha-roan-39.vercel.app"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-bold text-emerald-600 dark:text-emerald-400 hover:underline hover:text-emerald-500 transition inline-flex items-center gap-1"
+                            className="font-bold text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-500 transition inline-flex items-center gap-1"
                         >
                             <span>Nur Muhammad Haidar</span>
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

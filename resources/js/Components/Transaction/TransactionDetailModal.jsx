@@ -121,7 +121,7 @@ export default function TransactionDetailModal({
                     {/* Date */}
                     <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1120] border border-slate-200/80 dark:border-[#1E3158]/70">
                         <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                            <Calendar className="w-3.5 h-3.5 text-emerald-500" />
+                            <Calendar className="w-3.5 h-3.5 text-blue-500" />
                             <span className="font-semibold">Tanggal Transaksi</span>
                         </div>
                         <p className="font-bold text-slate-800 dark:text-slate-200 text-sm">

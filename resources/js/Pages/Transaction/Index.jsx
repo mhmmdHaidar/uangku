@@ -397,7 +397,7 @@ export default function TransactionIndex({
                 {/* Header: Title, Subtitle, & Primary Actions with Solar Bold Icons */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                        <div className="inline-flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400">
                             <ReceiptTextBold className="w-4 h-4" />
                             <span>Audit &amp; Catatan Keuangan</span>
                         </div>
@@ -413,9 +413,9 @@ export default function TransactionIndex({
                         {/* Export CSV Button */}
                         <a
                             href={route('transactions.export', currentExportQuery)}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#0E1A33] border border-slate-300 dark:border-[#1E3158] hover:border-emerald-500 dark:hover:border-emerald-500/50 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white dark:bg-[#0E1A33] border border-slate-300 dark:border-[#1E3158] hover:border-blue-500 dark:hover:border-blue-500/50 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-bold shadow-xs hover:shadow-sm transition"
                         >
-                            <ExportBold className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                            <ExportBold className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                             <span>Ekspor CSV</span>
                         </a>
 
@@ -426,7 +426,7 @@ export default function TransactionIndex({
                                 setEditingTransaction(null);
                                 setIsCreateOpen(true);
                             }}
-                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-600/25 transition-all duration-200 focus:outline-none"
+                            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-600/25 transition-all duration-200 focus:outline-none"
                         >
                             <PlusBold className="w-4 h-4" />
                             <span>Catat Transaksi Baru</span>
@@ -536,7 +536,7 @@ export default function TransactionIndex({
                     <div>
                         <div className="flex items-center justify-between mb-2.5">
                             <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                                <CalendarBold className="w-3.5 h-3.5 text-emerald-500" />
+                                <CalendarBold className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                                 Filter Periode Waktu
                             </span>
                             {hasActiveFilters && (
@@ -560,7 +560,7 @@ export default function TransactionIndex({
                                     onClick={() => setSelectedPeriod(opt.key)}
                                     className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold shrink-0 transition-all duration-150 ${
                                         selectedPeriod === opt.key
-                                            ? 'bg-emerald-600 text-white shadow-sm'
+                                            ? 'bg-blue-600 text-white shadow-sm'
                                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-[#112143] dark:text-slate-300 dark:hover:bg-[#162A54] border border-slate-200 dark:border-[#1E3158]'
                                     }`}
                                 >
@@ -578,7 +578,7 @@ export default function TransactionIndex({
                                         type="date"
                                         value={startDate}
                                         onChange={(e) => setStartDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                                     />
                                 </div>
                                 <div className="flex items-center gap-2">
@@ -587,7 +587,7 @@ export default function TransactionIndex({
                                         type="date"
                                         value={endDate}
                                         onChange={(e) => setEndDate(e.target.value)}
-                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                                        className="py-1.5 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0E1A33] text-slate-800 dark:text-slate-200 font-semibold focus:border-blue-600 focus:ring-1 focus:ring-blue-600"
                                     />
                                 </div>
                             </div>
@@ -604,7 +604,7 @@ export default function TransactionIndex({
                                 placeholder="Cari judul, catatan, atau kategori..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
-                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 shadow-xs transition"
+                                className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 shadow-xs transition"
                             />
                             {search && (
                                 <button
@@ -624,7 +624,7 @@ export default function TransactionIndex({
                                 value={selectedType}
                                 onChange={(e) => setSelectedType(e.target.value)}
                                 aria-label="Filter Jenis Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
                             >
                                 <option value="">Semua Jenis (Masuk &amp; Keluar)</option>
                                 <option value="income">Pemasukan (+)</option>
@@ -637,7 +637,7 @@ export default function TransactionIndex({
                                     value={selectedWalletId}
                                     onChange={(e) => setSelectedWalletId(e.target.value)}
                                     aria-label="Filter Dompet / Rekening"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
                                 >
                                     <option value="">Semua Dompet / Rekening</option>
                                     {wallets.map((w) => (
@@ -654,7 +654,7 @@ export default function TransactionIndex({
                                     value={selectedCategory}
                                     onChange={(e) => setSelectedCategory(e.target.value)}
                                     aria-label="Filter Kategori"
-                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shrink-0"
+                                    className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
                                 >
                                     <option value="">Semua Kategori</option>
                                     {categories.map((c) => (
@@ -670,7 +670,7 @@ export default function TransactionIndex({
                                 value={selectedSort}
                                 onChange={(e) => setSelectedSort(e.target.value)}
                                 aria-label="Urutkan Transaksi"
-                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shrink-0"
+                                className="text-xs py-2 px-3 rounded-xl border border-slate-300 dark:border-[#1E3158] bg-white dark:bg-[#0A1120] text-slate-800 dark:text-slate-200 font-semibold shadow-xs focus:border-blue-600 focus:ring-1 focus:ring-blue-600 shrink-0"
                             >
                                 <option value="date_desc">Tanggal: Terbaru</option>
                                 <option value="date_asc">Tanggal: Terlama</option>
@@ -686,7 +686,7 @@ export default function TransactionIndex({
                                     title="Tampilan Kartu Detail"
                                     className={`p-1.5 rounded-lg transition ${
                                         viewMode === 'cards'
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-600 dark:text-blue-400 shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
                                     }`}
                                 >
@@ -698,7 +698,7 @@ export default function TransactionIndex({
                                     title="Tampilan Tabel Ringkas"
                                     className={`p-1.5 rounded-lg transition ${
                                         viewMode === 'table'
-                                            ? 'bg-white dark:bg-[#112143] text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                            ? 'bg-white dark:bg-[#112143] text-blue-600 dark:text-blue-400 shadow-sm'
                                             : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
                                     }`}
                                 >
@@ -823,7 +823,7 @@ export default function TransactionIndex({
                                                         type="button"
                                                         onClick={() => setDetailTransaction(item)}
                                                         title="Lihat Detail Transaksi"
-                                                        className="p-2 rounded-xl text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent hover:border-slate-300 dark:hover:border-[#1E3158] transition"
+                                                        className="p-2 rounded-xl text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent hover:border-slate-300 dark:hover:border-[#1E3158] transition"
                                                     >
                                                         <EyeBold className="w-4 h-4" />
                                                     </button>
@@ -930,7 +930,7 @@ export default function TransactionIndex({
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setDetailTransaction(item)}
-                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-slate-100 dark:hover:bg-[#112143]"
+                                                                className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-[#112143]"
                                                                 title="Detail"
                                                             >
                                                                 <EyeBold className="w-3.5 h-3.5" />
@@ -1000,7 +1000,7 @@ export default function TransactionIndex({
                                         setEditingTransaction(null);
                                         setIsCreateOpen(true);
                                     }}
-                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 transition shadow-sm"
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 transition shadow-sm"
                                 >
                                     <PlusBold className="w-4 h-4" />
                                     <span>Catat Transaksi Baru</span>
@@ -1042,7 +1042,7 @@ export default function TransactionIndex({
                                             onClick={() => setCurrentPage(pageNum)}
                                             className={`px-3 py-1.5 rounded-lg font-bold transition text-xs ${
                                                 currentPage === pageNum
-                                                    ? 'bg-emerald-600 text-white shadow-xs'
+                                                    ? 'bg-blue-600 text-white shadow-xs'
                                                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#112143] border border-transparent'
                                             }`}
                                         >
