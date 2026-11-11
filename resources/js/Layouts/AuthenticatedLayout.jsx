@@ -1,6 +1,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import ThemeToggle from '@/Components/ThemeToggle';
+import UserAvatar from '@/Components/UserAvatar';
 import TupiOnboardingTour, { launchTupiTour } from '@/Components/Tutorial/TupiOnboardingTour';
 import TupiChatModal from '@/Components/Chat/TupiChatModal';
 import SaranModal from '@/Components/Feedback/SaranModal';
@@ -170,9 +171,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                             className="inline-flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl border border-slate-300 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20] hover:bg-slate-50 dark:hover:bg-[#242429] text-xs sm:text-sm font-semibold text-slate-700 dark:text-zinc-200 focus:outline-none transition duration-150 shadow-xs"
                                         >
                                             <div className="relative">
-                                                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-bold flex items-center justify-center text-xs shadow-sm">
-                                                    {user.name.charAt(0).toUpperCase()}
-                                                </div>
+                                                <UserAvatar
+                                                    user={user}
+                                                    sizeClass="w-7 h-7"
+                                                    textClass="text-xs font-bold"
+                                                />
                                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
                                             </div>
                                             <span className="max-w-[130px] truncate text-left">{user.name}</span>
@@ -246,9 +249,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                 aria-label="Buka profil pengguna"
                                 className="relative p-0.5 rounded-full border border-slate-300 dark:border-[#2C2C32] hover:border-[#00105B] dark:hover:border-zinc-400 focus:outline-none transition active:scale-95 touch-manipulation cursor-pointer"
                             >
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-xs shadow-sm">
-                                    {user.name.charAt(0).toUpperCase()}
-                                </div>
+                                <UserAvatar
+                                    user={user}
+                                    sizeClass="w-8 h-8"
+                                    textClass="text-xs font-extrabold"
+                                />
                                 <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-[#161619] rounded-full" />
                             </button>
                         </div>
@@ -396,9 +401,12 @@ export default function AuthenticatedLayout({ header, children }) {
                     <div className="p-5 border-b border-slate-200/80 dark:border-[#2C2C32] bg-white dark:bg-[#1C1C20]">
                         <div className="flex items-center gap-3.5">
                             <div className="relative shrink-0">
-                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#001875] via-[#00105B] to-[#000833] dark:from-[#2E2E36] dark:via-[#242429] dark:to-[#18181C] dark:border dark:border-[#3E3E46] text-white font-extrabold flex items-center justify-center text-lg shadow-md ring-2 ring-[#00105B]/20 dark:ring-white/10">
-                                    {user.name.charAt(0).toUpperCase()}
-                                </div>
+                                <UserAvatar
+                                    user={user}
+                                    sizeClass="w-12 h-12"
+                                    textClass="text-lg font-extrabold"
+                                    className="shadow-md ring-2 ring-[#00105B]/20 dark:ring-white/10"
+                                />
                                 <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 border-2 border-white dark:border-[#1C1C20] rounded-full" />
                             </div>
 

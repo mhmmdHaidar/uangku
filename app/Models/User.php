@@ -32,7 +32,32 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'avatar',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'avatar_url',
+    ];
+
+    /**
+     * Relative endpoint URL for the user's profile avatar with cache-busting hash.
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if (! $this->avatar) {
+            return null;
+        }
+
+        return route('profile.avatar.show', [
+            'user' => $this->id,
+            'v' => substr(md5($this->avatar), 0, 12),
+        ], false);
+    }
 
     /**
      * Get the attributes that should be cast.
