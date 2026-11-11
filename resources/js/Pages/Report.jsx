@@ -9,16 +9,18 @@ import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
 import {
     BarChart3,
-    ArrowDownLeft,
-    ArrowUpRight,
-    Wallet,
     Download,
-    Percent,
     TrendingUp,
     AlertCircle,
     Calendar,
     Flame,
 } from '@/Components/Icons/PhosphorDuotone';
+import {
+    MoneyBadge,
+    ExpenseBadge,
+    WalletBadge,
+    CoinsBadge,
+} from '@/Components/Icons/ColorBadges';
 
 export default function Report({
     auth,
@@ -102,18 +104,16 @@ export default function Report({
                     {/* 1. Period Income */}
                     <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-emerald-500/30">
                         <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
+                        <div className="relative z-10 flex items-center justify-between gap-2 text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">Pemasukan Periode Ini</span>
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent border border-emerald-500/25 text-emerald-500 dark:text-emerald-400 flex items-center justify-center shadow-sm">
-                                <ArrowDownLeft className="w-4 h-4" />
-                            </div>
+                            <MoneyBadge className="w-10 h-10" />
                         </div>
-                        <div className="my-3">
+                        <div className="relative z-10 my-3">
                             <p className="text-2xl sm:text-3xl font-extrabold tabular-nums text-emerald-600 dark:text-emerald-400 tracking-tight">
                                 {formatRupiah(metrics.total_income)}
                             </p>
                         </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
+                        <p className="relative z-10 text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
                             Total arus dana masuk
                         </p>
                     </div>
@@ -121,18 +121,16 @@ export default function Report({
                     {/* 2. Period Expense */}
                     <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-rose-500/30">
                         <div className="absolute top-0 right-0 w-28 h-28 bg-rose-500/10 rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
+                        <div className="relative z-10 flex items-center justify-between gap-2 text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">Pengeluaran Periode Ini</span>
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-rose-500/20 via-orange-500/10 to-transparent border border-rose-500/25 text-rose-500 dark:text-rose-400 flex items-center justify-center shadow-sm">
-                                <ArrowUpRight className="w-4 h-4" />
-                            </div>
+                            <ExpenseBadge className="w-10 h-10" />
                         </div>
-                        <div className="my-3">
+                        <div className="relative z-10 my-3">
                             <p className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
                                 {formatRupiah(metrics.total_expense)}
                             </p>
                         </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
+                        <p className="relative z-10 text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
                             Rata-rata: {formatRupiah(metrics.avg_daily_expense)} / hari
                         </p>
                     </div>
@@ -140,18 +138,16 @@ export default function Report({
                     {/* 3. Net Balance */}
                     <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-blue-500/30">
                         <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
+                        <div className="relative z-10 flex items-center justify-between gap-2 text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">Selisih Bersih (Kas)</span>
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500/20 via-teal-500/10 to-transparent border border-blue-500/25 text-blue-500 dark:text-blue-400 flex items-center justify-center shadow-sm">
-                                <Wallet className="w-4 h-4" />
-                            </div>
+                            <WalletBadge className="w-10 h-10" />
                         </div>
-                        <div className="my-3">
+                        <div className="relative z-10 my-3">
                             <p className={`text-2xl sm:text-3xl font-extrabold tabular-nums tracking-tight ${isPositiveNet ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                                 {isPositiveNet ? '+' : ''}{formatRupiah(metrics.net_balance)}
                             </p>
                         </div>
-                        <div className="border-t border-slate-200 dark:border-[#1E3158]/60 pt-2 flex items-center justify-between text-[11px] text-slate-400">
+                        <div className="relative z-10 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2 flex items-center justify-between text-[11px] text-slate-400">
                             <span>Akumulasi Bersih</span>
                             <span className="font-semibold text-slate-700 dark:text-slate-300">
                                 {wallets.length > 0 ? `${wallets.length} Dompet Terhubung` : 'Seluruh Dompet'}
@@ -160,21 +156,19 @@ export default function Report({
                     </div>
 
                     {/* 4. Savings Ratio */}
-                    <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-teal-500/30">
-                        <div className="absolute top-0 right-0 w-28 h-28 bg-teal-500/10 rounded-full blur-2xl pointer-events-none" />
-                        <div className="flex items-center justify-between text-xs text-slate-500">
+                    <div className="glass-card rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden group hover:border-amber-500/30">
+                        <div className="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+                        <div className="relative z-10 flex items-center justify-between gap-2 text-xs text-slate-500">
                             <span className="font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 text-[11px]">Rasio Tabungan</span>
-                            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-500/20 via-emerald-500/10 to-transparent border border-teal-500/25 text-teal-600 dark:text-teal-400 flex items-center justify-center shadow-sm">
-                                <Percent className="w-4 h-4" />
-                            </div>
+                            <CoinsBadge className="w-10 h-10" />
                         </div>
-                        <div className="my-3 flex items-baseline gap-2">
+                        <div className="relative z-10 my-3 flex items-baseline gap-2">
                             <p className="text-2xl sm:text-3xl font-extrabold tabular-nums text-slate-900 dark:text-white tracking-tight">
                                 {metrics.savings_ratio}%
                             </p>
                             <span className="text-xs text-slate-400 font-semibold">tersimpan</span>
                         </div>
-                        <p className="text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
+                        <p className="relative z-10 text-[11px] text-slate-400 border-t border-slate-200 dark:border-[#1E3158]/60 pt-2">
                             {metrics.expense_ratio}% dialokasikan untuk belanja
                         </p>
                     </div>
