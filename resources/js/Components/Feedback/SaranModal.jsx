@@ -240,15 +240,20 @@ export default function SaranModal({ isOpen, onClose }) {
     };
 
     return createPortal(
-        <div className="fixed inset-0 z-[72]" role="dialog" aria-modal="true" aria-label="Saran & Masukan">
+        <div
+            className="fixed inset-0 z-[72] flex items-end sm:items-center justify-center pt-[calc(2.5rem+env(safe-area-inset-top,0px))] sm:p-6"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Saran & Masukan"
+        >
             {/* Backdrop */}
             <div
                 onClick={onClose}
                 className="fixed inset-0 bg-[#070D19]/65 backdrop-blur-xs transition-opacity"
             />
 
-            {/* Responsive Panel: Mobile bottom-to-top safe-area sheet, Desktop centered dialog */}
-            <div className="fixed inset-x-0 bottom-0 top-[calc(2.5rem+env(safe-area-inset-top,0px))] sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 z-[73] w-full sm:w-[92vw] sm:max-w-xl sm:max-h-[88vh] flex flex-col bg-white dark:bg-[#0B1426] border-t sm:border border-slate-200 dark:border-[#1E3158] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-tupi-spring">
+            {/* Responsive Panel: Mobile safe-area bottom sheet, Desktop perfectly centered dialog */}
+            <div className="relative z-10 w-full h-full sm:h-auto sm:max-h-[min(86vh,700px)] sm:max-w-xl flex flex-col bg-white dark:bg-[#0B1426] border-t sm:border border-slate-200 dark:border-[#1E3158] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-tupi-spring">
                 {/* Header */}
                 <div className="shrink-0 px-5 py-4 bg-slate-50/90 dark:bg-[#0E1A33] border-b border-slate-200 dark:border-[#1E3158] flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
@@ -345,7 +350,7 @@ export default function SaranModal({ isOpen, onClose }) {
                 </div>
 
                 {/* Real-Time In-App Feedback Stream */}
-                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-slate-50/60 dark:bg-[#0A1120]">
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 py-3.5 space-y-3.5 bg-slate-50/60 dark:bg-[#0A1120]">
                     {/* Intro Welcome Bubble */}
                     <div className="flex items-end gap-2 justify-start">
                         <img
