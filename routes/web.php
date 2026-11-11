@@ -18,6 +18,10 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
+Route::get('/tentang', function () {
+    return Inertia::render('About');
+})->name('about');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard & Transactions
     Route::get('/dashboard', [TransactionController::class, 'index'])->name('dashboard');

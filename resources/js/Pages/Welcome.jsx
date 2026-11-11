@@ -66,6 +66,9 @@ export default function Welcome({ auth }) {
                             <a href="#cara-kerja" className="hover:text-[#00105B] dark:hover:text-white transition-colors">
                                 Cara Kerja
                             </a>
+                            <Link href={route('about')} prefetch className="hover:text-[#00105B] dark:hover:text-white transition-colors">
+                                Tentang
+                            </Link>
 
                         </nav>
 
@@ -134,6 +137,14 @@ export default function Welcome({ auth }) {
                                 >
                                     Cara Kerja
                                 </a>
+                                <Link
+                                    href={route('about')}
+                                    prefetch
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-[#242429] transition"
+                                >
+                                    Tentang
+                                </Link>
 
                             </nav>
                             <div className="pt-3 border-t border-slate-200/80 dark:border-white/10 flex flex-col gap-2">
@@ -551,6 +562,14 @@ export default function Welcome({ auth }) {
                         <span>Kelola Keuangan Pribadi Lebih Mudah</span>
                     </div>
                     <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-right">
+                        <Link
+                            href={route('about')}
+                            prefetch
+                            className="font-semibold text-slate-200 hover:text-white hover:underline transition"
+                        >
+                            Tentang Uangku
+                        </Link>
+                        <span className="hidden sm:inline text-slate-500 dark:text-slate-600">&bull;</span>
                         <p>&copy; {new Date().getFullYear()} Uangku. Seluruh hak cipta dilindungi.</p>
                         <span className="hidden sm:inline text-slate-500 dark:text-slate-600">&bull;</span>
                         <p className="flex items-center gap-1.5">

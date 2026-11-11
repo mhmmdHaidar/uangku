@@ -5,7 +5,7 @@ import UserAvatar from '@/Components/UserAvatar';
 import TupiOnboardingTour, { launchTupiTour } from '@/Components/Tutorial/TupiOnboardingTour';
 import TupiChatModal from '@/Components/Chat/TupiChatModal';
 import SaranModal from '@/Components/Feedback/SaranModal';
-import { MessageSquarePlus } from 'lucide-react';
+import { Info, MessageSquarePlus } from 'lucide-react';
 import {
     SquaresFourDuotone,
     ReceiptDuotone,
@@ -226,6 +226,17 @@ export default function AuthenticatedLayout({ header, children }) {
                                             <MessageSquarePlus className="w-4 h-4 text-[#00105B] dark:text-zinc-200" />
                                             <span>Saran &amp; Masukan</span>
                                         </button>
+                                        <Dropdown.Link
+                                            href={route('about')}
+                                            className={`flex items-center gap-2 transition ${
+                                                route().current('about')
+                                                    ? 'bg-[#00105B]/10 dark:bg-[#242429] text-[#00105B] dark:text-white font-semibold'
+                                                    : 'text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-[#242429]'
+                                            }`}
+                                        >
+                                            <Info className="w-4 h-4 text-[#00105B] dark:text-zinc-200" />
+                                            <span>Tentang Uangku</span>
+                                        </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
@@ -507,6 +518,28 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                             <span className="text-slate-400 group-hover:text-[#00105B] dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
+
+                        <Link
+                            href={route('about')}
+                            prefetch
+                            onClick={() => setShowingProfileDrawer(false)}
+                            className={`flex items-center justify-between p-3.5 rounded-2xl border transition group ${
+                                route().current('about')
+                                    ? 'bg-[#00105B]/10 dark:bg-[#2A2A32] border-[#00105B]/25 dark:border-[#3E3E46]'
+                                    : 'bg-slate-50 hover:bg-slate-100 dark:bg-[#222227] dark:hover:bg-[#2A2A30] border-slate-200/80 dark:border-[#2C2C32]'
+                            }`}
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-[#00105B]/10 dark:bg-[#2A2A30] text-[#00105B] dark:text-zinc-200 flex items-center justify-center border border-[#00105B]/20 dark:border-[#3E3E46] group-hover:scale-105 transition">
+                                    <Info className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-bold text-slate-800 dark:text-zinc-100">Tentang Uangku</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-normal">Visi, misi &amp; cerita aplikasi</p>
+                                </div>
+                            </div>
+                            <span className="text-slate-400 group-hover:text-[#00105B] dark:group-hover:text-white group-hover:translate-x-0.5 transition">&rarr;</span>
+                        </Link>
                     </div>
                 </div>
 
