@@ -304,20 +304,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'required|in:income,expense,transfer',
-            'wallet' => 'nullable|in:saldo,cash',
-            'wallet_id' => 'nullable|exists:wallets,id',
-            'to_wallet_id' => 'nullable|required_if:type,transfer|exists:wallets,id|different:wallet_id',
-            'amount' => 'required|numeric|min:0.01',
-            'category' => 'nullable|string|max:100',
-            'transaction_date' => 'nullable|date',
-            'notes' => 'nullable|string|max:1000',
-        ], [
-            'to_wallet_id.required_if' => 'Dompet tujuan wajib dipilih untuk transfer antar dompet.',
-            'to_wallet_id.different' => 'Dompet tujuan harus berbeda dari dompet asal.',
-        ]);
+        $validated = $this->validateTransactionRequest($request, false);
 
         if (empty($validated['transaction_date'])) {
             $validated['transaction_date'] = Carbon::today()->toDateString();
@@ -342,25 +329,39 @@ class TransactionController extends Controller
             abort(403, 'Akses tidak diizinkan.');
         }
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'required|in:income,expense,transfer',
-            'wallet' => 'nullable|in:saldo,cash',
-            'wallet_id' => 'nullable|exists:wallets,id',
-            'to_wallet_id' => 'nullable|required_if:type,transfer|exists:wallets,id|different:wallet_id',
-            'amount' => 'required|numeric|min:0.01',
-            'category' => 'nullable|string|max:100',
-            'transaction_date' => 'required|date',
-            'notes' => 'nullable|string|max:1000',
-        ], [
-            'to_wallet_id.required_if' => 'Dompet tujuan wajib dipilih untuk transfer antar dompet.',
-            'to_wallet_id.different' => 'Dompet tujuan harus berbeda dari dompet asal.',
-        ]);
+        $validated = $this->validateTransactionRequest($request, true);
 
         $payload = $this->resolveTransactionPayload($request->user(), $validated);
         $transaction->update($payload);
 
         return redirect()->back()->with('success', 'Transaksi berhasil diperbarui');
+    }
+
+    /**
+     * Validate store/update payload cleanly with transfer-only rules for `to_wallet_id`.
+     *
+     * @return array<string, mixed>
+     */
+    private function validateTransactionRequest(Request $request, bool $requireDate): array
+    {
+        $isTransfer = $request->input('type') === 'transfer';
+
+        return $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|in:income,expense,transfer',
+            'wallet' => 'nullable|in:saldo,cash',
+            'wallet_id' => 'nullable|exists:wallets,id',
+            'to_wallet_id' => $isTransfer
+                ? 'required|exists:wallets,id|different:wallet_id'
+                : 'nullable',
+            'amount' => 'required|numeric|min:0.01',
+            'category' => 'nullable|string|max:100',
+            'transaction_date' => $requireDate ? 'required|date' : 'nullable|date',
+            'notes' => 'nullable|string|max:1000',
+        ], [
+            'to_wallet_id.required' => 'Dompet tujuan wajib dipilih untuk transfer antar dompet.',
+            'to_wallet_id.different' => 'Dompet tujuan harus berbeda dari dompet asal.',
+        ]);
     }
 
     /**

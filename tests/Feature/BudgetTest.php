@@ -163,6 +163,35 @@ class BudgetTest extends TestCase
         $this->assertEquals(-100000.0, (float) $progress['Belanja']['remaining_amount']);
     }
 
+    public function test_budget_progress_matches_categories_case_insensitively_and_trimmed(): void
+    {
+        $user = User::factory()->create();
+        $wallet = $this->makeWallet($user, 'Cash', 1000000);
+        $now = Carbon::now();
+
+        Budget::create([
+            'user_id' => $user->id,
+            'category' => 'Makanan',
+            'limit_amount' => 500000,
+        ]);
+
+        Transaction::create([
+            'user_id' => $user->id,
+            'wallet_id' => $wallet->id,
+            'title' => 'Makan Malam',
+            'amount' => 400000,
+            'type' => 'expense',
+            'category' => ' makanan ',
+            'transaction_date' => $now->toDateString(),
+        ]);
+
+        $progress = collect(Budget::progressForUser($user, $now))->keyBy('category');
+
+        $this->assertEquals(400000.0, (float) $progress['Makanan']['spent_amount']);
+        $this->assertEquals(80.0, (float) $progress['Makanan']['percentage']);
+        $this->assertEquals('warning', $progress['Makanan']['status']);
+    }
+
     public function test_user_cannot_modify_or_delete_other_users_budget(): void
     {
         $owner = User::factory()->create();
@@ -191,3 +220,4 @@ class BudgetTest extends TestCase
         ]);
     }
 }
+

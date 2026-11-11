@@ -120,6 +120,38 @@ class TransferAndReportTest extends TestCase
             ->assertForbidden();
     }
 
+    public function test_expense_or_income_succeeds_even_if_stale_to_wallet_id_matches_wallet_id(): void
+    {
+        $user = User::factory()->create();
+        $wallet = $this->makeWallet($user, 'GoPay', 'ewallet', 1000000);
+
+        $today = Carbon::now()->toDateString();
+
+        $response = $this->actingAs($user)->post(route('transactions.store'), [
+            'title' => 'Beli Makan Siang',
+            'amount' => 400000,
+            'type' => 'expense',
+            'wallet_id' => $wallet->id,
+            'to_wallet_id' => $wallet->id,
+            'category' => 'Makanan & Minuman',
+            'transaction_date' => $today,
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id' => $user->id,
+            'title' => 'Beli Makan Siang',
+            'type' => 'expense',
+            'wallet_id' => $wallet->id,
+            'to_wallet_id' => null,
+            'amount' => 400000,
+        ]);
+
+        $this->assertEquals(600000.0, (float) $wallet->fresh()->current_balance);
+    }
+
     public function test_reports_filter_by_wallet_id_include_budgets_and_exclude_transfers_from_income_expense_metrics(): void
     {
         $user = User::factory()->create();

@@ -45,17 +45,26 @@ class Budget extends Model
             return [];
         }
 
-        $spentByCategory = $user->transactions()
+        $rawSpentByCategory = $user->transactions()
             ->where('type', 'expense')
             ->whereBetween('transaction_date', [$startOfMonth, $endOfMonth])
             ->whereNotNull('category')
             ->selectRaw('category, SUM(amount) as total_spent')
             ->groupBy('category')
-            ->pluck('total_spent', 'category');
+            ->get();
 
-        return $budgets->map(function (self $budget) use ($spentByCategory) {
+        $normalizedSpent = [];
+        foreach ($rawSpentByCategory as $row) {
+            $key = mb_strtolower(trim((string) $row->category));
+            if ($key !== '') {
+                $normalizedSpent[$key] = ($normalizedSpent[$key] ?? 0.0) + (float) $row->total_spent;
+            }
+        }
+
+        return $budgets->map(function (self $budget) use ($normalizedSpent) {
             $limit = (float) $budget->limit_amount;
-            $spent = (float) ($spentByCategory->get($budget->category) ?? 0.0);
+            $key = mb_strtolower(trim((string) $budget->category));
+            $spent = (float) ($normalizedSpent[$key] ?? 0.0);
             $remaining = $limit - $spent;
             $percentage = $limit > 0 ? round(($spent / $limit) * 100, 1) : 0.0;
 
@@ -78,3 +87,4 @@ class Budget extends Model
         })->values()->all();
     }
 }
+

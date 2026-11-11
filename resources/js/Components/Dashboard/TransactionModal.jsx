@@ -7,7 +7,6 @@ import SecondaryButton from '@/Components/SecondaryButton';
 import TextInput from '@/Components/TextInput';
 import { DEFAULT_CATEGORIES, formatNumberInput, terbilangRupiah } from '@/Utils/format';
 import { useForm, usePage, router } from '@inertiajs/react';
-import { ArrowLeftRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import {
     ArrowDownLeft,
@@ -35,9 +34,18 @@ const WALLET_BADGES = {
     bank: CardBadge,
     cash: MoneyBadge,
     ewallet: PhoneBadge,
+    e_wallet: PhoneBadge,
     investment: CoinsBadge,
     other: WalletBadge,
 };
+
+function getLocalTodayDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 
 export default function TransactionModal({
     isOpen,
@@ -49,16 +57,14 @@ export default function TransactionModal({
 }) {
     const isEditing = !!transactionToEdit;
 
-    // Get today's date formatted as YYYY-MM-DD
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalTodayDate();
     const fallbackWalletId = defaultWalletId || (wallets.length > 0 ? wallets[0].id : '');
-    const fallbackToWalletId = wallets.find((w) => String(w.id) !== String(fallbackWalletId))?.id || '';
 
     const { data, setData, post, put, processing, errors, reset, clearErrors } = useForm({
         title: '',
         type: 'expense', // 'expense' | 'income' | 'transfer'
         wallet_id: fallbackWalletId,
-        to_wallet_id: fallbackToWalletId,
+        to_wallet_id: '',
         amount: '',
         category: '',
         transaction_date: today,
@@ -77,24 +83,28 @@ export default function TransactionModal({
             clearErrors();
             setIsAddingCategory(false);
             setNewCategoryName('');
+            const localToday = getLocalTodayDate();
             if (transactionToEdit) {
                 const initAmount = transactionToEdit.amount || '';
+                const editType = transactionToEdit.type || 'expense';
                 const editFromId = transactionToEdit.wallet_id || fallbackWalletId;
                 const editToId =
-                    transactionToEdit.to_wallet_id ||
-                    wallets.find((w) => String(w.id) !== String(editFromId))?.id ||
-                    '';
+                    editType === 'transfer'
+                        ? transactionToEdit.to_wallet_id ||
+                          wallets.find((w) => String(w.id) !== String(editFromId))?.id ||
+                          ''
+                        : '';
                 setDisplayAmount(initAmount ? formatNumberInput(initAmount) : '');
                 setData({
                     title: transactionToEdit.title || '',
-                    type: transactionToEdit.type || 'expense',
+                    type: editType,
                     wallet_id: editFromId,
                     to_wallet_id: editToId,
                     amount: initAmount,
                     category: transactionToEdit.category || '',
                     transaction_date: transactionToEdit.transaction_date
                         ? transactionToEdit.transaction_date.substring(0, 10)
-                        : today,
+                        : localToday,
                     notes: transactionToEdit.notes || '',
                 });
             } else {
@@ -104,10 +114,10 @@ export default function TransactionModal({
                     title: '',
                     type: 'expense',
                     wallet_id: fallbackWalletId,
-                    to_wallet_id: fallbackToWalletId,
+                    to_wallet_id: '',
                     amount: '',
                     category: '',
-                    transaction_date: today,
+                    transaction_date: localToday,
                     notes: '',
                 });
             }
@@ -125,7 +135,11 @@ export default function TransactionModal({
             }));
             return;
         }
-        setData('type', nextType);
+        setData((prev) => ({
+            ...prev,
+            type: nextType,
+            to_wallet_id: '',
+        }));
     };
 
     const handleSourceWalletChange = (newFromId) => {
