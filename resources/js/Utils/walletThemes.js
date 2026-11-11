@@ -117,8 +117,10 @@ export function getWalletCardTheme(wallet) {
     const gradient = WALLET_GRADIENTS[wallet?.color] || WALLET_GRADIENTS[defaultColorKey] || WALLET_GRADIENTS.charcoal;
 
     return {
+        ...gradient,
+        gradientLabel: gradient.label,
         label: typeMeta.label,
         icon: typeMeta.icon,
-        ...gradient,
     };
 }
+

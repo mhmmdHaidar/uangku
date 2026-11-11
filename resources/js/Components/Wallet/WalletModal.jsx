@@ -257,7 +257,7 @@ export default function WalletModal({
                                         onClick={() => setData('color', c.key)}
                                         title={c.label}
                                         aria-label={c.label}
-                                        className={`h-9 rounded-xl ${c.swatchGradient} flex items-center justify-center border border-white/20 shadow-sm transition-transform ${
+                                        className={`h-9 rounded-xl ${c.swatchGradient} flex items-center justify-center border border-black/15 dark:border-white/20 shadow-sm transition-transform ${
                                             isSelected
                                                 ? 'ring-2 ring-offset-2 ring-[#00105B] dark:ring-white dark:ring-offset-[#1C1C20] scale-105'
                                                 : 'opacity-85 hover:opacity-100 hover:scale-105'
