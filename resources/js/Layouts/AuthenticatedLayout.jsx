@@ -282,7 +282,7 @@ export default function AuthenticatedLayout({ header, children }) {
             </footer>
 
             {/* Modern Mobile Bottom Navigation Dock (Thumb-friendly + Home Indicator safe area) */}
-            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe px-safe bg-white/95 dark:bg-[#0B1426]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-[#1E3158] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.5)]">
+            <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe px-safe bg-white dark:bg-[#0B1426] border-t border-slate-200/90 dark:border-[#1E3158] shadow-[0_-4px_20px_rgba(0,0,0,0.06)] dark:shadow-[0_-4px_30px_rgba(0,0,0,0.5)]">
                 <div className="px-3 py-1.5 grid grid-cols-4 gap-1 items-center max-w-md mx-auto">
                     <Link
                         href={route('dashboard')}

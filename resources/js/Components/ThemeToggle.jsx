@@ -4,22 +4,27 @@ import { SunDuotone, MoonDuotone } from '@/Components/Icons/PhosphorDuotone';
 export default function ThemeToggle({ className = '' }) {
     const [isDark, setIsDark] = useState(false);
 
+    const syncThemeMetadata = (dark) => {
+        document.documentElement.classList.toggle('dark', dark);
+        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+        if (themeMeta) {
+            themeMeta.setAttribute('content', dark ? '#0B1426' : '#FFFFFF');
+        }
+    };
+
     useEffect(() => {
         // Sync with current DOM state
         const darkModeActive = document.documentElement.classList.contains('dark');
         setIsDark(darkModeActive);
+        syncThemeMetadata(darkModeActive);
     }, []);
 
     const toggleTheme = () => {
-        if (isDark) {
-            document.documentElement.classList.remove('dark');
-            localStorage.theme = 'light';
-            setIsDark(false);
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.theme = 'dark';
-            setIsDark(true);
-        }
+        const nextDark = !isDark;
+        localStorage.theme = nextDark ? 'dark' : 'light';
+        syncThemeMetadata(nextDark);
+        setIsDark(nextDark);
     };
 
     return (

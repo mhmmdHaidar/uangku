@@ -13,13 +13,13 @@ export default function ApplicationLogo({ className = 'h-10 w-auto', mascotOnly 
         <div className="flex items-center select-none">
             {/* Light Mode Logo */}
             <img
-                src="/assets/logo.png"
+                src="/assets/logo.png?v=2"
                 alt="Uangku — Kelola Keuanganmu Lebih Mudah"
                 className={`object-contain block dark:hidden transition-opacity ${className}`}
             />
             {/* Dark Mode Logo (High-contrast adapted text) */}
             <img
-                src="/assets/logo-dark.png"
+                src="/assets/logo-dark.png?v=2"
                 alt="Uangku — Kelola Keuanganmu Lebih Mudah"
                 className={`object-contain hidden dark:block transition-opacity ${className}`}
             />

@@ -13,8 +13,8 @@
         content="Uangku - Kelola keuanganmu lebih mudah, catat pemasukan dan pengeluaran, pantau saldo dompet, dan capai impian finansialmu secara otomatis, aman, dan menyenangkan.">
     <meta name="author" content="Uangku">
 
-    <!-- Theme Color for Mobile Status Bars (Light Mode default) -->
-    <meta name="theme-color" content="#2563EB">
+    <!-- Theme Color for Mobile Status & Navigation Bars (Synced with Light/Dark mode) -->
+    <meta name="theme-color" content="#FFFFFF" id="theme-color-meta">
 
     <!-- OpenGraph Meta Tags for Rich Social Sharing (WhatsApp, Telegram, Facebook, LinkedIn) -->
     <meta property="og:type" content="website">
@@ -59,13 +59,23 @@
         }
     </script>
 
-    <!-- Theme script to prevent flash (Light Mode default) -->
+    <!-- Theme script to prevent flash (Light Mode default) & sync mobile bar colors -->
     <script>
-        if (localStorage.theme === 'dark') {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        (function () {
+            var isDark = localStorage.theme === 'dark';
+            var root = document.documentElement;
+            if (isDark) {
+                root.classList.add('dark');
+                root.style.colorScheme = 'dark';
+            } else {
+                root.classList.remove('dark');
+                root.style.colorScheme = 'light';
+            }
+            var meta = document.getElementById('theme-color-meta');
+            if (meta) {
+                meta.setAttribute('content', isDark ? '#0B1426' : '#FFFFFF');
+            }
+        })();
     </script>
 
     <!-- Fonts: Plus Jakarta Sans -->

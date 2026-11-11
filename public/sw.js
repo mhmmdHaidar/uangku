@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uangku-pwa-v12';
+const CACHE_NAME = 'uangku-pwa-v13';
 const STATIC_ASSETS = [
     '/',
     '/manifest.json',
@@ -6,7 +6,8 @@ const STATIC_ASSETS = [
     '/assets/icon-192.png',
     '/assets/icon-512.png',
     '/assets/icon-maskable.png',
-    '/assets/logo.png',
+    '/assets/logo.png?v=2',
+    '/assets/logo-dark.png?v=2',
     '/assets/mascot.png'
 ];
 

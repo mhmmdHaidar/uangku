@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+    html {
+        @apply bg-white dark:bg-[#0B1426];
+    }
+
     body {
         @apply bg-[#F1F5F9] dark:bg-[#0A1120] text-slate-800 dark:text-slate-100 antialiased selection:bg-blue-500/25 selection:text-blue-800 dark:selection:text-blue-200;
         font-feature-settings: "cv02", "cv03", "cv04", "cv11";
