@@ -3,6 +3,8 @@ import Dropdown from '@/Components/Dropdown';
 import ThemeToggle from '@/Components/ThemeToggle';
 import TupiOnboardingTour, { launchTupiTour } from '@/Components/Tutorial/TupiOnboardingTour';
 import TupiChatModal from '@/Components/Chat/TupiChatModal';
+import SaranModal from '@/Components/Feedback/SaranModal';
+import { MessageSquarePlus } from 'lucide-react';
 import {
     SquaresFourDuotone,
     ReceiptDuotone,
@@ -25,6 +27,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
     const [showingProfileDrawer, setShowingProfileDrawer] = useState(false);
     const [showingTupiChat, setShowingTupiChat] = useState(false);
+    const [showingFeedbackModal, setShowingFeedbackModal] = useState(false);
     const [toastMessage, setToastMessage] = useState(null);
     const [toastType, setToastType] = useState('success');
 
@@ -211,6 +214,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                         >
                                             <img src="/assets/tupi/tupi-wave.png" alt="Tanya Tupi" className="w-4 h-4 object-contain" />
                                             <span>Tanya Tupi</span>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowingFeedbackModal(true)}
+                                            className="w-full text-left px-4 py-2 text-sm leading-5 flex items-center gap-2 text-slate-700 dark:text-slate-300 font-medium hover:bg-slate-100 dark:hover:bg-slate-800/70 transition"
+                                        >
+                                            <MessageSquarePlus className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                                            <span>Saran &amp; Masukan</span>
                                         </button>
                                         <Dropdown.Link
                                             href={route('logout')}
@@ -468,6 +479,26 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
                             <span className="text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition">&rarr;</span>
                         </button>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowingProfileDrawer(false);
+                                setShowingFeedbackModal(true);
+                            }}
+                            className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-[#122143]/60 dark:hover:bg-[#122143] border border-slate-200/80 dark:border-[#1E3158] transition group"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition">
+                                    <MessageSquarePlus className="w-5 h-5" />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-sm font-bold text-slate-800 dark:text-slate-100">Saran &amp; Masukan</p>
+                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">Kirim masukan &amp; hubungi pengembang</p>
+                                </div>
+                            </div>
+                            <span className="text-slate-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition">&rarr;</span>
+                        </button>
                     </div>
                 </div>
 
@@ -511,6 +542,12 @@ export default function AuthenticatedLayout({ header, children }) {
             <TupiChatModal
                 isOpen={showingTupiChat}
                 onClose={() => setShowingTupiChat(false)}
+            />
+
+            {/* Saran & Masukan Developer Feedback Modal */}
+            <SaranModal
+                isOpen={showingFeedbackModal}
+                onClose={() => setShowingFeedbackModal(false)}
             />
         </div>
     );

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SaranController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TupiChatController;
 use App\Http\Controllers\TutorialController;
@@ -54,6 +55,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tanya-tupi', [TupiChatController::class, 'chat'])
         ->middleware('throttle:30,1')
         ->name('tanya-tupi.chat');
+
+    // Saran & Masukan Pengembang
+    Route::get('/saran', [SaranController::class, 'index'])->name('saran.index');
+    Route::post('/saran', [SaranController::class, 'store'])
+        ->middleware('throttle:15,1')
+        ->name('saran.store');
 });
 
 require __DIR__.'/auth.php';

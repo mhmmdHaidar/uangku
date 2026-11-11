@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'no_telp',
         'password',
         'has_completed_tutorial',
     ];
@@ -60,6 +61,11 @@ class User extends Authenticatable
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function saran(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Saran::class);
     }
 
     public function seedDefaultCategories(): void
